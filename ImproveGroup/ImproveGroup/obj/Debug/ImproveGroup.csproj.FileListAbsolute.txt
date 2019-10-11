@@ -8,3 +8,14 @@ D:\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CoreCompileInputs.cac
 D:\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CopyComplete
 D:\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.dll
 D:\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.pdb
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\ImproveGroup.dll
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\ImproveGroup.pdb
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Xrm.Sdk.dll
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Xrm.Sdk.xml
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csprojAssemblyReference.cache
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CoreCompileInputs.cache
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CopyComplete
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.dll
+G:\BinMile\Projects\ImproveGroup\GitHub_IG\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.pdb

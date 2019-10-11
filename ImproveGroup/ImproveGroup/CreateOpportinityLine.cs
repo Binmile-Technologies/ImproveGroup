@@ -93,9 +93,9 @@ namespace ImproveGroup
                         {
                             totalMaterialCost = new Money(materialCost.Value);
                         }
-                        if (item.KeyAttributes.Contains("sdt"))
+                        if (item.Attributes.Contains("sdt"))
                         {
-                            totalMaterialCost = new Money((decimal)totalMaterialCost.Value + (decimal)((AliasedValue)item.Attributes["sdt"]).Value); 
+                            totalMaterialCost = new Money((decimal)totalMaterialCost.Value + (decimal)((Money)((AliasedValue)item.Attributes["sdt"]).Value).Value); 
                         }
                         CreatePriceListItem(opportunityId, productId, unitId, totalMaterialCost);
                         CreateOpportunityLine(productId, opportunityId, unitId);
