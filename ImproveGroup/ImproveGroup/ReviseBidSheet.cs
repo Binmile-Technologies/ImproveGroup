@@ -52,7 +52,7 @@ namespace ImproveGroup
                     //Nazish - 10-07-2019 - Cloning the child records from exiating Bid Sheet.
                     CloneBidSheetCategoryVendors(newBidSheetId, existingBidSheet);
                     CloneBidSheetProducts(newBidSheetId, existingBidSheet);
-                    CloneBidSheetLineItems(newBidSheetId, existingBidSheet);
+                    //CloneBidSheetLineItems(newBidSheetId, existingBidSheet);
                     CloneAssociatedCost(newBidSheetId, existingBidSheet);
 
                     //Nazish - 10-07-2019 - Updating the Revision Id
@@ -132,7 +132,7 @@ namespace ImproveGroup
                 throw new Exception(ex.Message);
             }
         }
-        protected void CloneBidSheetLineItems(Guid newBidSheetId, Entity existingBidSheet)
+        protected void CloneBidSheetLineItems(Guid newBidSheetId, Entity existingBidSheet, string existingAssociatedCostId, string newAssociatedCostId)
         {
             try
             {
@@ -140,21 +140,45 @@ namespace ImproveGroup
                 query.ColumnSet = new ColumnSet(true);
                 query.Attributes.AddRange("ig1_bidsheet");
                 query.Values.AddRange(existingBidSheet.Id);
+
                 List<Entity> existingBidSheetLineItems = service.RetrieveMultiple(query).Entities.ToList();
 
                 foreach (Entity bidSheetLineItem in existingBidSheetLineItems)
                 {
-                    Entity newBidSheetLineItems = new Entity("ig1_bidsheetpricelistitem");
-                    foreach (KeyValuePair<string, object> attr in bidSheetLineItem.Attributes)
+                    EntityReference associatedCost=null;
+                    string associatedCostId=null;
+                    if (bidSheetLineItem.Attributes.Contains("ig1_associatedcostid"))
                     {
-                        if (attr.Key == "ig1_bidsheetpricelistitemid")
-                            continue;
-
-                        newBidSheetLineItems[attr.Key] = attr.Value;
+                        associatedCost = (EntityReference)bidSheetLineItem.Attributes["ig1_associatedcostid"];
+                        associatedCostId = associatedCost.Id.ToString();
                     }
+                     
+                    Entity newBidSheetLineItems = new Entity("ig1_bidsheetpricelistitem");
+                    if (existingAssociatedCostId != null && newAssociatedCostId != null && existingAssociatedCostId == associatedCostId)
+                    {
+                        foreach (KeyValuePair<string, object> attr in bidSheetLineItem.Attributes)
+                        {
+                            if (attr.Key == "ig1_bidsheetpricelistitemid")
+                                continue;
 
+                            if (attr.Key == "ig1_associatedcostid")
+                                newBidSheetLineItems[attr.Key] = new EntityReference("ig1_associatedcost", new Guid(newAssociatedCostId));
+
+                            else
+                                newBidSheetLineItems[attr.Key] = attr.Value;
+                        }
+                    }
+                    else
+                    {
+                        foreach (KeyValuePair<string, object> attr in bidSheetLineItem.Attributes)
+                        {
+                            if (attr.Key == "ig1_bidsheetpricelistitemid")
+                                continue;
+
+                            newBidSheetLineItems[attr.Key] = attr.Value;
+                        }
+                    }
                     newBidSheetLineItems["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", newBidSheetId);
-
                     service.Create(newBidSheetLineItems);
                 }
             }
@@ -171,23 +195,31 @@ namespace ImproveGroup
                 query.ColumnSet = new ColumnSet(true);
                 query.Attributes.AddRange("ig1_bidsheet");
                 query.Values.AddRange(existingBidSheet.Id);
+
+                string newAssociatedCostId=null;
+                string existingAssociatedCostId=null;
+
                 List<Entity> existingAssociatedCost = service.RetrieveMultiple(query).Entities.ToList();
-
-                foreach (Entity associatedCost in existingAssociatedCost)
+                if (existingAssociatedCost.Count > 0)
                 {
-                    Entity newAssociatedCost = new Entity("ig1_associatedcost");
-                    foreach (KeyValuePair<string, object> attr in associatedCost.Attributes)
+                    foreach (Entity associatedCost in existingAssociatedCost)
                     {
-                        if (attr.Key == "ig1_associatedcostid")
-                            continue;
+                        Entity newAssociatedCost = new Entity("ig1_associatedcost");
+                        foreach (KeyValuePair<string, object> attr in associatedCost.Attributes)
+                        {
+                            if (attr.Key == "ig1_associatedcostid")
+                                continue;
 
-                        newAssociatedCost[attr.Key] = attr.Value;
+                            newAssociatedCost[attr.Key] = attr.Value;
+                        }
+                        newAssociatedCost["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", newBidSheetId);
+                         newAssociatedCostId = service.Create(newAssociatedCost).ToString();
+                         existingAssociatedCostId = associatedCost.Attributes["ig1_associatedcostid"].ToString();
+                        CloneBidSheetLineItems(newBidSheetId, existingBidSheet, existingAssociatedCostId, newAssociatedCostId);
                     }
-
-                    newAssociatedCost["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", newBidSheetId);
-
-                    service.Create(newAssociatedCost);
                 }
+                else
+                    CloneBidSheetLineItems(newBidSheetId, existingBidSheet, existingAssociatedCostId, newAssociatedCostId);
             }
             catch (Exception ex)
             {
@@ -196,22 +228,56 @@ namespace ImproveGroup
         }
         protected void UpdateRevisionId(Entity existingBidSheet)
         {
-            Entity entity = service.Retrieve("ig1_bidsheet", existingBidSheet.Id, new ColumnSet("ig1_revisionid", "ig1_status"));
+            Entity entity = service.Retrieve("ig1_bidsheet", existingBidSheet.Id, new ColumnSet("ig1_revisionid", "ig1_status", "ig1_opportunitytitle"));
             try
             {
-                var revisionID = entity.GetAttributeValue<int>("ig1_revisionid");
+                var opportunityTitle = entity.GetAttributeValue<EntityReference>("ig1_opportunitytitle");
+                var opportunityId = opportunityTitle.Id;
+                var maxRevisionId = GetMaxRevisionId(opportunityId);
+                //var revisionID = entity.GetAttributeValue<int>("ig1_revisionid");
                 var status = entity.GetAttributeValue<OptionSetValue>("ig1_status");
-                if (!revisionID.Equals(null) && !revisionID.Equals(""))
+                if (!maxRevisionId.Equals(null) && !maxRevisionId.Equals(""))
                 {
-                    revisionID++;
-                    entity["ig1_revisionid"] = revisionID;
+                    maxRevisionId++;
+                    entity["ig1_revisionid"] = maxRevisionId;
                 }
-                else
-                {
-                    entity["ig1_revisionid"] = 0;
-                }
-                entity["ig1_status"]= new OptionSetValue(Convert.ToInt32(286150001));
+                entity["ig1_status"] = new OptionSetValue(Convert.ToInt32(286150001));
                 service.Update(entity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public int GetMaxRevisionId(Guid OpportunityId)
+        {
+            try
+            {
+                var maxRevisionId = 0;
+                var fetchData = new
+                {
+                    ig1_opportunitytitle = OpportunityId,
+                    statecode = "0"
+                };
+                var fetchXml = $@"
+                            <fetch mapping='logical' version='1.0'>
+                              <entity name='ig1_bidsheet'>
+                                <attribute name='ig1_revisionid' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*0cd068b0-a1cf-e911-a960-000d3a1d52e7*/}'/>
+                                  <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*0*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+
+                EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+                foreach (var bidsheet in result.Entities)
+                {
+                    var revisionId = (int)bidsheet.Attributes["ig1_revisionid"];
+                    if (revisionId > maxRevisionId)
+                        maxRevisionId = revisionId;
+                }
+                return maxRevisionId;
             }
             catch (Exception ex)
             {
