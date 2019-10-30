@@ -52,8 +52,8 @@ namespace ImproveGroup
                     //Nazish - 10-07-2019 - Cloning the child records from exiating Bid Sheet.
                     CloneBidSheetCategoryVendors(newBidSheetId, existingBidSheet);
                     CloneBidSheetProducts(newBidSheetId, existingBidSheet);
-                    //CloneBidSheetLineItems(newBidSheetId, existingBidSheet);
-                    CloneAssociatedCost(newBidSheetId, existingBidSheet);
+                    CloneBidSheetLineItems(newBidSheetId, existingBidSheet);
+                    //CloneAssociatedCost(newBidSheetId, existingBidSheet);
 
                     //Nazish - 10-07-2019 - Updating the Revision Id
                     UpdateRevisionId(existingBidSheet);
@@ -132,7 +132,7 @@ namespace ImproveGroup
                 throw new Exception(ex.Message);
             }
         }
-        protected void CloneBidSheetLineItems(Guid newBidSheetId, Entity existingBidSheet, string existingAssociatedCostId, string newAssociatedCostId)
+        protected void CloneBidSheetLineItems(Guid newBidSheetId, Entity existingBidSheet)
         {
             try
             {
@@ -140,45 +140,32 @@ namespace ImproveGroup
                 query.ColumnSet = new ColumnSet(true);
                 query.Attributes.AddRange("ig1_bidsheet");
                 query.Values.AddRange(existingBidSheet.Id);
-
                 List<Entity> existingBidSheetLineItems = service.RetrieveMultiple(query).Entities.ToList();
 
                 foreach (Entity bidSheetLineItem in existingBidSheetLineItems)
                 {
-                    EntityReference associatedCost=null;
-                    string associatedCostId=null;
-                    if (bidSheetLineItem.Attributes.Contains("ig1_associatedcostid"))
-                    {
-                        associatedCost = (EntityReference)bidSheetLineItem.Attributes["ig1_associatedcostid"];
-                        associatedCostId = associatedCost.Id.ToString();
-                    }
-                     
                     Entity newBidSheetLineItems = new Entity("ig1_bidsheetpricelistitem");
-                    if (existingAssociatedCostId != null && newAssociatedCostId != null && existingAssociatedCostId == associatedCostId)
+                    foreach (KeyValuePair<string, object> attr in bidSheetLineItem.Attributes)
                     {
-                        foreach (KeyValuePair<string, object> attr in bidSheetLineItem.Attributes)
+                        if (attr.Key == "ig1_bidsheetpricelistitemid")
+                            continue;
+                        if (attr.Key == "ig1_associatedcostid")
                         {
-                            if (attr.Key == "ig1_bidsheetpricelistitemid")
-                                continue;
-
-                            if (attr.Key == "ig1_associatedcostid")
+                            EntityReference category = (EntityReference)bidSheetLineItem.Attributes["ig1_category"];
+                            string newAssociatedCostId = CloneAssociatedCost(newBidSheetId, existingBidSheet, category);
+                            if (newAssociatedCostId != null && newAssociatedCostId != "")
+                            {
                                 newBidSheetLineItems[attr.Key] = new EntityReference("ig1_associatedcost", new Guid(newAssociatedCostId));
-
-                            else
-                                newBidSheetLineItems[attr.Key] = attr.Value;
+                            }
                         }
-                    }
-                    else
-                    {
-                        foreach (KeyValuePair<string, object> attr in bidSheetLineItem.Attributes)
+                        else
                         {
-                            if (attr.Key == "ig1_bidsheetpricelistitemid")
-                                continue;
-
                             newBidSheetLineItems[attr.Key] = attr.Value;
                         }
                     }
+
                     newBidSheetLineItems["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", newBidSheetId);
+
                     service.Create(newBidSheetLineItems);
                 }
             }
@@ -187,22 +174,22 @@ namespace ImproveGroup
                 throw new Exception(ex.Message);
             }
         }
-        protected void CloneAssociatedCost(Guid newBidSheetId, Entity existingBidSheet)
+        protected string CloneAssociatedCost(Guid newBidSheetId, Entity existingBidSheet, EntityReference category)
         {
             try
             {
+                string newAssociatedCostId = null;
                 QueryByAttribute query = new QueryByAttribute("ig1_associatedcost");
                 query.ColumnSet = new ColumnSet(true);
                 query.Attributes.AddRange("ig1_bidsheet");
                 query.Values.AddRange(existingBidSheet.Id);
-
-                string newAssociatedCostId=null;
-                string existingAssociatedCostId=null;
-
                 List<Entity> existingAssociatedCost = service.RetrieveMultiple(query).Entities.ToList();
-                if (existingAssociatedCost.Count > 0)
+
+                foreach (Entity associatedCost in existingAssociatedCost)
                 {
-                    foreach (Entity associatedCost in existingAssociatedCost)
+                    var associatedCostCategory = (EntityReference)associatedCost.Attributes["ig1_bidsheetcategory"];
+                    bool isCategoryExist = checkDuplicateAssociatedCost(newBidSheetId, category.Id);
+                    if (category.Id == associatedCostCategory.Id && !isCategoryExist)
                     {
                         Entity newAssociatedCost = new Entity("ig1_associatedcost");
                         foreach (KeyValuePair<string, object> attr in associatedCost.Attributes)
@@ -212,14 +199,48 @@ namespace ImproveGroup
 
                             newAssociatedCost[attr.Key] = attr.Value;
                         }
+
                         newAssociatedCost["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", newBidSheetId);
-                         newAssociatedCostId = service.Create(newAssociatedCost).ToString();
-                         existingAssociatedCostId = associatedCost.Attributes["ig1_associatedcostid"].ToString();
-                        CloneBidSheetLineItems(newBidSheetId, existingBidSheet, existingAssociatedCostId, newAssociatedCostId);
+
+                        newAssociatedCostId = service.Create(newAssociatedCost).ToString();
                     }
                 }
-                else
-                    CloneBidSheetLineItems(newBidSheetId, existingBidSheet, existingAssociatedCostId, newAssociatedCostId);
+                return newAssociatedCostId;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        protected bool checkDuplicateAssociatedCost(Guid newBidSheetId, Guid categoryId)
+        {
+            try
+            {
+                var isCategoryExist = false;
+                var fetchData = new
+                {
+                    ig1_bidsheet = newBidSheetId,
+                    ig1_bidsheetcategory = categoryId
+                };
+                var fetchXml = $@"
+                            <fetch mapping='logical' version='1.0'>
+                              <entity name='ig1_associatedcost'>
+                                <attribute name='ig1_bidsheetcategory' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*61b01ec3-fefa-e911-a812-000d3a4e6fff*/}'/>
+                                  <condition attribute='ig1_bidsheetcategory' operator='eq' value='{fetchData.ig1_bidsheetcategory/*7067b58b-c5ee-4a14-8cb5-fe03e79b5b08*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+                EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+                foreach (var bidsheet in result.Entities)
+                {
+                    EntityReference category = (EntityReference)bidsheet.Attributes["ig1_bidsheetcategory"];
+                    if (category != null && category.Id == categoryId)
+                        isCategoryExist = true;
+                }
+                return isCategoryExist;
             }
             catch (Exception ex)
             {
@@ -249,6 +270,8 @@ namespace ImproveGroup
                 throw new Exception(ex.Message);
             }
         }
+
+
         public int GetMaxRevisionId(Guid OpportunityId)
         {
             try
