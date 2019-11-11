@@ -29,3 +29,4 @@ D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveG
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CopyComplete
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.dll
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.pdb
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csprojAssemblyReference.cache
