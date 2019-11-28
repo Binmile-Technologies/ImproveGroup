@@ -29,3 +29,11 @@ D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveG
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CopyComplete
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.dll
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.pdb
+C:\Users\A0730919\Documents\GitHub\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\ImproveGroup.dll
+C:\Users\A0730919\Documents\GitHub\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\ImproveGroup.pdb
+C:\Users\A0730919\Documents\GitHub\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\A0730919\Documents\GitHub\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\A0730919\Documents\GitHub\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\Users\A0730919\Documents\GitHub\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\Users\A0730919\Documents\GitHub\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.dll
+C:\Users\A0730919\Documents\GitHub\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.pdb

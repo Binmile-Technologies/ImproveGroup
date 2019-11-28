@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="AddProductGroupsToBillOfMaterials.cs" />
     <Compile Include="CreateOpportinityLine.cs" />
+    <Compile Include="FilterContingencyGrid.cs" />
     <Compile Include="GroupBidSheetProuducts.cs" />
     <Compile Include="OpportunityPriceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
