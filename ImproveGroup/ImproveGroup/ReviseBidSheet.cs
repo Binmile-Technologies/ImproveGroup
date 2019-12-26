@@ -37,10 +37,16 @@ namespace ImproveGroup
                     foreach (KeyValuePair<string, object> attr in existingBidSheet.Attributes)
                     {
                         if (attr.Key == "statecode" || attr.Key == "statuscode" || attr.Key == "ig1_bidsheetid")
+                        {
                             continue;
-                        if (attr.Key == "ig1_status")
+                        }
+                        else if (attr.Key == "ig1_status")
                         {
                             bidSheet[attr.Key] = new OptionSetValue(Convert.ToInt32(286150002));
+                        }
+                        else if (attr.Key == "ig1_associated")
+                        {
+                            bidSheet[attr.Key] = false;
                         }
                         else
                         {
@@ -249,12 +255,16 @@ namespace ImproveGroup
         }
         protected void UpdateRevisionId(Entity existingBidSheet)
         {
-            Entity entity = service.Retrieve("ig1_bidsheet", existingBidSheet.Id, new ColumnSet("ig1_revisionid", "ig1_status", "ig1_opportunitytitle"));
+            Entity entity = service.Retrieve("ig1_bidsheet", existingBidSheet.Id, new ColumnSet("ig1_revisionid", "ig1_status", "ig1_opportunitytitle", "ig1_associated"));
             try
             {
                 var opportunityTitle = entity.GetAttributeValue<EntityReference>("ig1_opportunitytitle");
                 var opportunityId = opportunityTitle.Id;
-                var maxRevisionId = GetMaxRevisionId(opportunityId);
+
+                //Changes made to get max revision id with same upper revision id.
+                //var maxRevisionId = GetMaxRevisionId(opportunityId);
+                var maxRevisionId = GetMaxRevisionId(opportunityId, existingBidSheet);
+
                 //var revisionID = entity.GetAttributeValue<int>("ig1_revisionid");
                 var status = entity.GetAttributeValue<OptionSetValue>("ig1_status");
                 if (!maxRevisionId.Equals(null) && !maxRevisionId.Equals(""))
@@ -263,6 +273,7 @@ namespace ImproveGroup
                     entity["ig1_revisionid"] = maxRevisionId;
                 }
                 entity["ig1_status"] = new OptionSetValue(Convert.ToInt32(286150001));
+                entity["ig1_associated"] = false;
                 service.Update(entity);
             }
             catch (Exception ex)
@@ -272,15 +283,18 @@ namespace ImproveGroup
         }
 
 
-        public int GetMaxRevisionId(Guid OpportunityId)
+        //public int GetMaxRevisionId(Guid OpportunityId)
+        public int GetMaxRevisionId(Guid OpportunityId, Entity existingBidSheet)
         {
             try
             {
+                var upperRevisionId = GetUpperRevisionId(existingBidSheet);
                 var maxRevisionId = 0;
                 var fetchData = new
                 {
                     ig1_opportunitytitle = OpportunityId,
-                    statecode = "0"
+                    statecode = "0",
+                    ig1_upperrevisionid = upperRevisionId
                 };
                 var fetchXml = $@"
                             <fetch mapping='logical' version='1.0'>
@@ -289,6 +303,8 @@ namespace ImproveGroup
                                 <filter type='and'>
                                   <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*0cd068b0-a1cf-e911-a960-000d3a1d52e7*/}'/>
                                   <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*0*/}'/>
+                                   
+                                  <condition attribute='ig1_upperrevisionid' operator='eq' value='{fetchData.ig1_upperrevisionid/*0*/}'/>
                                 </filter>
                               </entity>
                             </fetch>";
@@ -306,6 +322,18 @@ namespace ImproveGroup
             {
                 throw new Exception(ex.Message);
             }
+        }
+        //Getting upper revision id to increase revision id for same version
+        protected int GetUpperRevisionId(Entity existingBidSheet)
+        {
+            int upperRevisionId = 0;
+            Entity entity = service.Retrieve(existingBidSheet.LogicalName, existingBidSheet.Id, new ColumnSet("ig1_upperrevisionid"));
+            if (entity.Attributes.Contains("ig1_upperrevisionid"))
+            {
+                upperRevisionId = (int)entity["ig1_upperrevisionid"];
+            }
+            
+            return upperRevisionId;
         }
     }
 }
