@@ -30,6 +30,7 @@ namespace IG_NewBidSheetForChangeOrder
                         var opportunity = (EntityReference)entity.Attributes["ig1_opportunitytitle"];
                         var opportunityId = (Guid)opportunity.Id;
                         UpdateUpperRevisionId(opportunityId, entity.Id);
+                        UpdateProjectNumber(opportunityId, entity.Id);
                     }
                 }
             }
@@ -80,7 +81,7 @@ namespace IG_NewBidSheetForChangeOrder
         }
         protected void UpdateUpperRevisionId(Guid opportunityId, Guid bidSheetId)
         {
-            var maxUpperRevisionId = MaxUpperRevisionId(opportunityId);
+                var maxUpperRevisionId = MaxUpperRevisionId(opportunityId);
                 Entity entity = service.Retrieve("ig1_bidsheet", bidSheetId, new ColumnSet("ig1_upperrevisionid"));
                 if (!entity.Attributes.Contains("ig1_upperrevisionid"))
                 {
@@ -88,6 +89,25 @@ namespace IG_NewBidSheetForChangeOrder
                     service.Update(entity);
                 }
         }
-
+        protected void UpdateProjectNumber(Guid opportunityId, Guid bidSheetId)
+        {
+            string projectNumber = GetProjectNumber(opportunityId);
+            Entity entity = service.Retrieve("ig1_bidsheet", bidSheetId, new ColumnSet("ig1_projectnumber"));
+            if (!entity.Attributes.Contains("ig1_projectnumber") && projectNumber!="")
+            {
+                entity["ig1_projectnumber"] = projectNumber;
+                service.Update(entity);
+            }
+        }
+        protected string GetProjectNumber(Guid opportunityId)
+        {
+            string projectNumber = "";
+            Entity entity = service.Retrieve("opportunity", opportunityId, new ColumnSet("ig1_projectnumber"));
+            if (entity.Attributes.Contains("ig1_projectnumber"))
+            {
+                projectNumber = Convert.ToString(entity["ig1_projectnumber"]);
+            }
+            return projectNumber;
+        }
     }
 }
