@@ -138,7 +138,7 @@ namespace IG_UpdateProjectRecordStatus
             {
                 if (result.Entities[0].Attributes.Contains("statecode"))
                 {
-                    var woStatus = (OptionSetValue)result.Entities[0].Attributes["statecode"];
+                    var woStatus = (OptionSetValue)result.Entities[0].Attributes["msdyn_systemstatus"];
                     if (Convert.ToInt32(woStatus.Value) == 0)
                     {
                         inResult = 0;
@@ -171,10 +171,7 @@ namespace IG_UpdateProjectRecordStatus
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (result.Entities.Count > 0)
             {
-                if (result.Entities[0].Attributes.Contains("ig1_projectrecordid"))
-                {
-                    retval = (Guid)result.Entities[0].Attributes["ig1_projectrecordid"];
-                }
+                retval = (Guid)result.Entities[0].Attributes["ig1_projectrecordid"];
             }
             return retval;
         }
@@ -199,10 +196,7 @@ namespace IG_UpdateProjectRecordStatus
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (result.Entities.Count > 0)
             {
-                if (result.Entities[0].Attributes.Contains("ig1_bidsheetid"))
-                {
-                    retval = (Guid)result.Entities[0].Attributes["ig1_bidsheetid"];
-                }
+                retval = (Guid)result.Entities[0].Attributes["ig1_bidsheetid"];
             }
             return retval;
         }
@@ -260,10 +254,7 @@ namespace IG_UpdateProjectRecordStatus
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (result.Entities.Count > 0)
             {
-                if (result.Entities[0].Attributes.Contains("ig1_status"))
-                {
-                    retval = Convert.ToString(result.Entities[0].Attributes["ig1_status"]);
-                }
+                retval = Convert.ToString(result.Entities[0].Attributes["ig1_status"]);
             }
             return retval;
         }
@@ -288,12 +279,9 @@ namespace IG_UpdateProjectRecordStatus
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (result.Entities.Count > 0)
             {
-                if (result.Entities[0].Attributes.Contains("msdyn_opportunityid"))
-                {
-                    var opp = (EntityReference)result.Entities[0].Attributes["msdyn_opportunityid"];
-                    retval = opp.Id;
-                    //retval = ((EntityReference)result.Entities[0].Attributes["msdyn_opportunityid"]).Id;
-                }
+                var opp = (EntityReference)result.Entities[0].Attributes["msdyn_opportunityid"];
+                retval = opp.Id;
+                //retval = ((EntityReference)result.Entities[0].Attributes["msdyn_opportunityid"]).Id;
             }
             return retval;
         }
@@ -319,12 +307,9 @@ namespace IG_UpdateProjectRecordStatus
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (result.Entities.Count > 0)
             {
-                if (result.Entities[0].Attributes.Contains("ig1_opportunitytitle"))
-                {
-                    var opp = (EntityReference)result.Entities[0].Attributes["ig1_opportunitytitle"];
-                    retval = opp.Id;
-                    //retval = (Guid)result.Entities[0].Attributes["ig1_opportunitytitle"];
-                }
+                var opp = (EntityReference)result.Entities[0].Attributes["ig1_opportunitytitle"];
+                retval = opp.Id;
+                //retval = (Guid)result.Entities[0].Attributes["ig1_opportunitytitle"];
             }
             return retval;
         }
