@@ -2,7 +2,6 @@
 using System.Linq;
 using System.ServiceModel;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
 
 namespace IG_UpdateProjectRecordStatus
@@ -46,16 +45,28 @@ namespace IG_UpdateProjectRecordStatus
                     {
                         Guid WorkOrderId = entity.Id;
                         //Get Opportunity Id by Work Order ID
-                        //OpportunityId = GetOpportunityIdByWOId(WorkOrderId, service);
-                        OpportunityId = ((EntityReference)entity.Attributes["msdyn_opportunityid"]).Id;
+                        if (entity.Attributes.Contains("msdyn_opportunityid"))
+                        {
+                            OpportunityId = ((EntityReference)entity.Attributes["msdyn_opportunityid"]).Id;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
-                    else
+                    else if(entityName=="ig1_bidsheet")
                     {
                         //Bidsheet
                         Guid BidSheetId = entity.Id;
                         //Get Opportunity Id by Bidsheet ID
-                        //OpportunityId = GetOpportunityIdByBSId(BidSheetId, service);
-                        OpportunityId = ((EntityReference)entity.Attributes["ig1_opportunitytitle"]).Id;
+                        if (entity.Attributes.Contains("ig1_opportunitytitle"))
+                        {
+                            OpportunityId = ((EntityReference)entity.Attributes["ig1_opportunitytitle"]).Id;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                     //UpdateProjectRecord(OpportunityId, service, StatusCode);
                     UpdateProjectRecord(service);
@@ -74,15 +85,17 @@ namespace IG_UpdateProjectRecordStatus
             }
         }
 
-        public int CheckWorkOrderExistsOrNot(Guid OppId, IOrganizationService service)
+        public int CheckWorkOrderExistsOrNot(IOrganizationService service)
         {
-            int[] arrOpen = { 690970000, 690970001, 690970002, 690970003 };
+            int[] arrOpen = { 690970000, 690970001, 690970002, 690970003 }; //Open statuses of Work Order for ex.(Open-Scheduled 690970001,Open-Inprogress 690970002, Open-UnScheduled 690970000,Open-Completed 690970003)
             int inResult = 0;
-            var fetchData = new
+            if (OpportunityId != Guid.Empty)
             {
-                msdyn_opportunityid = OppId
-            };
-            var fetchXml = $@"
+                var fetchData = new
+                {
+                    msdyn_opportunityid = OpportunityId
+                };
+                var fetchXml = $@"
                             <fetch attribute='statuscodename' operator='eq'>
                               <entity name='msdyn_workorder'>
                                 <attribute name='msdyn_systemstatus' />
@@ -92,36 +105,37 @@ namespace IG_UpdateProjectRecordStatus
                                 </filter>
                               </entity>
                             </fetch>";
-            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (result.Entities.Count > 0)
-            {
-                for (int i = 0; i < result.Entities.Count; i++)
+                EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+                if (result.Entities.Count > 0)
                 {
-                    if (result.Entities[i].Attributes.Contains("msdyn_systemstatus"))
+                    for (int i = 0; i < result.Entities.Count; i++)
                     {
-                        var woStatus = (OptionSetValue)result.Entities[i].Attributes["msdyn_systemstatus"];
-                        if (arrOpen.Contains(woStatus.Value))
+                        if (result.Entities[i].Attributes.Contains("msdyn_systemstatus"))
                         {
-                            inResult = 1;
-                            break;
+                            var woStatus = (OptionSetValue)result.Entities[i].Attributes["msdyn_systemstatus"];
+                            if (arrOpen.Contains(woStatus.Value))
+                            {
+                                inResult = 1;
+                                break;
+                            }
+                            else
+                            {
+                                inResult = 2;
+                            }
                         }
-                        else
-                        {
-                            inResult = 2;
-                        }
-                    }
 
+                    }
                 }
             }
             return inResult;
         }
 
-        public int GetOpportunityStatusByOppId(Guid OppId, IOrganizationService service)
+        public int GetOpportunityStatusByOppId(IOrganizationService service)
         {
-            int inResult = 0;
+            int inResult = 2;
             var fetchData = new
             {
-                opportunityid = OppId
+                opportunityid = OpportunityId
             };
             var fetchXml = $@"
                             <fetch attribute='statuscodename' operator='eq'>
@@ -138,28 +152,30 @@ namespace IG_UpdateProjectRecordStatus
             {
                 if (result.Entities[0].Attributes.Contains("statecode"))
                 {
-                    var woStatus = (OptionSetValue)result.Entities[0].Attributes["msdyn_systemstatus"];
+                    var woStatus = (OptionSetValue)result.Entities[0].Attributes["statecode"];
                     if (Convert.ToInt32(woStatus.Value) == 0)
                     {
-                        inResult = 0;
+                        inResult = 0; //Open Opportunity
                     }
-                    else
+                    else if (Convert.ToInt32(woStatus.Value) == 1)
                     {
-                        inResult = 1;
+                        inResult = 1; //Close as won Opportunity
                     }
                 }
             }
             return inResult;
         }
 
-        public Guid GetProjectRecordId(Guid OppId, IOrganizationService service)
+        public Guid GetProjectRecordId(IOrganizationService service)
         {
             Guid retval = Guid.Empty;
-            var fetchData = new
+            if (OpportunityId != Guid.Empty)
             {
-                ig1_opportunity = OppId
-            };
-            var fetchXml = $@"
+                var fetchData = new
+                {
+                    ig1_opportunity = OpportunityId
+                };
+                var fetchXml = $@"
                         <fetch attribute='statuscodename' operator='eq'>
                           <entity name='ig1_projectrecord'>
                             <attribute name='ig1_projectrecordid' />
@@ -168,165 +184,66 @@ namespace IG_UpdateProjectRecordStatus
                             </filter>
                           </entity>
                         </fetch>";
-            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (result.Entities.Count > 0)
-            {
-                retval = (Guid)result.Entities[0].Attributes["ig1_projectrecordid"];
-            }
-            return retval;
-        }
-
-        public Guid GetActiveBidSheetIdByOpportunityID(Guid OppId, IOrganizationService service)
-        {
-            Guid retval = Guid.Empty;
-            var fetchData = new
-            {
-                ig1_opportunitytitle = OppId,
-                ig1_status = "286150000"
-            };
-            var fetchXml = $@"
-                            <fetch attribute='statuscodename' operator='eq'>
-                              <entity name='ig1_bidsheet'>
-                                <filter type='and'>
-                                  <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*a1980122-a02b-ea11-a810-000d3a55dd4e*/}'/>
-                                  <condition attribute='ig1_status' operator='eq' value='{fetchData.ig1_status/*286150000*/}'/>
-                                </filter>
-                              </entity>
-                            </fetch>";
-            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (result.Entities.Count > 0)
-            {
-                retval = (Guid)result.Entities[0].Attributes["ig1_bidsheetid"];
-            }
-            return retval;
-        }
-
-        //Not in Use
-        public string GetWOStatusIdByWOId(Guid WOId, IOrganizationService service)
-        {
-            string retval = "";
-            string[] arrOpen = { "690970000", "690970001", "690970002", "690970003" };
-            var fetchData = new
-            {
-                msdyn_workorderid = WOId
-            };
-            var fetchXml = $@"
-                        <fetch attribute='statuscodename' operator='eq'>
-                          <entity name='msdyn_workorder'>
-                            <attribute name='msdyn_systemstatus' />
-                            <filter type='and'>
-                              <condition attribute='msdyn_workorderid' operator='eq' value='{fetchData.msdyn_workorderid/*3544909f-e873-40c4-9137-e12ced016e1c*/}'/>
-                            </filter>
-                          </entity>
-                        </fetch>";
-
-            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (result.Entities.Count > 0)
-            {
-                if (arrOpen.Contains(Convert.ToString(result.Entities[0].Attributes["msdyn_systemstatus"])))
+                EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+                if (result.Entities.Count > 0)
                 {
-                    retval = "Open";
-                }
-                else
-                {
-                    retval = "Closed";
+                    if (result.Entities[0].Attributes.Contains("ig1_projectrecordid"))
+                    {
+                        retval = (Guid)result.Entities[0].Attributes["ig1_projectrecordid"];
+                    }
                 }
             }
             return retval;
         }
 
-        public string GetBSStatusIdByBSId(Guid BSId, IOrganizationService service)
+        public int CheckIfAssociatedeBidSheetIdExistsByOpportunityID(IOrganizationService service)
         {
-            string retval = "";
-            var fetchData = new
-            {
-                ig1_bidsheetid = BSId
-            };
-            var fetchXml = $@"
-                            <fetch attribute='statuscodename' operator='eq'>
-                              <entity name='ig1_bidsheet'>
-                                <attribute name='ig1_status' />
-                                <filter type='and'>
-                                  <condition attribute='ig1_bidsheetid' operator='eq' value='{fetchData.ig1_bidsheetid/*f8d726fd-9521-ea11-a810-000d3a4e6fff*/}'/>
-                                </filter>
-                              </entity>
-                            </fetch>";
-            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (result.Entities.Count > 0)
-            {
-                retval = Convert.ToString(result.Entities[0].Attributes["ig1_status"]);
-            }
-            return retval;
-        }
-
-        public Guid GetOpportunityIdByWOId(Guid WOId, IOrganizationService service)
-        {
+            int inResult = 0;
             Guid retval = Guid.Empty;
             var fetchData = new
             {
-                msdyn_workorderid = WOId
+                ig1_associated = "1", // Status of Bidsheet is Associated
+                ig1_opportunitytitle = OpportunityId
             };
             var fetchXml = $@"
-                            <fetch attribute='statuscodename' operator='eq'>
-                              <entity name='msdyn_workorder'>
-                                <attribute name='msdyn_opportunityid' />
-                                <filter type='and'>
-                                  <condition attribute='msdyn_workorderid' operator='eq' value='{fetchData.msdyn_workorderid/*2b615065-6404-ea11-a811-000d3a55dd4e*/}'/>
-                                </filter>
-                              </entity>
-                            </fetch>";
-
-            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (result.Entities.Count > 0)
-            {
-                var opp = (EntityReference)result.Entities[0].Attributes["msdyn_opportunityid"];
-                retval = opp.Id;
-                //retval = ((EntityReference)result.Entities[0].Attributes["msdyn_opportunityid"]).Id;
-            }
-            return retval;
-        }
-
-        public Guid GetOpportunityIdByBSId(Guid BSId, IOrganizationService service)
-        {
-            Guid retval = Guid.Empty;
-            var fetchData = new
-            {
-                ig1_bidsheetid = BSId
-            };
-            var fetchXml = $@"
-                            <fetch attribute='statuscodename' operator='eq'>
+                            <fetch attribute='ig1_opportunitytitle ' operator='eq'>
                               <entity name='ig1_bidsheet'>
                                 <attribute name='ig1_opportunitytitle' />
+                                <attribute name='ig1_associated' />
                                 <filter type='and'>
-                                  <condition attribute='ig1_bidsheetid' operator='eq' value='{fetchData.ig1_bidsheetid/*f8d726fd-9521-ea11-a810-000d3a4e6fff*/}'/>
+                                  <condition attribute='ig1_associated' operator='eq' value='{fetchData.ig1_associated/*1*/}'/>
+                                </filter>
+                                <filter type='and'>
+                                  <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*88e041d1-fad2-e911-a967-000d3a1d57cf*/}'/>
                                 </filter>
                               </entity>
                             </fetch>";
-
-
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (result.Entities.Count > 0)
             {
-                var opp = (EntityReference)result.Entities[0].Attributes["ig1_opportunitytitle"];
-                retval = opp.Id;
-                //retval = (Guid)result.Entities[0].Attributes["ig1_opportunitytitle"];
+                inResult = 1;
+                //if (result.Entities[0].Attributes.Contains("ig1_bidsheetid"))
+                //{
+                //    retval = (Guid)result.Entities[0].Attributes["ig1_bidsheetid"];
+                //}
             }
-            return retval;
+            //return retval;
+            return inResult;
         }
 
         //This function will Update Project Status By Opportunity ID
-        //public void UpdateProjectRecord(Guid OppId, IOrganizationService service, int StatusCode)
         public void UpdateProjectRecord(IOrganizationService service)
         {
-            int inResult = CheckWorkOrderExistsOrNot(OpportunityId, service);
-
-            if (inResult == 1)
+            int inResult = CheckWorkOrderExistsOrNot(service);
+            int inResultOpportunity = GetOpportunityStatusByOppId(service);
+            int inResultBidsheet;
+            if (inResult == 1 && inResultOpportunity != 2)               //Work order status is Open and Opportunity status should not be Close as Lost i.e. inResultOpportunity !=2
             {
                 //Work order exists for given opportunity with Open status.
                 //Set Status of project record to Installing(286150002)
                 StatusCode = 286150002;
             }
-            else if (inResult == 2)
+            else if (inResult == 2 && inResultOpportunity != 2)          //Work order status is Closed and Opportunity status should not be Close as Lost i.e. inResultOpportunity !=2
             {
                 //Work order exists for given opportunity with Closed status
                 //Set Status of project record to Completed(286150003)
@@ -335,31 +252,35 @@ namespace IG_UpdateProjectRecordStatus
             else
             {
                 //Work order doesn't exists for given opportunity, So check Status of Opportunity whether it is Closed won or Open
-                Guid ActiveBidSheetId = GetActiveBidSheetIdByOpportunityID(OpportunityId, service);
-                if (ActiveBidSheetId != Guid.Empty)
+                inResultBidsheet = CheckIfAssociatedeBidSheetIdExistsByOpportunityID(service);
+                if (inResultBidsheet == 1 && inResultOpportunity != 2)   // Opportunity Status  should not be Close as Lost i.e. inResultOpportunity !=2 and Associated Bidsheet exists
                 {
-                    //Active bidsheet exists for given opportunity
-                    //Set Status of project record to Priced(286150005)
+                    //Status of project record to Priced(286150005)
                     StatusCode = 286150005;
                 }
                 else
                 {
-                    //Get Opportunity status by Opportunity Id
-                    int oppStatus = GetOpportunityStatusByOppId(OpportunityId, service);
-                    if (oppStatus == 1)
+                    if (inResultOpportunity == 1 && inResultBidsheet == 0)      // Opportunity Status is Won and Associated Bidsheet doesn't exists
                     {
-                        // If Opportunity's status is Won, Then set Status of project record to Booked(286150001)
+                        //Status of project record to Booked(286150001)
                         StatusCode = 286150001;
                     }
-                    else if (oppStatus == 0)
+                    else if (inResultOpportunity == 0 && inResultBidsheet == 0)     // Opportunity Status is Open and Associated Bidsheet doesn't exists
                     {
-                        // If Opportunity's status is Open, Then set Status of project record to Estimated(286150000)
+                        //Status of project record to Estimated(286150000)
                         StatusCode = 286150000;
                     }
+                    else
+                    {
+                        StatusCode = 286150004; // For now Opprotunity having Close as Lost Then it's status has been set to Finalised (286150004)
+                    }
                 }
-                // Get ProjectRecordID row by providing opportunity id
-                Guid ProRecId = GetProjectRecordId(OpportunityId, service);
-                // Get ProjectRecord row by providing ProjectRecord ID
+            }
+            // Get ProjectRecordID row by providing opportunity id
+            Guid ProRecId = GetProjectRecordId(service);
+            // Get ProjectRecord row by providing ProjectRecord ID
+            if (ProRecId != Guid.Empty)
+            {
                 Entity ProjectRecord = service.Retrieve("ig1_projectrecord", ProRecId, new ColumnSet("ig1_projectstatus"));
                 ProjectRecord["ig1_projectstatus"] = new OptionSetValue(StatusCode);
                 service.Update(ProjectRecord);
