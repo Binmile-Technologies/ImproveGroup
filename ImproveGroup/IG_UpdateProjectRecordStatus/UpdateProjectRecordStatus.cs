@@ -45,25 +45,27 @@ namespace IG_UpdateProjectRecordStatus
                     {
                         Guid WorkOrderId = entity.Id;
                         //Get Opportunity Id by Work Order ID
-                        if (entity.Attributes.Contains("msdyn_opportunityid"))
-                        {
-                            OpportunityId = ((EntityReference)entity.Attributes["msdyn_opportunityid"]).Id;
-                        }
-                        else
+                        OpportunityId = GetOpportunityIdByWOId(WorkOrderId, service);
+                        if (OpportunityId == Guid.Empty)
                         {
                             return;
                         }
                     }
-                    else if(entityName=="ig1_bidsheet")
+                    else if (entityName == "ig1_bidsheet")
                     {
                         //Bidsheet
                         Guid BidSheetId = entity.Id;
                         //Get Opportunity Id by Bidsheet ID
-                        if (entity.Attributes.Contains("ig1_opportunitytitle"))
-                        {
-                            OpportunityId = ((EntityReference)entity.Attributes["ig1_opportunitytitle"]).Id;
-                        }
-                        else
+                        //if (entity.Attributes.Contains("ig1_opportunitytitle"))
+                        //{
+                        //    OpportunityId = ((EntityReference)entity.Attributes["ig1_opportunitytitle"]).Id;
+                        //}
+                        //else
+                        //{
+                        //    return;
+                        //}
+                        OpportunityId = GetOpportunityIdByBSId(BidSheetId, service);
+                        if (OpportunityId == Guid.Empty)
                         {
                             return;
                         }
@@ -85,6 +87,63 @@ namespace IG_UpdateProjectRecordStatus
             }
         }
 
+        public Guid GetOpportunityIdByBSId(Guid BSId, IOrganizationService service)
+        {
+            Guid retval = Guid.Empty;
+            var fetchData = new
+            {
+                ig1_bidsheetid = BSId
+            };
+            var fetchXml = $@"
+                            <fetch attribute='statuscodename' operator='eq'>
+                              <entity name='ig1_bidsheet'>
+                                <attribute name='ig1_opportunitytitle' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheetid' operator='eq' value='{fetchData.ig1_bidsheetid/*f8d726fd-9521-ea11-a810-000d3a4e6fff*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (result.Entities.Count > 0)
+            {
+                if (result.Entities[0].Attributes.Contains("ig1_opportunitytitle"))
+                {
+                    var opp = (EntityReference)result.Entities[0].Attributes["ig1_opportunitytitle"];
+                    retval = opp.Id;
+                }
+            }
+            return retval;
+        }
+
+        public Guid GetOpportunityIdByWOId(Guid WOId, IOrganizationService service)
+        {
+            Guid retval = Guid.Empty;
+            var fetchData = new
+            {
+                msdyn_workorderid = WOId
+            };
+            var fetchXml = $@"
+                            <fetch attribute='statuscodename' operator='eq'>
+                              <entity name='msdyn_workorder'>
+                                <attribute name='msdyn_opportunityid' />
+                                <filter type='and'>
+                                  <condition attribute='msdyn_workorderid' operator='eq' value='{fetchData.msdyn_workorderid/*2b615065-6404-ea11-a811-000d3a55dd4e*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+
+            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (result.Entities.Count > 0)
+            {
+                if (result.Entities[0].Attributes.Contains("msdyn_opportunityid"))
+                {
+                    var opp = (EntityReference)result.Entities[0].Attributes["msdyn_opportunityid"];
+                    retval = opp.Id;
+                }
+            }
+            return retval;
+        }
+
         public int CheckWorkOrderExistsOrNot(IOrganizationService service)
         {
             int[] arrOpen = { 690970000, 690970001, 690970002, 690970003 }; //Open statuses of Work Order for ex.(Open-Scheduled 690970001,Open-Inprogress 690970002, Open-UnScheduled 690970000,Open-Completed 690970003)
@@ -93,7 +152,8 @@ namespace IG_UpdateProjectRecordStatus
             {
                 var fetchData = new
                 {
-                    msdyn_opportunityid = OpportunityId
+                    msdyn_opportunityid = OpportunityId,
+                    statuscode = "1"
                 };
                 var fetchXml = $@"
                             <fetch attribute='statuscodename' operator='eq'>
@@ -102,6 +162,9 @@ namespace IG_UpdateProjectRecordStatus
                                 <attribute name='msdyn_opportunityid' />
                                 <filter>
                                   <condition attribute='msdyn_opportunityid' operator='eq' value='{fetchData.msdyn_opportunityid/*a1980122-a02b-ea11-a810-000d3a55dd4e*/}'/>
+                                  <filter type='and'>
+                                     <condition attribute='statuscode' operator='eq' value='{fetchData.statuscode/*1*/}'/>
+                                  </filter>
                                 </filter>
                               </entity>
                             </fetch>";
@@ -272,7 +335,7 @@ namespace IG_UpdateProjectRecordStatus
                     }
                     else
                     {
-                        StatusCode = 286150004; // For now Opprotunity having Close as Lost Then it's status has been set to Finalised (286150004)
+                        StatusCode = 286150006; // For now Opprotunity having Close as Lost Then it's status has been set to Lost (286150006)
                     }
                 }
             }
