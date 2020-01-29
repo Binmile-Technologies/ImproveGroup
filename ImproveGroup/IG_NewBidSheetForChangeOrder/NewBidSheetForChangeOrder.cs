@@ -36,11 +36,12 @@ namespace IG_NewBidSheetForChangeOrder
             }
             catch (Exception ex)
             {
+                IOrganizationService serviceAdmin = servicefactory.CreateOrganizationService(null);
                 Entity errorLog = new Entity("ig1_pluginserrorlogs");
                 errorLog["ig1_name"] = "Error";
                 errorLog["ig1_errormessage"] = ex.Message;
                 errorLog["ig1_errordescription"] = ex.InnerException;
-                service.Create(errorLog);
+                serviceAdmin.Create(errorLog);
                 throw;
             }
         }

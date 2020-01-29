@@ -9,3 +9,13 @@ D:\Rohit\Plugins\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debu
 D:\Rohit\Plugins\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csproj.CopyComplete
 D:\Rohit\Plugins\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.dll
 D:\Rohit\Plugins\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.pdb
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\IG_UpdateProjectRecordStatus.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\IG_UpdateProjectRecordStatus.pdb
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csproj.CoreCompileInputs.cache
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csproj.CopyComplete
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.pdb

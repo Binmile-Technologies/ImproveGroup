@@ -1,0 +1,8 @@
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\bin\Release\IG_NewBidSheetForChangeOrder.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\bin\Release\IG_NewBidSheetForChangeOrder.pdb
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Release\IG_NewBidSheetForChangeOrder.csproj.CoreCompileInputs.cache
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Release\IG_NewBidSheetForChangeOrder.csproj.CopyComplete
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Release\IG_NewBidSheetForChangeOrder.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Release\IG_NewBidSheetForChangeOrder.pdb

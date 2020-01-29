@@ -1,0 +1,10 @@
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\ImproveGroup.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\ImproveGroup.pdb
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.csproj.CoreCompileInputs.cache
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.csproj.CopyComplete
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.pdb

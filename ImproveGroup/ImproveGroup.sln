@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImproveGroup", "ImproveGrou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_NewBidSheetForChangeOrder", "IG_NewBidSheetForChangeOrder\IG_NewBidSheetForChangeOrder.csproj", "{B05BD776-6C75-420B-9AD4-58CC83DA3549}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateProjectRecordStatus", "IG_UpdateProjectRecordStatus\IG_UpdateProjectRecordStatus.csproj", "{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B05BD776-6C75-420B-9AD4-58CC83DA3549}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B05BD776-6C75-420B-9AD4-58CC83DA3549}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B05BD776-6C75-420B-9AD4-58CC83DA3549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

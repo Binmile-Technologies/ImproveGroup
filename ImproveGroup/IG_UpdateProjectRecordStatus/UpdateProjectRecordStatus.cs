@@ -31,7 +31,8 @@ namespace IG_UpdateProjectRecordStatus
                 // web service calls.  
                 IOrganizationServiceFactory serviceFactory =
                     (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+                //IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+                IOrganizationService service = serviceFactory.CreateOrganizationService(null);
 
                 try
                 {

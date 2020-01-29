@@ -1,0 +1,10 @@
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\IG_UpdateProjectRecordStatus.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\IG_UpdateProjectRecordStatus.pdb
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csproj.CoreCompileInputs.cache
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csproj.CopyComplete
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.dll
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.pdb
