@@ -6,3 +6,4 @@ D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\ob
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.csproj.CopyComplete
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.dll
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.pdb
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.csprojAssemblyReference.cache

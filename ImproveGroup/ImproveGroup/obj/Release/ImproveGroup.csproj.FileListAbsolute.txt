@@ -8,3 +8,4 @@ D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\Improv
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.csproj.CopyComplete
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.dll
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.pdb
+D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.csprojAssemblyReference.cache

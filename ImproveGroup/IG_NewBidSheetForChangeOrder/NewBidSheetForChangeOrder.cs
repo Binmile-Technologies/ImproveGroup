@@ -28,9 +28,13 @@ namespace IG_NewBidSheetForChangeOrder
                     if (entity.Attributes.Contains("ig1_opportunitytitle"))
                     {
                         var opportunity = (EntityReference)entity.Attributes["ig1_opportunitytitle"];
-                        var opportunityId = (Guid)opportunity.Id;
-                        UpdateUpperRevisionId(opportunityId, entity.Id);
-                        UpdateProjectNumber(opportunityId, entity.Id);
+                        if (opportunity != null)
+                        {
+                            var opportunityId = (Guid)opportunity.Id;
+                            if (opportunityId != Guid.Empty && opportunityId != null)
+                            UpdateUpperRevisionId(opportunityId, entity.Id);
+                            UpdateProjectNumber(opportunityId, entity.Id);
+                        }
                     }
                 }
             }
@@ -94,7 +98,7 @@ namespace IG_NewBidSheetForChangeOrder
         {
             string projectNumber = GetProjectNumber(opportunityId);
             Entity entity = service.Retrieve("ig1_bidsheet", bidSheetId, new ColumnSet("ig1_projectnumber"));
-            if (!entity.Attributes.Contains("ig1_projectnumber") && projectNumber!="")
+            if (projectNumber!="" && projectNumber!=null)
             {
                 entity["ig1_projectnumber"] = projectNumber;
                 service.Update(entity);
