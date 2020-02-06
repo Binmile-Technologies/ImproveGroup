@@ -16,6 +16,7 @@ namespace ImproveGroup
             context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             service = serviceFactory.CreateOrganizationService(context.UserId);
+            //service = serviceFactory.CreateOrganizationService(new Guid("EFA54FBF-71A2-E911-A962-000D3A1D5D97"));
             #endregion
 
             if (context.InputParameters.Equals(null))
@@ -86,7 +87,7 @@ namespace ImproveGroup
                         {
                             margin = (decimal)((AliasedValue)item.Attributes["margin"]).Value;
                         }
-                        if (margin > 0)
+                        if (margin > 0 && margin<100)
                         {
                             totalMaterialCost = new Money(materialCost.Value / (1 - margin / 100));
                         }
@@ -111,7 +112,6 @@ namespace ImproveGroup
                 errorLog["ig1_errormessage"] = ex.Message;
                 errorLog["ig1_errordescription"] = ex.InnerException;
                 serviceAdmin.Create(errorLog);
-                throw;
             }
         }
         protected void CreatePriceListItem(string opportunityId, string opportunityName, Guid productId, Guid unitId, Money materialCost)

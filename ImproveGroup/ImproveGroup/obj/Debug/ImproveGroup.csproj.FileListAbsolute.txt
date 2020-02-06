@@ -38,3 +38,13 @@ D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveG
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.dll
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.pdb
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\ImproveGroup.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\ImproveGroup.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CopyComplete
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.pdb
