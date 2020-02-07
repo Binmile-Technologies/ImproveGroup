@@ -82,8 +82,12 @@ namespace IG_UpdateProjectRecordStatus
 
                 catch (Exception ex)
                 {
-                    tracingService.Trace("Status Update Plugin(Update_Project_Record_Status_Plugin): {0}", ex.ToString());
-                    throw;
+                    IOrganizationService serviceAdmin = serviceFactory.CreateOrganizationService(null);
+                    Entity errorLog = new Entity("ig1_pluginserrorlogs");
+                    errorLog["ig1_name"] = "An error occurred in UpdateProjectRecordStatus Plug-in";
+                    errorLog["ig1_errormessage"] = ex.Message;
+                    errorLog["ig1_errordescription"] = ex.ToString();
+                    serviceAdmin.Create(errorLog);
                 }
             }
         }

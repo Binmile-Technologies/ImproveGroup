@@ -9,3 +9,13 @@ D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\ob
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.dll
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.pdb
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\IG_UpdateProjectRecordStatus.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\IG_UpdateProjectRecordStatus.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csproj.CopyComplete
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.pdb

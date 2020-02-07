@@ -9,3 +9,13 @@ D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\Improv
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.dll
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.pdb
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\ImproveGroup.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\ImproveGroup.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.csproj.CopyComplete
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\ImproveGroup\obj\Release\ImproveGroup.pdb

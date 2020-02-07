@@ -76,7 +76,12 @@ namespace ImproveGroup
             }
             catch (Exception ex)
             {
-                throw new InvalidPluginExecutionException("An error occurred in FilterContingencyGrid Plug-in.", ex);
+                IOrganizationService serviceAdmin = serviceFactory.CreateOrganizationService(null);
+                Entity errorLog = new Entity("ig1_pluginserrorlogs");
+                errorLog["ig1_name"] = "An error occurred in FilterContingencyGrid Plug-in";
+                errorLog["ig1_errormessage"] = ex.Message;
+                errorLog["ig1_errordescription"] = ex.ToString();
+                serviceAdmin.Create(errorLog);
             }
 
         }       
