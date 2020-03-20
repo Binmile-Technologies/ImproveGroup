@@ -64,3 +64,6 @@ E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\bin\System.Web.
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\bin\System.Web.Http.Cors.dll
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\bin\System.Web.Http.Cors.xml
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\obj\Release\IG_CalculateTax.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\bin\Avalara.AvaTax.RestClient.net45.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\bin\Avalara.AvaTax.RestClient.net45.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\bin\Avalara.AvaTax.RestClient.net45.xml
