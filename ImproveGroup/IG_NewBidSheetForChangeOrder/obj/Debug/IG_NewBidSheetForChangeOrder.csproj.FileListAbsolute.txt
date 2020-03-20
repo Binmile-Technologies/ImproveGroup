@@ -7,11 +7,3 @@ D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\ob
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.dll
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.pdb
 D:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.csprojAssemblyReference.cache
-E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\bin\Debug\IG_NewBidSheetForChangeOrder.dll
-E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\bin\Debug\IG_NewBidSheetForChangeOrder.pdb
-E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\bin\Debug\Microsoft.Xrm.Sdk.dll
-E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\bin\Debug\Microsoft.Xrm.Sdk.xml
-E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.csproj.CopyComplete
-E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.dll
-E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.pdb
-E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_NewBidSheetForChangeOrder\obj\Debug\IG_NewBidSheetForChangeOrder.csprojAssemblyReference.cache
