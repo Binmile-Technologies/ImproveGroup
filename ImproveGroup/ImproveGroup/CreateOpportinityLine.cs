@@ -136,7 +136,7 @@ namespace ImproveGroup
             EntityCollection priceLevelData = service.RetrieveMultiple(new FetchExpression(PriceLevelFetch));
             if (priceLevelData.Entities.Count > 0)
             {
-                var priceList = (Guid)priceLevelData.Entities[0].Attributes["pricelevelid"];
+                Guid priceList = priceLevelData.Entities[0].Id;
                 AddProductToPriceList(priceList, productId, unitId, materialCost);
             }
             else
@@ -258,13 +258,13 @@ namespace ImproveGroup
         protected Guid CreatePriceList(string opportunityId, string opportunityName)
         {
             var existingPriceList = GetExistingPriceListByName(opportunityId, opportunityName);
-            if (existingPriceList != null && existingPriceList != "")
+            if (existingPriceList != null && existingPriceList != Guid.Empty)
             {
                 Entity opportunityEntity = service.Retrieve("opportunity", new Guid(opportunityId), new ColumnSet("pricelevelid"));
-                opportunityEntity["pricelevelid"] = new EntityReference("pricelevel", new Guid(existingPriceList));
+                opportunityEntity["pricelevelid"] = new EntityReference("pricelevel", existingPriceList);
                 service.Update(opportunityEntity);
 
-                return new Guid(existingPriceList);
+                return existingPriceList;
             }
             else
             {
@@ -283,9 +283,9 @@ namespace ImproveGroup
                 else
                 {
                     var transactionCurrencyId = GetDefaultCurrencyId();
-                    if (transactionCurrencyId != null && transactionCurrencyId != "")
+                    if (transactionCurrencyId != null && transactionCurrencyId != Guid.Empty)
                     {
-                        priceList["transactioncurrencyid"] = new EntityReference("transactioncurrency", new Guid(transactionCurrencyId));
+                        priceList["transactioncurrencyid"] = new EntityReference("transactioncurrency", transactionCurrencyId);
                     }
                 }
 
@@ -301,7 +301,7 @@ namespace ImproveGroup
             }
             
         }
-        protected string GetExistingPriceListByName(string opportunityId, string opportunityName)
+        protected Guid GetExistingPriceListByName(string opportunityId, string opportunityName)
         {
                 var fetchData = new
                 {
@@ -320,17 +320,15 @@ namespace ImproveGroup
             EntityCollection existingPriceList = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (existingPriceList.Entities.Count > 0)
             {
-                return (existingPriceList.Entities[0].Attributes["pricelevelid"].ToString());
+                return existingPriceList.Entities[0].Id;
             }
             else
             {
-                return "";
+                return Guid.Empty;
             }
         }
-        protected string GetDefaultCurrencyId()
+        protected Guid GetDefaultCurrencyId()
         {
-            
-                string defaultCurrencyId = "";
                 var fetchData = new
                 {
                     isocurrencycode = "USD",
@@ -348,11 +346,14 @@ namespace ImproveGroup
                                   </entity>
                                 </fetch>";
                 EntityCollection currency = service.RetrieveMultiple(new FetchExpression(fetchXml));
-                if (currency.Entities.Count > 0)
-                {
-                    defaultCurrencyId = currency.Entities[0].Attributes["transactioncurrencyid"].ToString();
-                }
-                return defaultCurrencyId;
+            if (currency.Entities.Count > 0)
+            {
+                return (currency.Entities[0].Id);
+            }
+            else
+            {
+                return Guid.Empty;
+            }
             
         }
     }

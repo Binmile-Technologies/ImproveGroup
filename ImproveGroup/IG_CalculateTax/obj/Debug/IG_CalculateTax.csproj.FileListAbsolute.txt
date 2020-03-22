@@ -66,3 +66,4 @@ E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\bin\Microsoft.C
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\obj\Debug\IG_CalculateTax.csproj.CopyComplete
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\obj\Debug\IG_CalculateTax.dll
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\obj\Debug\IG_CalculateTax.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CalculateTax\obj\Debug\IG_CalculateTax.csprojAssemblyReference.cache

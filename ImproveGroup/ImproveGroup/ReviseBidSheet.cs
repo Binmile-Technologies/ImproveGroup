@@ -204,12 +204,9 @@ namespace ImproveGroup
                         {
                             if (attr.Key == "ig1_associatedcostid")
                                 continue;
-
                             newAssociatedCost[attr.Key] = attr.Value;
                         }
-
                         newAssociatedCost["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", newBidSheetId);
-
                         newAssociatedCostId = service.Create(newAssociatedCost).ToString();
                     }
                 }
