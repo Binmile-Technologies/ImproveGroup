@@ -32,7 +32,7 @@ namespace IG_Update_Actual_Cost_And_Actual_Hours_Type_Project_Record
                         Entity actualCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_name"));
                         if (entity.Attributes.Contains("ig1_actualdate") && !string.IsNullOrEmpty(entity.Attributes["ig1_actualdate"].ToString()))
                         {
-                            actualCost["ig1_date"] = Convert.ToDateTime(entity.Attributes["ig1_actualdate"]);
+                            actualCost.Attributes["ig1_date"] = Convert.ToDateTime(entity.Attributes["ig1_actualdate"]);
                         }
                         if (entity.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(entity.Attributes["ig1_name"].ToString()))
                         {
@@ -65,11 +65,31 @@ namespace IG_Update_Actual_Cost_And_Actual_Hours_Type_Project_Record
                 }
                 else if (entity.LogicalName == "ig1_projectrecordhours")
                 {
+                    if (entity.Attributes.Contains("ig1_actualdate") && !string.IsNullOrEmpty(entity.Attributes["ig1_actualdate"].ToString()))
+                    {
+                        var actualHours = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_name"));
+                        actualHours.Attributes["ig1_date"] = Convert.ToDateTime(entity.Attributes["ig1_actualdate"].ToString());
 
+                        if (entity.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(entity.Attributes["ig1_name"].ToString()))
+                        {
+                            Guid projectRecord = Guid.Empty;
+                            projectRecord = GetProjectRecord(entity.Attributes["ig1_name"].ToString());
+                            if (projectRecord != Guid.Empty)
+                            {
+                                actualHours.Attributes["ig1_projectrecord"] = new EntityReference("ig1_projectrecord", projectRecord);
+                            }
+                        }
+                        service.Update(actualHours);
+                    }
                 }
             }
             catch (Exception ex)
-            { 
+            {
+                Entity errorLog = new Entity("ig1_pluginserrorlogs");
+                errorLog["ig1_name"] = "An error occurred in UpdateActualCostAndHours Plug-in";
+                errorLog["ig1_errormessage"] = ex.Message;
+                errorLog["ig1_errordescription"] = ex.ToString();
+                service.Create(errorLog);
             }
         }
         protected Guid GetProjectRecord(string projectNumber)

@@ -1,0 +1,10 @@
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.csproj.CopyComplete
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.pdb
