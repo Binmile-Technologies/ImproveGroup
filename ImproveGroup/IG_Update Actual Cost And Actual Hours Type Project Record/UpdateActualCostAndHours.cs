@@ -82,6 +82,15 @@ namespace IG_Update_Actual_Cost_And_Actual_Hours_Type_Project_Record
                         service.Update(actualHours);
                     }
                 }
+                else if (entity.LogicalName == "ig1_projectrecord")
+                {
+                    if (entity.Attributes.Contains("ig1_projectnumber") && !string.IsNullOrEmpty(entity.Attributes["ig1_projectnumber"].ToString()))
+                    {
+                        string projectNumber = entity.Attributes["ig1_projectnumber"].ToString();
+                        UpdateActualCost(entity.Id, projectNumber);
+                        UpdateActualHours(entity.Id, projectNumber);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -145,6 +154,70 @@ namespace IG_Update_Actual_Cost_And_Actual_Hours_Type_Project_Record
             {
                 return Guid.Empty;
             }
+        }
+        protected void UpdateActualCost(Guid projectRecordId, string projectNumber)
+        {
+            var fetchData = new
+            {
+                statecode = "0",
+                ig1_name = projectNumber
+            };
+            var fetchXml = $@"
+                            <fetch mapping='logical' version='1.0'>
+                              <entity name='ig1_projectrecordcost'>
+                                <attribute name='ig1_name' />
+                                <filter type='and'>
+                                  <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*0*/}'/>
+                                  <condition attribute='ig1_name' operator='eq' value='{fetchData.ig1_name/*47394*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection ec = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (ec.Entities.Count > 0)
+            {
+                foreach (var rec in ec.Entities)
+                {
+                    if (projectRecordId != Guid.Empty)
+                    {
+                        Entity entity = service.Retrieve(rec.LogicalName, rec.Id, new ColumnSet("ig1_name"));
+                        entity.Attributes["ig1_projectrecord"] = new EntityReference("ig1_projectrecord", projectRecordId);
+                        service.Update(entity);
+                    }
+                }
+            }
+        }
+        protected void UpdateActualHours(Guid projectRecordId, string projectNumber)
+        {
+            var fetchData = new
+            {
+                ig1_name = projectNumber,
+                statecode = "0"
+            };
+            var fetchXml = $@"
+                            <fetch mapping='logical' version='1.0'>
+                              <entity name='ig1_projectrecordhours'>
+                                <attribute name='ig1_name' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_name' operator='eq' value='{fetchData.ig1_name/*47394*/}'/>
+                                  <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*0*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection ec = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (ec.Entities.Count > 0)
+            {
+                foreach (var rec in ec.Entities)
+                {
+                    
+                    if (projectRecordId != Guid.Empty)
+                    {
+                        Entity entity = service.Retrieve(rec.LogicalName, rec.Id, new ColumnSet("ig1_name"));
+                        entity.Attributes["ig1_projectrecord"] = new EntityReference("ig1_projectrecord", projectRecordId);
+                        service.Update(entity);
+                    }
+                }
+            }
+
         }
     }
 }

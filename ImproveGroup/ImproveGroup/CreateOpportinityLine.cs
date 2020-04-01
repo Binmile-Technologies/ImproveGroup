@@ -26,7 +26,7 @@ namespace ImproveGroup
             try
             {
                 string bidSheetId = context.InputParameters["bidSheetId"].ToString();
-                var opportunityId = context.InputParameters["opportunityId"].ToString();
+                var opportunityId = context.InputParameters["opportunityId"].ToString().ToLower();
                 var opportunityName = context.InputParameters["opportunityName"].ToString();
                 if (opportunityId.Equals("") || opportunityId.Equals(null) || bidSheetId.Equals("") || bidSheetId.Equals(null) || opportunityName.Equals(null) || opportunityName.Equals(""))
                 {

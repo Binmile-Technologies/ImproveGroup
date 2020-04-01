@@ -31,6 +31,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Calculate_Est.Pay_Date.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Crm.Sdk.Proxy">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.5\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
@@ -51,6 +57,9 @@
   <ItemGroup>
     <Compile Include="CalculateEstPayDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Calculate_Est.Pay_Date.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

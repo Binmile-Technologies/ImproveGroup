@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_FilterQuickBooksBills", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_Update Actual Cost And Actual Hours Type Project Record", "IG_Update Actual Cost And Actual Hours Type Project Record\IG_Update Actual Cost And Actual Hours Type Project Record.csproj", "{A30F998D-DA68-4D5F-BBB6-E9A22E1A7B2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculateTax", "CalculateTax\CalculateTax.csproj", "{4040669A-29AC-4455-9CC9-02E818CE6F26}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_CalculateTax", "IG_CalculateTax\IG_CalculateTax.csproj", "{102B5501-5501-403F-9044-F09DDE5644DF}"
 EndProject
 Global
@@ -72,12 +70,6 @@ Global
 		{A30F998D-DA68-4D5F-BBB6-E9A22E1A7B2C}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{A30F998D-DA68-4D5F-BBB6-E9A22E1A7B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A30F998D-DA68-4D5F-BBB6-E9A22E1A7B2C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4040669A-29AC-4455-9CC9-02E818CE6F26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4040669A-29AC-4455-9CC9-02E818CE6F26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4040669A-29AC-4455-9CC9-02E818CE6F26}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
-		{4040669A-29AC-4455-9CC9-02E818CE6F26}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
-		{4040669A-29AC-4455-9CC9-02E818CE6F26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4040669A-29AC-4455-9CC9-02E818CE6F26}.Release|Any CPU.Build.0 = Release|Any CPU
 		{102B5501-5501-403F-9044-F09DDE5644DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{102B5501-5501-403F-9044-F09DDE5644DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{102B5501-5501-403F-9044-F09DDE5644DF}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
