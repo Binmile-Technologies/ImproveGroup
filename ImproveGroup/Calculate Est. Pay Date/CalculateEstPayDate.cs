@@ -152,7 +152,8 @@ namespace Calculate_Est.Pay_Date
                             <fetch mapping='logical' version='1.0'>
                               <entity name='opportunity'>
                                 <attribute name='ig1_requestedprojectcompletiondate' />
-                                <attribute name='new_estprojectcompletion' />
+                                <attribute name='new_estprojectcompletion'/>
+                                <attribute name='createdon'/>
                                 <filter type='and'>
                                   <condition attribute='statecode' operator='neq' value='{fetchData.statecode/*2*/}'/>
                                   <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*91740044-B63D-EA11-A812-000D3A55DD4E*/}'/>
@@ -170,6 +171,10 @@ namespace Calculate_Est.Pay_Date
                 else if (result.Contains("new_estprojectcompletion") && result["new_estprojectcompletion"] != null)
                 {
                     dateTime = (DateTime)result["new_estprojectcompletion"];
+                }
+                else if (result.Contains("createdon") && result["createdon"]!=null)
+                {
+                    dateTime =Convert.ToDateTime(result["createdon"]).AddYears(2).AddDays(-30);
                 }
             }
             return dateTime;

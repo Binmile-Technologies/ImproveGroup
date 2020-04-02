@@ -1,0 +1,10 @@
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\bin\Release\Calculate_Est.Pay_Date.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\bin\Release\Calculate_Est.Pay_Date.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\obj\Release\IG_Calculate Est. Pay Date.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\obj\Release\IG_Calculate Est. Pay Date.csproj.CopyComplete
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\obj\Release\Calculate_Est.Pay_Date.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\Calculate Est. Pay Date\obj\Release\Calculate_Est.Pay_Date.pdb
