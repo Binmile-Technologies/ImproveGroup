@@ -111,8 +111,11 @@ namespace Calculate_Est.Pay_Date
                 EntityCollection ec = service.RetrieveMultiple(new FetchExpression(fetchXml));
                 if (ec.Entities.Count > 0)
                 {
-                    UpdateEstPayDateLog(ec.Entities[0]);
                     Entity entity = ec.Entities[0];
+                    if (entity.Attributes.Contains("ig1_estpaydate") && Convert.ToDateTime(entity.Attributes["ig1_estpaydate"]) != Convert.ToDateTime(estPayDate))
+                    {
+                        UpdateEstPayDateLog(entity);
+                    }
                     entity.Attributes["ig1_estpaydate"] = Convert.ToDateTime(estPayDate);
                     if (!entity.Attributes.Contains("ig1_actualestpaydate") || entity.Attributes["ig1_actualestpaydate"] == null)
                     {

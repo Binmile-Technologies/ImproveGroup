@@ -75,7 +75,7 @@ namespace IG_FilterQuickBooksBills
             foreach (var record in entityCollection.Entities)
             {
                 Entity qbBill = service.Retrieve(record.LogicalName, record.Id, new ColumnSet("ig1_quickbooksbillid"));
-                if (qbBill.Attributes.Count <= 0 && qbBill.Id==Guid.Empty)
+                if (qbBill.Attributes.Count <= 0 || qbBill.Id==Guid.Empty)
                 {
                     continue;
                 }
