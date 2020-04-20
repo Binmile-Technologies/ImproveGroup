@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace IG_CalculateTax.Controllers
+namespace IG_ImproveGroup_Web_API.Controllers
 {
     public class CalculateTaxController : ApiController
     {

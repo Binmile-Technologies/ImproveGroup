@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace IG_CalculateTax
+namespace IG_ImproveGroup_Web_API
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

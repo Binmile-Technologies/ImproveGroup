@@ -1,0 +1,13 @@
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\IG_FetchAvalaraConfiguration.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\IG_FetchAvalaraConfiguration.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\System.Net.Http.Extensions.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\System.Net.Http.Formatting.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\Newtonsoft.Json.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\obj\Debug\IG_FetchAvalaraConfiguration.csprojAssemblyReference.cache
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\obj\Debug\IG_FetchAvalaraConfiguration.csproj.CopyComplete
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\obj\Debug\IG_FetchAvalaraConfiguration.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FetchAvalaraConfiguration\obj\Debug\IG_FetchAvalaraConfiguration.pdb

@@ -57,7 +57,6 @@ namespace IG_FilterQuickBooksBills
         {
             QueryExpression query = new QueryExpression()
             {
-
                 EntityName = entity,
                 ColumnSet = new ColumnSet
                     (
@@ -74,26 +73,51 @@ namespace IG_FilterQuickBooksBills
             EntityCollection entityCollection = service.RetrieveMultiple(query);
             foreach (var record in entityCollection.Entities)
             {
-                Entity qbBill = service.Retrieve(record.LogicalName, record.Id, new ColumnSet("ig1_quickbooksbillid"));
-                if (qbBill.Attributes.Count <= 0 || qbBill.Id==Guid.Empty)
+                bool isRecordExist = IsRecordExist(record.Id, record.LogicalName);
+                if (isRecordExist)
                 {
-                    continue;
-                }
-                if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
-                {
-                    if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
+
+                    if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
                     {
-                        CategorizeRecords(record);
+                        if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
+                        {
+                            CategorizeRecords(record);
+                        }
+                        else
+                        {
+                            SaveRecord(record, string.Empty, string.Empty, "ig1_overhead");
+                        }
                     }
                     else
                     {
-                        SaveRecord(record, string.Empty, string.Empty, "ig1_overhead");
+                        SaveRecord(record, string.Empty, string.Empty, "ig1_quickbooksbillsnotcategorized");
                     }
                 }
-                else
-                {
-                    SaveRecord(record, string.Empty, string.Empty, "ig1_quickbooksbillsnotcategorized");
-                }
+            }
+        }
+        protected bool IsRecordExist(Guid recId, string entity)
+        {
+            var fetchData = new
+            {
+                id = recId
+            };
+            var fetchXml = $@"
+                            <fetch mapping='logical' version='1.0'>
+                              <entity name='{entity}'>
+                                <attribute name='ig1_name' />
+                                <filter type='and'>
+                                  <condition attribute='{entity}+id' operator='eq' value='{fetchData.id/*a118d3e4-d21e-4eb2-91d0-5eec311ea7b4*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         //Method Created to categorized(PO Bill, IG Install to PO Bill, Overhead and Travel etc..)
@@ -148,7 +172,7 @@ namespace IG_FilterQuickBooksBills
                             expenseType = "Overhead";
                         }
                     }
-                    if (expenseType==string.Empty)
+                    if (expenseType == string.Empty)
                     {
                         if (type[0].Trim() == "CED Costs of Goods Sold")
                         {
@@ -327,7 +351,7 @@ namespace IG_FilterQuickBooksBills
                     DeleteRecord("ig1_overhead", qb_unique_id);
                 }
             }
-                service.Delete(record.LogicalName, record.Id);
+            service.Delete(record.LogicalName, record.Id);
         }
 
         //Delete Record from ig1_quickbooksbill entity which has been saved in respective entity...
@@ -451,6 +475,6 @@ namespace IG_FilterQuickBooksBills
                 projectRecordId = ec.Entities[0].Id;
             }
             return projectRecordId;
-        } 
+        }
     }
 }

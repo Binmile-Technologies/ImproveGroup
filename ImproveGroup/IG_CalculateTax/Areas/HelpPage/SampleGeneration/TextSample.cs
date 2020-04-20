@@ -1,6 +1,6 @@
 using System;
 
-namespace IG_CalculateTax.Areas.HelpPage
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage
 {
     /// <summary>
     /// This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.

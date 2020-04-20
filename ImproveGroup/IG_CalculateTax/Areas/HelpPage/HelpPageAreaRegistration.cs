@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace IG_CalculateTax.Areas.HelpPage
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

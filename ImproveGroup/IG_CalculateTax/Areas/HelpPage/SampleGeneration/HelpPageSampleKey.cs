@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
 
-namespace IG_CalculateTax.Areas.HelpPage
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage
 {
     /// <summary>
     /// This is used to identify the place where the sample should be applied.

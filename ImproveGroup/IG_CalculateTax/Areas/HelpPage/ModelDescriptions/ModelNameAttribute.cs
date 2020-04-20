@@ -1,6 +1,6 @@
 using System;
 
-namespace IG_CalculateTax.Areas.HelpPage.ModelDescriptions
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Use this attribute to change the name of the <see cref="ModelDescription"/> generated for a type.

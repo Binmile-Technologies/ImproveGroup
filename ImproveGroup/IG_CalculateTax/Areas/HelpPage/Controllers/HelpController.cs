@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using IG_CalculateTax.Areas.HelpPage.ModelDescriptions;
-using IG_CalculateTax.Areas.HelpPage.Models;
+using IG_ImproveGroup_Web_API.Areas.HelpPage.ModelDescriptions;
+using IG_ImproveGroup_Web_API.Areas.HelpPage.Models;
 
-namespace IG_CalculateTax.Areas.HelpPage.Controllers
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using IG_CalculateTax.Areas.HelpPage.ModelDescriptions;
+using IG_ImproveGroup_Web_API.Areas.HelpPage.ModelDescriptions;
 
-namespace IG_CalculateTax.Areas.HelpPage.Models
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

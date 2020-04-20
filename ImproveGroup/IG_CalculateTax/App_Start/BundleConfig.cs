@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace IG_CalculateTax
+namespace IG_ImproveGroup_Web_API
 {
     public class BundleConfig
     {

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace IG_CalculateTax.Areas.HelpPage.ModelDescriptions
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage.ModelDescriptions
 {
     internal static class ModelNameHelper
     {

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace IG_CalculateTax
+namespace IG_ImproveGroup_Web_API
 {
     public class RouteConfig
     {

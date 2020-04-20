@@ -16,7 +16,7 @@ using System.Web.Http;
 using System.Web.Http.OData;
 #endif
 
-namespace IG_CalculateTax.Areas.HelpPage
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage
 {
     /// <summary>
     /// Use this class to customize the Help Page.

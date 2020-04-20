@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace IG_CalculateTax.Areas.HelpPage.ModelDescriptions
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

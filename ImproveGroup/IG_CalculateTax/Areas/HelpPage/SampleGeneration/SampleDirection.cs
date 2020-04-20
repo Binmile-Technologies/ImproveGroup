@@ -1,4 +1,4 @@
-namespace IG_CalculateTax.Areas.HelpPage
+namespace IG_ImproveGroup_Web_API.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

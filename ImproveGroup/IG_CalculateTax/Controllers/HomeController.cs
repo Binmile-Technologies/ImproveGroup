@@ -4,7 +4,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Mvc;
 
-namespace IG_CalculateTax.Controllers
+namespace IG_ImproveGroup_Web_API.Controllers
 {
     public class HomeController : Controller
     {
