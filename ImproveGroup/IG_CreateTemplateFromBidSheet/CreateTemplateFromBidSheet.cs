@@ -20,6 +20,7 @@ namespace IG_CreateTemplateFromBidSheet
                     {
                         return;
                     }
+
                     string bidSheetId = context.InputParameters["bidSheetId"].ToString();
                     Entity bidSheet = service.Retrieve("ig1_bidsheet", new Guid(bidSheetId), new ColumnSet(true));
                     Guid templateId = CreateTemplate(bidSheet);
