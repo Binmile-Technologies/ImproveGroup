@@ -8,3 +8,12 @@ E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CreateTemplateFromBidSheet\o
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CreateTemplateFromBidSheet\obj\Debug\IG_CreateTemplateFromBidSheet.csproj.CopyComplete
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CreateTemplateFromBidSheet\obj\Debug\IG_CreateTemplateFromBidSheet.dll
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_CreateTemplateFromBidSheet\obj\Debug\IG_CreateTemplateFromBidSheet.pdb
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\bin\Debug\IG_CreateTemplateFromBidSheet.dll
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\bin\Debug\IG_CreateTemplateFromBidSheet.pdb
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\obj\Debug\IG_CreateTemplateFromBidSheet.csproj.CopyComplete
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\obj\Debug\IG_CreateTemplateFromBidSheet.dll
+E:\Github\ImproveGroup\IG_CreateTemplateFromBidSheet\obj\Debug\IG_CreateTemplateFromBidSheet.pdb

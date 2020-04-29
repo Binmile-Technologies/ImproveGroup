@@ -91,6 +91,7 @@ namespace IG_CreateTemplateFromBidSheet
                 }
             }
             template["ig1_name"] = Convert.ToString(projectNumber + "-" + bidSheetTitle + "-" + revisionId);
+            template["ig1_createdbidsheets"] = Convert.ToInt32(0);
             Guid templateId = service.Create(template);
 
             return templateId;
@@ -112,12 +113,15 @@ namespace IG_CreateTemplateFromBidSheet
                     {
                         continue;
                     }
+                    else if (attribute.Key== "ig1_bidsheet")
+                    {
+                        templateCategory["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", templateId);
+                    }
                     else
                     {
                         templateCategory[attribute.Key] = attribute.Value;
                     }
                 }
-                templateCategory["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", templateId);
                 service.Create(templateCategory);
             }
         }
@@ -138,12 +142,24 @@ namespace IG_CreateTemplateFromBidSheet
                     {
                         continue;
                     }
+                    else if (attribute.Key == "ig1_unitprice")
+                    {
+                        templateProducts[attribute.Key] = Convert.ToDecimal(0);
+                    }
+                    else if (attribute.Key == "ig1_quantity")
+                    {
+                        templateProducts[attribute.Key] = Convert.ToInt32(1);
+                    }
+                    else if (attribute.Key == "ig1_bidsheet")
+                    {
+                        templateProducts["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", templateId);
+                    }
                     else
                     {
                         Type type = attribute.Value.GetType();
                         if (type.Name == "Money")
                         {
-                            templateProducts[attribute.Key] = attribute.Value;
+                            templateProducts[attribute.Key] = new Money(0);
                         }
                         else
                         {
@@ -151,7 +167,6 @@ namespace IG_CreateTemplateFromBidSheet
                         }
                     }
                 }
-                templateProducts["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", templateId);
                 service.Create(templateProducts);
             }
         }
@@ -181,6 +196,18 @@ namespace IG_CreateTemplateFromBidSheet
                             templateLineItems[attribute.Key] = new EntityReference("ig1_associatedcost", templateAssociatedCostId);
                         }
                     }
+                    else if (attribute.Key == "ig1_unitprice")
+                    {
+                        templateLineItems[attribute.Key] = Convert.ToDecimal(0);
+                    }
+                    else if (attribute.Key == "ig1_quantity")
+                    {
+                        templateLineItems[attribute.Key] = Convert.ToInt32(1);
+                    }
+                    else if (attribute.Key== "ig1_bidsheet")
+                    {
+                        templateLineItems["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", templateId);
+                    }
                     else
                     {
                         Type type = attribute.Value.GetType();
@@ -194,9 +221,6 @@ namespace IG_CreateTemplateFromBidSheet
                         }
                     }
                 }
-
-                templateLineItems["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", templateId);
-
                 service.Create(templateLineItems);
             }
 
