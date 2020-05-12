@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
@@ -51,7 +52,7 @@ namespace IG_CreateTemplateFromBidSheet
 
             foreach (var attribute in bidSheet.Attributes)
             {
-                if (attribute.Key == "ig1_bidsheetid")
+                if (attribute.Key == "ig1_bidsheetid" || attribute.Key== "ig1_opportunitytitle")
                 {
                     continue;
                 }
@@ -87,7 +88,19 @@ namespace IG_CreateTemplateFromBidSheet
                 }
                 else
                 {
-                    template[attribute.Key] = attribute.Value;
+                    Type fieldType = attribute.Value.GetType();
+                    if (fieldType.Name == "Money")
+                    {
+                        template[attribute.Key] = new Money(0);
+                    }
+                    else if (fieldType.Name == "Decimal")
+                    {
+                        template[attribute.Key] = new Decimal(0);
+                    }
+                    else
+                    {
+                        template[attribute.Key] = attribute.Value;
+                    }
                 }
             }
             template["ig1_name"] = Convert.ToString(projectNumber + "-" + bidSheetTitle + "-" + revisionId);
@@ -215,6 +228,10 @@ namespace IG_CreateTemplateFromBidSheet
                         {
                             templateLineItems[attribute.Key] = new Money(0);
                         }
+                        else if (type.Name=="Decimal")
+                        {
+                            templateLineItems[attribute.Key] = new Decimal(0);
+                        }
                         else
                         {
                             templateLineItems[attribute.Key] = attribute.Value;
@@ -241,7 +258,19 @@ namespace IG_CreateTemplateFromBidSheet
                 }
                 else
                 {
-                    templateAssociatedCost[associatedCost.Key] = associatedCost.Value;
+                    Type type = associatedCost.Value.GetType();
+                    if (type.Name == "Money")
+                    {
+                        templateAssociatedCost[associatedCost.Key] = new Money(0);
+                    }
+                    else if (type.Name == "Decimal")
+                    {
+                        templateAssociatedCost[associatedCost.Key] = new Decimal(0);
+                    }
+                    else
+                    {
+                        templateAssociatedCost[associatedCost.Key] = associatedCost.Value;
+                    }
                 }
             }
             Guid templateAssociatedCostId = service.Create(templateAssociatedCost);

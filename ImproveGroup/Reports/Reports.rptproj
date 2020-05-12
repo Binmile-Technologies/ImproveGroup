@@ -51,6 +51,7 @@
   <ItemGroup>
     <Report Include="BidSheetSummary.rdl" />
     <Report Include="DirectVsLabor.rdl" />
+    <Report Include="ProjectBudgetReport.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
 </Project>

@@ -4,6 +4,7 @@ E:\Github\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Microsoft.Crm.Sdk
 E:\Github\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Microsoft.Xrm.Sdk.dll
 E:\Github\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 E:\Github\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.csprojAssemblyReference.cache
 E:\Github\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.csproj.CopyComplete
 E:\Github\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.dll
 E:\Github\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.pdb

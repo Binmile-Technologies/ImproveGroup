@@ -7,6 +7,7 @@
       <ConnectionProperties>
         <DataProvider>MSCRMFETCH</DataProvider>
         <ConnectString>https://improvegroup.crm.dynamics.com;ig1</ConnectString>
+        <Prompt>Specify a user name and password for data source FetchDataSource:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>c8dd3a3b-ba2a-415a-bcc6-65f1ff4fb44f</rd:DataSourceID>

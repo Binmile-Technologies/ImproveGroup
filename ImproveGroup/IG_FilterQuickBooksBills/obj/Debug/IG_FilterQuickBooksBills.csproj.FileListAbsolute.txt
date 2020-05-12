@@ -9,3 +9,15 @@ E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\De
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CopyComplete
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.dll
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.pdb
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Tooling.Connector.dll
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.Deployment.dll
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CopyComplete
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
+E:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb

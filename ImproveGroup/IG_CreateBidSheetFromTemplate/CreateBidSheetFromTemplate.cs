@@ -16,15 +16,16 @@ namespace IG_CreateBidSheetFromTemplate
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 service = serviceFactory.CreateOrganizationService(null);
-                if (context.InputParameters.Equals(null) || string.IsNullOrEmpty(context.InputParameters["templateId"].ToString()) || string.IsNullOrEmpty(context.InputParameters["opportunityId"].ToString()))
+                if (context.InputParameters.Equals(null) || string.IsNullOrEmpty(context.InputParameters["templateId"].ToString()) || string.IsNullOrEmpty(context.InputParameters["opportunityId"].ToString()) || string.IsNullOrEmpty(context.InputParameters["topic"].ToString()))
                 {
                     return;
                 }
                 
                 string templateId = context.InputParameters["templateId"].ToString();
+                string topic = context.InputParameters["topic"].ToString();
                 string opportunityId = context.InputParameters["opportunityId"].ToString();
                 Entity template = service.Retrieve("ig1_bidsheet", new Guid(templateId), new ColumnSet(true));
-                Guid bidSheetId = CreateBidSheet(template, opportunityId);
+                Guid bidSheetId = CreateBidSheet(template, opportunityId, topic);
                 if (bidSheetId != Guid.Empty)
                 {
                     CreateBidSheetCategories(template.Id, bidSheetId);
@@ -43,7 +44,7 @@ namespace IG_CreateBidSheetFromTemplate
                 service.Create(errorLog);
             }
         }
-        protected Guid CreateBidSheet(Entity template, string opportunityId)
+        protected Guid CreateBidSheet(Entity template, string opportunityId, string topic)
         {
             string projectNumber = string.Empty;
             string revisionId = string.Empty;
@@ -65,14 +66,18 @@ namespace IG_CreateBidSheetFromTemplate
                 {
                     bidSheet[attribute.Key] = false;
                 }
-                else if (attribute.Key== "ig1_opportunitytitle")
+                else if (attribute.Key == "ig1_name")
                 {
-                    bidSheet[attribute.Key] = new EntityReference("opportunity", new Guid(opportunityId));
+                    bidSheet[attribute.Key] = topic;
                 }
                 else
                 {
                     bidSheet[attribute.Key] = attribute.Value;
                 }
+            }
+            if (!string.IsNullOrEmpty(opportunityId))
+            {
+                bidSheet["ig1_opportunitytitle"] = new EntityReference("opportunity", new Guid(opportunityId));
             }
             Guid bidSheetId = service.Create(bidSheet);
 

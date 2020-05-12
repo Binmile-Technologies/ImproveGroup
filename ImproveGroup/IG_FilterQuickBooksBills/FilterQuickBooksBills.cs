@@ -39,7 +39,7 @@ namespace IG_FilterQuickBooksBills
                 }
 
                 var entity = (Entity)context.InputParameters["Target"];
-                if (entity.LogicalName == "ig1_quickbooksbill")
+                if (entity.LogicalName == "ig1_qbtrigger")
                 {
                     QuickBooksBiils("ig1_quickbooksbill");
                 }
@@ -106,7 +106,7 @@ namespace IG_FilterQuickBooksBills
                               <entity name='{entity}'>
                                 <attribute name='ig1_name' />
                                 <filter type='and'>
-                                  <condition attribute='{entity}+id' operator='eq' value='{fetchData.id/*a118d3e4-d21e-4eb2-91d0-5eec311ea7b4*/}'/>
+                                  <condition attribute='{entity}id' operator='eq' value='{fetchData.id/*a118d3e4-d21e-4eb2-91d0-5eec311ea7b4*/}'/>
                                 </filter>
                               </entity>
                             </fetch>";
