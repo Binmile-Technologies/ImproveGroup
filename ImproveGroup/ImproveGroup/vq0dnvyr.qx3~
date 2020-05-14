@@ -1,0 +1,75 @@
+﻿using System;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+namespace ImproveGroup
+{
+    public class BidSheetGrossProfitToOpportunity : IPlugin
+    {
+        IPluginExecutionContext context;
+        IOrganizationServiceFactory serviceFactory;
+        IOrganizationService service;
+        public void Execute(IServiceProvider serviceProvider)
+        {
+            try
+            {
+                if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+                {
+                    Entity entity = (Entity)context.InputParameters["Target"];
+                    if (entity.LogicalName != "ig1_bidsheet")
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        Entity bs = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_opportunitytitle"));
+                        if (bs.Attributes.Contains("ig1_opportunitytitle") && bs.Attributes["ig1_opportunitytitle"] != null)
+                        {
+                            oppo
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        protected Money AnticipatedGP(Guid oppId)
+        {
+            var fetchData = new
+            {
+                ig1_opportunitytitle = oppId,
+                ig1_associated = "1"
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='ig1_bidsheet'>
+                                <attribute name='ig1_anticipatedgp' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*76e041d1-fad2-e911-a967-000d3a1d57cf*/}'/>
+                                  <condition attribute='ig1_associated' operator='eq' value='{fetchData.ig1_associated/*1*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                decimal totalGP = Convert.ToDecimal(0);
+                foreach (var entity in entityCollection.Entities)
+                {
+                    var result = entity.Attributes;
+                    if (result.Contains("ig1_anticipatedgp") && result["ig1_anticipatedgp"] != null)
+                    {
+                        Money gp = (Money)result["ig1_anticipatedgp"];
+                        totalGP += gp.Value;
+                    }
+                }
+                return new Money(totalGP);
+            }
+            else
+            {
+                return new Money(0);
+            }
+        }
+        
+    }
+}

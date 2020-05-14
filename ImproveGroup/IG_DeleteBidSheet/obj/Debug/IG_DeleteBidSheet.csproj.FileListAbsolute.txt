@@ -1,9 +1,0 @@
-E:\Github\ImproveGroup\IG_DeleteBidSheet\bin\Debug\IG_DeleteBidSheet.dll
-E:\Github\ImproveGroup\IG_DeleteBidSheet\bin\Debug\IG_DeleteBidSheet.pdb
-E:\Github\ImproveGroup\IG_DeleteBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
-E:\Github\ImproveGroup\IG_DeleteBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
-E:\Github\ImproveGroup\IG_DeleteBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
-E:\Github\ImproveGroup\IG_DeleteBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
-E:\Github\ImproveGroup\IG_DeleteBidSheet\obj\Debug\IG_DeleteBidSheet.csproj.CopyComplete
-E:\Github\ImproveGroup\IG_DeleteBidSheet\obj\Debug\IG_DeleteBidSheet.dll
-E:\Github\ImproveGroup\IG_DeleteBidSheet\obj\Debug\IG_DeleteBidSheet.pdb

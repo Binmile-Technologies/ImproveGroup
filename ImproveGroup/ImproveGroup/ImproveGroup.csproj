@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddProductGroupsToBillOfMaterials.cs" />
+    <Compile Include="GetBidSheetDetailsToOpportunity.cs" />
     <Compile Include="CreateOpportinityLine.cs" />
     <Compile Include="FilterContingencyGrid.cs" />
     <Compile Include="GroupBidSheetProuducts.cs" />
