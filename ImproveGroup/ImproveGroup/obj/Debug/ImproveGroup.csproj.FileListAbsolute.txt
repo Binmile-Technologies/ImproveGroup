@@ -66,6 +66,7 @@ E:\Github\ImproveGroup\ImproveGroup\bin\Debug\System.Net.Http.Primitives.dll
 E:\Github\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 E:\Github\ImproveGroup\ImproveGroup\bin\Debug\Microsoft.Xrm.Sdk.xml
 E:\Github\ImproveGroup\ImproveGroup\bin\Debug\Newtonsoft.Json.xml
+E:\Github\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csprojAssemblyReference.cache
 E:\Github\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CoreCompileInputs.cache
 E:\Github\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\obj\Debug\ImproveGroup.dll

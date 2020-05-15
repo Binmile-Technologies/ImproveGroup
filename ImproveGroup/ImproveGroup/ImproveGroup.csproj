@@ -93,6 +93,7 @@
     <Compile Include="GetBidSheetDetailsToOpportunity.cs" />
     <Compile Include="CreateOpportinityLine.cs" />
     <Compile Include="FilterContingencyGrid.cs" />
+    <Compile Include="GetOpportunityDetailsToQuote.cs" />
     <Compile Include="GroupBidSheetProuducts.cs" />
     <Compile Include="OpportunityPriceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
