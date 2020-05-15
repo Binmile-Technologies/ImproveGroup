@@ -22,6 +22,7 @@ namespace ImproveGroup
                     {
                         QueryExpression query = new QueryExpression("quote");
                         query.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
+                        query.Criteria.AddCondition("opportunityid", ConditionOperator.Equal, entity.Id);
                         EntityCollection entityCollection = service.RetrieveMultiple(query);
 
                         if (entityCollection.Entities.Count > 0)
