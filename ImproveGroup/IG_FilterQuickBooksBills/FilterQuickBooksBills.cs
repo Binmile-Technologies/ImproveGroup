@@ -237,6 +237,7 @@ namespace IG_FilterQuickBooksBills
             EntityCollection ec = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (ec.Entities.Count > 0)
             {
+                Guid projectRecordId = ProjectRecord(jobNumber);
                 Entity entity;
                 if (entityName == "ig1_projectrecordcost")
                 {
@@ -248,20 +249,23 @@ namespace IG_FilterQuickBooksBills
                 }
                 if (!string.IsNullOrEmpty(jobNumber))
                 {
-                    entity["ig1_name"] = jobNumber;
+                    entity.Attributes["ig1_name"] = jobNumber;
                 }
                 if (entityName == "ig1_projectrecordcost")
                 {
                     Guid expenseTypeId = ExpenseType(expenseType);
-                    Guid projectRecordId = ProjectRecord(jobNumber);
                     if (expenseTypeId != Guid.Empty)
                     {
                         entity.Attributes["ig1_expensetype"] = new EntityReference("ig1_expensecategories", expenseTypeId);
                     }
-                    if (projectRecordId != Guid.Empty)
-                    {
-                        entity.Attributes["ig1_projectrecord"] = new EntityReference("ig1_projectrecord", projectRecordId);
-                    }
+                }
+                if (projectRecordId != Guid.Empty)
+                {
+                    entity.Attributes["ig1_projectrecord"] = new EntityReference("ig1_projectrecord", projectRecordId);
+                }
+                if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
+                {
+                    entity["ig1_accountref"] = record.Attributes["ig1_name"].ToString();
                 }
                 if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
                 {
@@ -296,6 +300,7 @@ namespace IG_FilterQuickBooksBills
             }
             else
             {
+                Guid projectRecordId = ProjectRecord(jobNumber);
                 Entity entity = new Entity(entityName);
                 if (!string.IsNullOrEmpty(jobNumber))
                 {
@@ -309,16 +314,18 @@ namespace IG_FilterQuickBooksBills
                     {
                         entity.Attributes["ig1_expensetype"] = new EntityReference("ig1_expensecategories", expenseTypeId);
                     }
-
-                    Guid projectRecordId = ProjectRecord(jobNumber);
-                    if (projectRecordId != Guid.Empty)
-                    {
-                        entity.Attributes["ig1_projectrecord"] = new EntityReference("ig1_projectrecord", projectRecordId);
-                    }
+                }
+                if (projectRecordId != Guid.Empty)
+                {
+                    entity.Attributes["ig1_projectrecord"] = new EntityReference("ig1_projectrecord", projectRecordId);
                 }
                 if (record.Attributes.Contains("ig1_qb_unique_id") && !string.IsNullOrEmpty(record.Attributes["ig1_qb_unique_id"].ToString()))
                 {
                     entity["ig1_qb_unique_id"] = record.Attributes["ig1_qb_unique_id"].ToString();
+                }
+                if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
+                {
+                    entity["ig1_accountref"] = record.Attributes["ig1_name"].ToString();
                 }
                 if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
                 {
@@ -386,14 +393,30 @@ namespace IG_FilterQuickBooksBills
 
             if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
             {
-                string memo = record.Attributes["ig1_memo"].ToString();
-                if (memo.Contains("Job #"))
+                string memo = record.Attributes["ig1_memo"].ToString().ToLower();
+                if (memo.Contains("job #"))
                 {
-                    jobNumber = memo.Substring(memo.IndexOf("Job #") + 5, 5);
+                    jobNumber = memo.Substring(memo.IndexOf("job #") + 5, 5);
                 }
-                else if (memo.Contains("Job#"))
+                else if (memo.Contains("job#"))
                 {
-                    jobNumber = memo.Substring(memo.IndexOf("Job#") + 4, 5);
+                    jobNumber = memo.Substring(memo.IndexOf("job#") + 4, 5);
+                }
+                else if (memo.Contains("poject #"))
+                {
+                    jobNumber = memo.Substring(memo.IndexOf("poject #") + 8, 5);
+                }
+                else if (memo.Contains("poject#"))
+                {
+                    jobNumber = memo.Substring(memo.IndexOf("poject#") + 7, 5);
+                }
+                else if (memo.Contains("poject "))
+                {
+                    jobNumber = memo.Substring(memo.IndexOf("poject ") + 7, 5);
+                }
+                else if (memo.Contains("poject"))
+                {
+                    jobNumber = memo.Substring(memo.IndexOf("poject") + 6, 5);
                 }
                 else if (memo.Length == 5)
                 {
@@ -409,7 +432,7 @@ namespace IG_FilterQuickBooksBills
                     jobNumber = "";
                 }
             }
-            if (expenseType == "Overhead" || string.IsNullOrEmpty(jobNumber))
+            if ((expenseType == "Overhead" || string.IsNullOrEmpty(jobNumber)) && (expenseType != "Not Yet Categorized"))
             {
                 SaveRecord(record, expenseType, jobNumber, "ig1_overhead");
             }
