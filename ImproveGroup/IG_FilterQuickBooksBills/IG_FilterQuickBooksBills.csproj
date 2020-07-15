@@ -38,10 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Crm.Sdk.Proxy">
-      <HintPath>..\..\..\..\..\Projects\UpdateRecords\packages\Microsoft.CrmSdk.CoreTools.9.0.0.7\content\bin\coretools\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.5\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xrm.Sdk">
-      <HintPath>..\..\..\..\..\Projects\UpdateRecords\packages\Microsoft.CrmSdk.CoreTools.9.0.0.7\content\bin\coretools\Microsoft.Xrm.Sdk.dll</HintPath>
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.5\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xrm.Tooling.Connector">
       <HintPath>..\..\..\..\..\Projects\UpdateRecords\packages\Microsoft.CrmSdk.CoreTools.9.0.0.7\content\bin\coretools\Microsoft.Xrm.Tooling.Connector.dll</HintPath>

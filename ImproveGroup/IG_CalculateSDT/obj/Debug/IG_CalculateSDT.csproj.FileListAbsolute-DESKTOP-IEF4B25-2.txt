@@ -1,0 +1,11 @@
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.csprojAssemblyReference.cache
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.csproj.CoreCompileInputs.cache
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.dll
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.pdb
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\IG_CalculateSDT.dll
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\IG_CalculateSDT.pdb
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\Users\pc\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.csproj.CopyComplete

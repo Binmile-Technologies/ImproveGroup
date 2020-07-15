@@ -9,3 +9,14 @@ E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\De
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CopyComplete
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.pdb
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csprojAssemblyReference.cache
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CoreCompileInputs.cache
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CopyComplete
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb

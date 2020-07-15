@@ -1,0 +1,10 @@
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\bin\Debug\IG_ReviseBidSheet.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\bin\Debug\IG_ReviseBidSheet.pdb
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\obj\Debug\IG_ReviseBidSheet.csproj.CoreCompileInputs.cache
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\obj\Debug\IG_ReviseBidSheet.csproj.CopyComplete
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\obj\Debug\IG_ReviseBidSheet.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\obj\Debug\IG_ReviseBidSheet.pdb

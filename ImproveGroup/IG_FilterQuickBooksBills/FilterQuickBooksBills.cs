@@ -73,142 +73,64 @@ namespace IG_FilterQuickBooksBills
             EntityCollection entityCollection = service.RetrieveMultiple(query);
             foreach (var record in entityCollection.Entities)
             {
-                bool isRecordExist = IsRecordExist(record.Id, record.LogicalName);
-                if (isRecordExist)
+                if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
                 {
-
-                    if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
+                    if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
                     {
-                        if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
-                        {
-                            CategorizeRecords(record);
-                        }
-                        else
-                        {
-                            SaveRecord(record, string.Empty, string.Empty, "ig1_overhead");
-                        }
+                        CategorizeRecords(record);
                     }
                     else
                     {
-                        SaveRecord(record, string.Empty, string.Empty, "ig1_quickbooksbillsnotcategorized");
+                        SaveRecord(record, string.Empty, string.Empty, "ig1_overhead");
                     }
                 }
-            }
-        }
-        protected bool IsRecordExist(Guid recId, string entity)
-        {
-            var fetchData = new
-            {
-                id = recId
-            };
-            var fetchXml = $@"
-                            <fetch mapping='logical' version='1.0'>
-                              <entity name='{entity}'>
-                                <attribute name='ig1_name' />
-                                <filter type='and'>
-                                  <condition attribute='{entity}id' operator='eq' value='{fetchData.id/*a118d3e4-d21e-4eb2-91d0-5eec311ea7b4*/}'/>
-                                </filter>
-                              </entity>
-                            </fetch>";
-            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (entityCollection.Entities.Count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
+                else
+                {
+                    SaveRecord(record, string.Empty, string.Empty, "ig1_quickbooksbillsnotcategorized");
+                }
             }
         }
         //Method Created to categorized(PO Bill, IG Install to PO Bill, Overhead and Travel etc..)
         protected void CategorizeRecords(Entity record)
         {
+            string jobNumber = GetJobNumber(record);
             string expenseType = string.Empty;
-            if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
+            string entityName = string.Empty;
+            if (!string.IsNullOrEmpty(jobNumber) && jobNumber !="11234" && jobNumber != "11318" && jobNumber!= "45027")
             {
-                string[] type = record.Attributes["ig1_name"].ToString().Split(':');
-                if (type.Length > 0)
+                if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
                 {
-                    if (type.Length >= 2)
+                    string accountRef = record.Attributes["ig1_name"].ToString().ToLower();
+                    if (!string.IsNullOrEmpty(accountRef) && (accountRef.Contains("ced") || accountRef.Contains("prof-serv") || accountRef.Contains("install") || accountRef.Contains("equipment")))
                     {
-                        if (type[0].Trim() == "Europe Direct Sales Expense"
-                        && !(type[1].Trim() == "Europe Meals & Ent (80% Deduct)" || type[1].Trim() == "Europe Sales Training" || type[1].Trim() == "Europe Sales Travel" || type[1].Trim() == "Europe Start Up Costs" || type[1].Trim() == "Europe Tradeshows")
-                        || (type[0].Trim() == "Sales Dept Direct Expenses" && type[1].Trim() == "Project Management Salaries")
-                        || (type[0].Trim() == "Sales Dept Direct Expenses" && type[1].Trim() == "Sales Outside Services")
-                        || (type[0].Trim() == "Sales Dept Direct Expenses" && type[1].Trim() == "Sales Professional Fees")
-                        || (type[0].Trim() == "Sales Dept Direct Expenses" && type[1].Trim() == "Sales-Equip Rental & Storage")
-                        )
-                        {
-                            expenseType = "PO Bill";
-                        }
-                        else if ((type[0].Trim() == "Europe Direct Sales Expense" && (type[1].Trim() == "Europe Meals & Ent (80% Deduct)" || type[1].Trim() == "Europe Sales Travel"))
-                        || (type[0].Trim() == "Sales Dept Direct Expenses"
-                        && (type[1].Trim() == "Sales Travel Expenses"
-                        || type[1].Trim() == "Asia - Sales Vehicle Gas & Oil"
-                        || type[1].Trim() == "Asia-Sales Meal & Enter(50% ded"
-                        || type[1].Trim() == "Asia-Sales Meal & Enter(50% ded)"
-                        || type[1].Trim() == "Asia - Sales Meal & Enter(50% ded"
-                        || type[1].Trim() == "Asia - Sales Meal & Enter(50% ded)"
-                        || type[1].Trim() == "Sales Meal & Enter (50% ded)")
-                        || type[1].Trim() == "Sales Travel Expense")
-                        || type[1].Trim() == "Sales Vehicle Gas & Oil"
-                        )
-                        {
-                            expenseType = "Travel Cost";
-                        }
-                        else if ((type[0].Trim() == "Europe Direct Sales Expense" && (type[1].Trim() == "Europe Sales Training" || type[1].Trim() == "Europe Start Up Costs" || type[1].Trim() == "Europe Tradeshows"))
-                        || (type[0].Trim() == "Sales Dept Direct Expenses"
-                        && (type[1].Trim() == "BD Association Fees"
-                        || type[1].Trim() == "Direct Mail-Marketing"
-                        || type[1].Trim() == "Engagement"
-                        || type[1].Trim() == "IGDNA"
-                        || type[1].Trim() == "Sales Software"
-                        || type[1].Trim() == "Sales Training"
-                        || type[1].Trim() == "rade Shows"
-                        || type[1].Trim() == "Vehicle Repairs & Maintenance"
-                        || type[1].Trim() == "Websites"))
-                        )
-                        {
-                            expenseType = "Overhead";
-                        }
+                        expenseType = "IG Install PO Bill";
+                        entityName = "ig1_projectrecordcost";
                     }
-                    if (expenseType == string.Empty)
+                    else if (!string.IsNullOrEmpty(accountRef) && (accountRef.Contains("travel") || accountRef.Contains("meal") || accountRef.Contains("gas")))
                     {
-                        if (type[0].Trim() == "CED Costs of Goods Sold")
-                        {
-                            expenseType = "IG Install PO Bill";
+                        expenseType = "Travel Cost";
+                        entityName = "ig1_projectrecordcost";
 
-                        }
-                        else if (type[0].Trim() == "Europe Costs of Goods Sold"
-                        || type[0].Trim() == "Filing Systems Cost of Sales"
-                        || type[0].Trim() == "GSA Cost of Sales"
-                        || type[0].Trim() == "Product Costs of Goods Sold")
-                        {
-                            expenseType = "PO Bill";
-                        }
-                        else if (type[0].Trim() == "General and Admin Expenses"
-                        || type[0].Trim() == "GSA Revenue/Commissions"
-                        || type[0].Trim() == "Interest Expense"
-                        || type[0].Trim() == "Misc. Expense"
-                        || type[0].Trim() == "Payroll Expenses"
-                        || type[0].Trim() == "Uncategorized Expenses"
-                        || type[0].Trim() == "Vehicles"
-                        || type[0].Trim() == "Vendor Deposits")
-                        {
-                            expenseType = "Overhead";
-                        }
-                        else
-                        {
-                            expenseType = "Not Yet Categorized";
-                        }
+                    }
+                    else
+                    {
+                        expenseType = "PO Bill";
+                        entityName = "ig1_projectrecordcost";
                     }
                 }
-                else if (type.Length <= 0)
+                else
                 {
                     expenseType = "Not Yet Categorized";
+                    entityName = "ig1_quickbooksbillsnotcategorized";
                 }
             }
-            GetJobNumber(record, expenseType);
+            else
+            {
+                expenseType = "Overhead";
+                entityName = "ig1_overhead";
+            }
+
+            SaveRecord(record, expenseType, jobNumber, entityName);
         }
 
         //Save records to the restpective entity based on category..
@@ -387,7 +309,7 @@ namespace IG_FilterQuickBooksBills
         }
 
         //Fetching the project number from the from the memo...
-        protected void GetJobNumber(Entity record, string expenseType)
+        protected string GetJobNumber(Entity record)
         {
             string jobNumber = string.Empty;
 
@@ -396,54 +318,96 @@ namespace IG_FilterQuickBooksBills
                 string memo = record.Attributes["ig1_memo"].ToString().ToLower();
                 if (memo.Contains("job #"))
                 {
-                    jobNumber = memo.Substring(memo.IndexOf("job #") + 5, 5);
+                    string submemo = memo.Substring(memo.IndexOf("job #") + 5);
+                    if (submemo.Length>=5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("job #") + 5, 5);
+                    }
+                }
+                else if (memo.Contains("job# "))
+                {
+                    string submemo = memo.Substring(memo.IndexOf("job# ") + 5);
+                    if (submemo.Length>=5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("job# ") + 5, 5);
+                    }
                 }
                 else if (memo.Contains("job#"))
                 {
-                    jobNumber = memo.Substring(memo.IndexOf("job#") + 4, 5);
+                    string submemo = memo.Substring(memo.IndexOf("job#") + 4);
+                    if (submemo.Length >= 5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("job#") + 4, 5);
+                    }
                 }
-                else if (memo.Contains("poject #"))
+                else if (memo.Contains("project #"))
                 {
-                    jobNumber = memo.Substring(memo.IndexOf("poject #") + 8, 5);
+                    string submemo = memo.Substring(memo.IndexOf("project #") + 9);
+                    if (submemo.Length >= 5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("project #") + 9, 5);
+                    }
                 }
-                else if (memo.Contains("poject#"))
+                else if (memo.Contains("project# "))
                 {
-                    jobNumber = memo.Substring(memo.IndexOf("poject#") + 7, 5);
+                    string submemo = memo.Substring(memo.IndexOf("project# ") + 9);
+                    if (submemo.Length>=5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("project# ") + 9, 5);
+                    }
                 }
-                else if (memo.Contains("poject "))
+                else if (memo.Contains("project#"))
                 {
-                    jobNumber = memo.Substring(memo.IndexOf("poject ") + 7, 5);
+                    string submemo = memo.Substring(memo.IndexOf("project#") + 8);
+                    if (submemo.Length>=5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("project#") + 8, 5);
+                    }
                 }
-                else if (memo.Contains("poject"))
+                else if (memo.Contains("project "))
                 {
-                    jobNumber = memo.Substring(memo.IndexOf("poject") + 6, 5);
+                    string submemo = memo.Substring(memo.IndexOf("project ") + 8);
+                    if (submemo.Length>=5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("project ") + 8, 5);
+                    }
+                }
+                else if (memo.Contains("project"))
+                {
+                    string submemo = memo.Substring(memo.IndexOf("project") + 7);
+                    if (submemo.Length>=5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("project") + 7, 5);
+                    }
                 }
                 else if (memo.Length == 5)
                 {
-                    int jobId;
-                    if (int.TryParse(memo, out jobId))
+                    int num;
+                    if (int.TryParse(memo, out num))
                     {
-                        jobNumber = jobId.ToString();
+                        jobNumber = num.ToString();
+                    }
+                }
+                else if (memo.Length > 5 && !memo.Contains("job #") && !memo.Contains("job# ") && !memo.Contains("job#") && !memo.Contains("project #") && !memo.Contains("project# ") && !memo.Contains("project#") && !memo.Contains("project ") && !memo.Contains("project"))
+                {
+                    char ch = Convert.ToChar(memo.Substring(5, 1));
+                    if (!Char.IsDigit(ch))
+                    {
+                        int num;
+                        string projectNumber = memo.Substring(0, 5).Trim();
+                        if (int.TryParse(projectNumber, out num) && projectNumber.Length == 5)
+                        {
+                            jobNumber = num.ToString();
+                        }
                     }
                 }
                 int numeric = 0;
-                if (!int.TryParse(jobNumber, out numeric))
+                if (!int.TryParse(jobNumber, out numeric) || jobNumber.Trim().Length!=5)
                 {
                     jobNumber = "";
                 }
             }
-            if ((expenseType == "Overhead" || string.IsNullOrEmpty(jobNumber)) && (expenseType != "Not Yet Categorized"))
-            {
-                SaveRecord(record, expenseType, jobNumber, "ig1_overhead");
-            }
-            else if (expenseType == "Not Yet Categorized")
-            {
-                SaveRecord(record, expenseType, jobNumber, "ig1_quickbooksbillsnotcategorized");
-            }
-            else
-            {
-                SaveRecord(record, expenseType, jobNumber, "ig1_projectrecordcost");
-            }
+            return jobNumber;
         }
 
         //Fetching the expense type Guid from the ig1_expensecategories entity..
