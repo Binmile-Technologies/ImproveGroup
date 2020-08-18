@@ -1,0 +1,5 @@
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\bin\Debug\PopulateCustomerPOAmountAndDate.dll
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\bin\Debug\PopulateCustomerPOAmountAndDate.pdb
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\obj\Debug\PopulateCustomerPOAmountAndDate.dll
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\obj\Debug\PopulateCustomerPOAmountAndDate.pdb
