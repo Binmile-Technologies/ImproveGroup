@@ -1,0 +1,5 @@
+D:\Project\UpdateProjectManagerInAAR\UpdateProjectManagerInAAR\bin\Debug\UpdateProjectManagerInAAR.dll
+D:\Project\UpdateProjectManagerInAAR\UpdateProjectManagerInAAR\bin\Debug\UpdateProjectManagerInAAR.pdb
+D:\Project\UpdateProjectManagerInAAR\UpdateProjectManagerInAAR\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Project\UpdateProjectManagerInAAR\UpdateProjectManagerInAAR\obj\Debug\UpdateProjectManagerInAAR.dll
+D:\Project\UpdateProjectManagerInAAR\UpdateProjectManagerInAAR\obj\Debug\UpdateProjectManagerInAAR.pdb

@@ -1,0 +1,6 @@
+D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\bin\Debug\IG_UpdateFinanceTabValues.dll
+D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\bin\Debug\IG_UpdateFinanceTabValues.pdb
+D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.dll
+D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.pdb
+D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.csprojResolveAssemblyReference.cache
