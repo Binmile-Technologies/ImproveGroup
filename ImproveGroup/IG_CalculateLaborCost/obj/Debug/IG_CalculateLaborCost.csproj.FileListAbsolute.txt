@@ -1,0 +1,10 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\bin\Debug\IG_CalculateLaborCost.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\bin\Debug\IG_CalculateLaborCost.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\obj\Debug\IG_CalculateLaborCost.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\obj\Debug\IG_CalculateLaborCost.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\obj\Debug\IG_CalculateLaborCost.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateLaborCost\obj\Debug\IG_CalculateLaborCost.pdb
