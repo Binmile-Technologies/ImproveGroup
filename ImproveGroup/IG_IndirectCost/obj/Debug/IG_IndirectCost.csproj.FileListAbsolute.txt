@@ -4,6 +4,7 @@ E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\bin\Debug\Microsoft.Crm.Sdk.
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\bin\Debug\Microsoft.Xrm.Sdk.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.csprojAssemblyReference.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.csproj.CoreCompileInputs.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.dll

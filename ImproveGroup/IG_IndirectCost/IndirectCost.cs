@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Diagnostics;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
@@ -23,27 +24,47 @@ namespace IG_IndirectCost
                 {
                     return;
                 }
+
                 var entity = (Entity)context.InputParameters["Target"];
                 Guid bidsheetid = Guid.Empty;
+                Guid categoryid = Guid.Empty;
 
                 if (entity.LogicalName == "ig1_bidsheetpricelistitem")
                 {
-                    Entity bsLineItems = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet"));
+                    Entity bsLineItems = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet", "ig1_category"));
                     if (bsLineItems.Attributes.Contains("ig1_bidsheet") && bsLineItems.Attributes["ig1_bidsheet"] != null)
                     {
                         EntityReference entityReference = (EntityReference)bsLineItems.Attributes["ig1_bidsheet"];
                         bidsheetid = entityReference.Id;
-                        CreateUpdateAssociatedCost(bidsheetid);
+                    }
+                    if (bsLineItems.Attributes.Contains("ig1_category") && bsLineItems.Attributes["ig1_category"]!=null)
+                    {
+                        EntityReference entityReference = (EntityReference)bsLineItems.Attributes["ig1_category"];
+                        categoryid = entityReference.Id;
+                    }
+                    if (bidsheetid != Guid.Empty && categoryid != Guid.Empty)
+                    {
+                        CreateUpdateAssociatedCost(bidsheetid, categoryid);
+                        IndirectCostTotals(bidsheetid);
                     }
                 }
                 else if (entity.LogicalName == "ig1_associatedcost")
                 {
-                    Entity associatedCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet"));
+                    Entity associatedCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet", "ig1_bidsheetcategory"));
                     if (associatedCost.Attributes.Contains("ig1_bidsheet") && associatedCost.Attributes["ig1_bidsheet"] != null)
                     {
                         EntityReference entityReference = (EntityReference)associatedCost.Attributes["ig1_bidsheet"];
                         bidsheetid = entityReference.Id;
-                        CreateUpdateAssociatedCost(bidsheetid);
+                    }
+                    if (associatedCost.Attributes.Contains("ig1_bidsheetcategory") && associatedCost.Attributes["ig1_bidsheetcategory"] != null)
+                    {
+                        EntityReference entityReference = (EntityReference)associatedCost.Attributes["ig1_bidsheetcategory"];
+                        categoryid = entityReference.Id;
+                    }
+                    if (bidsheetid != Guid.Empty && categoryid != Guid.Empty)
+                    {
+                        UpdateAssociatedCost(entity.Id, bidsheetid, categoryid);
+                        IndirectCostTotals(bidsheetid);
                     }
                 }
             }
@@ -51,11 +72,12 @@ namespace IG_IndirectCost
             { 
             }
         }
-        protected void CreateUpdateAssociatedCost(Guid bidsheetid)
+        protected void CreateUpdateAssociatedCost(Guid bidsheetid, Guid categoryid)
         {
             var fetchData = new
             {
                 ig1_bidsheet = bidsheetid,
+                ig1_category = categoryid,
                 ig1_categoryname = "Labor",
                 ig1_categoryname2 = "Contingency"
             };
@@ -65,6 +87,7 @@ namespace IG_IndirectCost
                                 <attribute name='ig1_category' />
                                 <filter type='and'>
                                   <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*ig1_bidsheet*/}'/>
+                                  <condition attribute='ig1_category' operator='eq' value='{fetchData.ig1_category/*ig1_bidsheet*/}'/>
                                   <condition attribute='ig1_categoryname' operator='neq' value='{fetchData.ig1_categoryname/*Labor*/}'/>
                                   <condition attribute='ig1_categoryname' operator='neq' value='{fetchData.ig1_categoryname2/*Contingency*/}'/>
                                 </filter>
@@ -560,6 +583,188 @@ namespace IG_IndirectCost
             arr[3] = freightsell;
 
             return arr;
+        }
+        protected void IndirectCostTotals(Guid bidsheetid)
+        {
+            decimal directPrice = Convert.ToDecimal(0);
+            decimal indirectPrice = Convert.ToDecimal(0);
+            decimal materialCost = Convert.ToDecimal(0);
+            decimal freightCost = Convert.ToDecimal(0);
+            decimal laborHours = Convert.ToDecimal(0);
+            decimal laborPrice = Convert.ToDecimal(0);
+            decimal designHours = Convert.ToDecimal(0);
+            decimal designPrice = Convert.ToDecimal(0);
+            decimal salesHours = Convert.ToDecimal(0);
+            decimal salesPrice = Convert.ToDecimal(0);
+            decimal lodgingTotal = Convert.ToDecimal(0);
+            decimal transTotal = Convert.ToDecimal(0);
+            decimal perDiamTotal = Convert.ToDecimal(0);
+            decimal totalTravel = Convert.ToDecimal(0);
+            decimal totalSellPrice = Convert.ToDecimal(0);
+
+            var fetchData = new
+            {
+                ig1_bidsheet = bidsheetid
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='ig1_associatedcost'>
+                                <attribute name='ig1_luextend' />
+                                <attribute name='ig1_saleshours' />
+                                <attribute name='ig1_materialcost' />
+                                <attribute name='ig1_freight' />
+                                <attribute name='ig1_totalindirectcost' />
+                                <attribute name='ig1_totaldirectsell' />
+                                <attribute name='ig1_designhours' />
+                                <attribute name='ig1_totaldirectcost' />
+                                <attribute name='ig1_perdiemtotal' />
+                                <attribute name='ig1_travelcost' />
+                                <attribute name='ig1_pmlaborsme' />
+                                <attribute name='ig1_transporttotal' />
+                                <attribute name='ig1_perdiemtotal' />
+                                <attribute name='ig1_designcost' />
+                                <attribute name='ig1_lodgingtotal' />
+                                <attribute name='ig1_salescost' />
+                                <attribute name='ig1_totalsellprice' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*ig1_bidsheet*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                foreach (var item in entityCollection.Entities)
+                {
+                    var result = item.Attributes;
+                    if (result.Contains("ig1_materialcost") && result["ig1_materialcost"] != null)
+                    {
+                        Money money = (Money)result["ig1_materialcost"];
+                        materialCost += Convert.ToDecimal(money.Value);
+                    }
+                    if (result.Contains("ig1_freight") && result["ig1_freight"]!=null)
+                    {
+                        Money money = (Money)result["ig1_freight"];
+                        freightCost += Convert.ToDecimal(money.Value);
+                    }
+                    if (result.Contains("ig1_totaldirectcost") && result["ig1_totaldirectcost"]!=null)
+                    {
+                        directPrice += Convert.ToDecimal(result["ig1_totaldirectcost"]);
+                    }
+                    if (result.Contains("ig1_totalindirectcost") && result["ig1_totalindirectcost"] != null)
+                    {
+                        indirectPrice += Convert.ToDecimal(result["ig1_totalindirectcost"]);
+                    }
+                    if (result.Contains("ig1_saleshours") && result["ig1_saleshours"]!=null)
+                    {
+                        salesHours += Convert.ToDecimal(result["ig1_saleshours"]);
+                    }
+                    if (result.Contains("ig1_designhours") && result["ig1_designhours"] != null)
+                    {
+                        designHours += Convert.ToDecimal(result["ig1_designhours"]);
+                    }
+                    if (result.Contains("ig1_luextend") && result["ig1_luextend"] != null)
+                    {
+                        laborHours += Convert.ToDecimal(result["ig1_luextend"]);
+                    }
+                    if (result.Contains("ig1_pmlaborsme") && result["ig1_pmlaborsme"]!=null)
+                    {
+                        laborPrice += Convert.ToDecimal(result["ig1_pmlaborsme"]);
+                    }
+                    if (result.Contains("ig1_salescost") && result["ig1_salescost"] != null)
+                    {
+                        Money money = (Money)result["ig1_salescost"];
+                        salesPrice += Convert.ToDecimal(money.Value);
+                    }
+                    if (result.Contains("ig1_designcost") && result["ig1_designcost"] != null)
+                    {
+                        Money money = (Money)result["ig1_designcost"];
+                        designPrice += Convert.ToDecimal(money.Value);
+                    }
+                    if (result.Contains("ig1_lodgingtotal") && result["ig1_lodgingtotal"] != null)
+                    {
+                        lodgingTotal += Convert.ToDecimal(result["ig1_lodgingtotal"]);
+                    }
+                    if (result.Contains("ig1_transporttotal") && result["ig1_transporttotal"] != null)
+                    {
+                        Money money = (Money)result["ig1_transporttotal"];
+                        transTotal += Convert.ToDecimal(money.Value);
+                    }
+                    if (result.Contains("ig1_perdiemtotal") && result["ig1_perdiemtotal"] != null)
+                    {
+                        Money money = (Money)result["ig1_perdiemtotal"];
+                        perDiamTotal += Convert.ToDecimal(money.Value);
+                    }
+                    if (result.Contains("ig1_travelcost") && result["ig1_travelcost"] != null)
+                    {
+                        Money money = (Money)result["ig1_travelcost"];
+                        totalTravel += Convert.ToDecimal(money.Value);
+                    }
+                    if (result.Contains("ig1_totalsellprice") && result["ig1_totalsellprice"] != null)
+                    {
+                        Money money = (Money)result["ig1_totalsellprice"];
+                        totalSellPrice += Convert.ToDecimal(money.Value);
+                    }
+                }
+
+                Entity bidsheet = service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_name"));
+
+                bidsheet.Attributes["ig1_directcost"] = directPrice;
+                bidsheet.Attributes["ig1_indirectcost"] = indirectPrice;
+                bidsheet.Attributes["ig1_totalhours"] = salesHours + designHours + laborHours;
+                bidsheet.Attributes["ig1_totalcost"] = new Money(directPrice + indirectPrice);
+                bidsheet.Attributes["ig1_materialcost"] = materialCost;
+                bidsheet.Attributes["ig1_freightamount"] = new Money(freightCost);
+                bidsheet.Attributes["ig1_pmhours"] = laborHours;
+                bidsheet.Attributes["ig1_pmcost"] = laborPrice;
+                bidsheet.Attributes["ig1_designhours"] = designHours;
+                bidsheet.Attributes["ig1_designcost"] = new Money(designPrice);
+                bidsheet.Attributes["ig1_saleshours"] = salesHours;
+                bidsheet.Attributes["ig1_salescost"] = new Money(salesPrice);
+                bidsheet.Attributes["ig1_lodgingtotal"] = lodgingTotal;
+                bidsheet.Attributes["ig1_transtotal"] = transTotal;
+                bidsheet.Attributes["ig1_perdiem"] = new Money(perDiamTotal);
+                bidsheet.Attributes["ig1_totaltravel"] = new Money(totalTravel);
+
+                decimal contingencyCost = GetContingency(bidsheetid);
+                bidsheet.Attributes["ig1_totalbomcost"] = materialCost + freightCost;
+                bidsheet.Attributes["ig1_sellprice"] = new Money(totalSellPrice + contingencyCost);
+                service.Update(bidsheet);
+            }
+
+        }
+        protected decimal GetContingency(Guid bidsheetid)
+        {
+            decimal materialCost = Convert.ToDecimal(0);
+            var fetchData = new
+            {
+                ig1_bidsheet = bidsheetid,
+                ig1_categoryname = "Contingency"
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='ig1_bidsheetpricelistitem'>
+                                <attribute name='ig1_materialcost' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*ig1_bidsheet*/}'/>
+                                  <condition attribute='ig1_categoryname' operator='eq' value='{fetchData.ig1_categoryname/*Contingency*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                foreach (var item in entityCollection.Entities)
+                {
+                    var result = item.Attributes;
+                    if (result.Contains("ig1_materialcost") && result["ig1_materialcost"] != null)
+                    {
+                        Money money = (Money)result["ig1_materialcost"];
+                        materialCost += Convert.ToDecimal(money.Value);
+                    }
+                }
+            }
+            return materialCost;
         }
     }
 }
