@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
+using System.Linq;
 namespace IG_ActivateBidSheet
 {
     public class ActivateBidSheet : IPlugin
@@ -16,105 +17,230 @@ namespace IG_ActivateBidSheet
             context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             service = serviceFactory.CreateOrganizationService(context.UserId);
-            //service = serviceFactory.CreateOrganizationService(new Guid("EFA54FBF-71A2-E911-A962-000D3A1D5D97"));
             #endregion
 
-            if (context.InputParameters.Equals(null))
+            if (context.InputParameters!=null && context.InputParameters.Contains("bidSheetId"))
             {
-                return;
+                Guid bidsheetid =new Guid(context.InputParameters["bidSheetId"].ToString());
+                GetBidsheetLineItems(bidsheetid);
+
             }
-            try
+
+            
+        }
+
+        protected void GetBidsheetLineItems(Guid bidsheetid)
+        {
+            var fetchData = new
             {
-                string bidSheetId = context.InputParameters["bidSheetId"].ToString();
-                var opportunityId = context.InputParameters["opportunityId"].ToString().ToLower();
-                var opportunityName = context.InputParameters["opportunityName"].ToString();
-                if (opportunityId.Equals("") || opportunityId.Equals(null) || bidSheetId.Equals("") || bidSheetId.Equals(null) || opportunityName.Equals(null) || opportunityName.Equals(""))
+                ig1_bidsheet = bidsheetid,
+                ig1_productname = "PM Labor",
+                ig1_categoryname = "Labor",
+                statecode = "0"
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='ig1_bidsheetpricelistitem'>
+                                <attribute name='ig1_materialcost' />
+                                <attribute name='ig1_product' />
+                                <attribute name='ig1_category' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*ig1_bidsheet*/}'/>
+                                  <condition attribute='ig1_productname' operator='neq' value='{fetchData.ig1_productname/*PM Labor*/}'/>
+                                  <condition attribute='ig1_categoryname' operator='neq' value='{fetchData.ig1_categoryname/*Labor*/}'/>
+                                </filter>
+                                <link-entity name='product' from='productid' to='ig1_product' link-type='inner'>
+                                  <attribute name='defaultuomid' alias='uom'/>
+                                  <filter>
+                                    <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*0*/}'/>
+                                  </filter>
+                                </link-entity>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                EntityReference opportunity = null;
+                Entity entity = service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_opportunitytitle"));
+                if (entity.Attributes.Contains("ig1_opportunitytitle") && entity.Attributes["ig1_opportunitytitle"] != null)
                 {
-                    return;
+                    opportunity = (EntityReference)entity.Attributes["ig1_opportunitytitle"];
                 }
+                decimal totalLaborCost = Convert.ToDecimal(0);
+                Guid[] category = new Guid[entityCollection.Entities.Count-1];
+                int i = 0;
+                foreach (var item in entityCollection.Entities)
+                {
+                    decimal materialCost = Convert.ToDecimal(0);
+                    decimal margin = Convert.ToDecimal(0);
+                    decimal totalMaterialCost = Convert.ToDecimal(0);
+                    Guid productid = Guid.Empty;
+                    Guid categoryid = Guid.Empty;
+                    Guid defaultUnit = Guid.Empty;
+                    decimal salesCost = Convert.ToDecimal(0);
+                    decimal designCost = Convert.ToDecimal(0);
+                    decimal travelCost = Convert.ToDecimal(0);
+                    decimal laborCost = Convert.ToDecimal(0);
+                    decimal categorysdt = Convert.ToDecimal(0);
+                    decimal categoryMaterialCost = Convert.ToDecimal(0);
+                    decimal productsdt = Convert.ToDecimal(0);
 
-                //Nazish - Fetching all products which are associated to Bill of Material
-                var fetchData = new
-                {
-                    ig1_bidsheet = bidSheetId
-                };
-                var fetchXmlBOMProducts = $@"
-                                <fetch>
-                                  <entity name='product'>
-                                    <attribute name='defaultuomid' />
-                                    <attribute name='productid' />
-                                    <attribute name='name' />
-                                    <link-entity name='ig1_bidsheetpricelistitem' from='ig1_product' to='productid'>
-                                      <attribute name='ig1_materialcost' alias='materialCost'/>
-                                      <attribute name='ig1_sdt' alias='sdt'/>
-                                      <filter type='and'>
-                                        <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet}'/>
-                                      </filter>
-                                      <link-entity name='ig1_associatedcost' from='ig1_bidsheetcategory' to='ig1_category' link-type='outer'>
-                                        <attribute name='ig1_margin' alias='margin'/>
-                                        <filter type='and'>
-                                          <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet}'/>
-                                        </filter>
-                                      </link-entity>
-                                    </link-entity>
-                                  </entity>
-                                </fetch>";
-                EntityCollection BOMProductsData = service.RetrieveMultiple(new FetchExpression(fetchXmlBOMProducts));
-                var unitId = new Guid();
-                if (BOMProductsData.Entities.Count > 0)
-                {
-                    foreach (var item in BOMProductsData.Entities)
+                    AttributeCollection associatedCost = null;
+                    var result = item.Attributes;
+                    if (result.Contains("ig1_materialcost") && result["ig1_materialcost"] != null)
                     {
-                        var productId = new Guid();
-                        var materialCost = new Money(0);
-                        var totalMaterialCost = new Money(0);
-                        var margin = new decimal(0);
-
-                        if (item.Attributes.Contains("productid") && item.Attributes["productid"] != null)
-                        {
-                            productId = (Guid)item.Attributes["productid"];
-                        }
-                        if (item.Attributes.Contains("defaultuomid") && item.Attributes["defaultuomid"] != null)
-                        {
-                            var unit = (EntityReference)item.Attributes["defaultuomid"];
-                            unitId = (Guid)unit.Id;
-                        }
-                        if (item.Attributes.Contains("materialCost") && item.Attributes["materialCost"] != null)
-                        {
-                            materialCost = (Money)((AliasedValue)item.Attributes["materialCost"]).Value;
-                        }
-                        if (item.Attributes.Contains("margin") && item.Attributes["margin"] != null)
-                        {
-                            margin = (decimal)((AliasedValue)item.Attributes["margin"]).Value;
-                        }
+                        Money money = (Money)result["ig1_materialcost"];
+                        materialCost = Convert.ToDecimal(money.Value);
+                    }
+                    if (result.Contains("ig1_product") && result["ig1_product"]!=null)
+                    {
+                        EntityReference entityReference = (EntityReference)result["ig1_product"];
+                        productid = entityReference.Id;
+                    }
+                    if (result.Contains("ig1_category") && result["ig1_category"] != null)
+                    {
+                        EntityReference entityReference = (EntityReference)result["ig1_category"];
+                        categoryid = entityReference.Id;
+                        associatedCost = IndirectCost(bidsheetid, categoryid);
+                    }
+                    if (result.Contains("uom") && result["uom"] != null)
+                    {
+                        AliasedValue aliasedValue = (AliasedValue)result["uom"];
+                        EntityReference entityReference = (EntityReference)aliasedValue.Value;
+                        defaultUnit = entityReference.Id;
+                    }
+                    if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_materialcost") && associatedCost["ig1_materialcost"] != null)
+                    {
+                        Money money = (Money)associatedCost["ig1_materialcost"];
+                        categoryMaterialCost = Convert.ToDecimal(money.Value);
+                    }
+                    if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_margin") && associatedCost["ig1_margin"] != null)
+                    {
+                        margin = Convert.ToDecimal(associatedCost["ig1_margin"]);
                         if (margin > 0 && margin < 100)
                         {
-                            totalMaterialCost = new Money(materialCost.Value / (1 - margin / 100));
+                            totalMaterialCost = materialCost / (1 - margin / 100);
                         }
                         else
                         {
-                            totalMaterialCost = new Money(materialCost.Value);
+                            totalMaterialCost = materialCost;
                         }
-                        if (item.Attributes.Contains("sdt") && item.Attributes["sdt"] != null)
-                        {
-                            totalMaterialCost = new Money((decimal)totalMaterialCost.Value + (decimal)((Money)((AliasedValue)item.Attributes["sdt"]).Value).Value);
-                        }
-                        CreatePriceListItem(opportunityId, opportunityName, productId, unitId, totalMaterialCost);
-                        CreateOpportunityLine(productId, opportunityId, unitId);
                     }
+                    if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_salescost") && associatedCost["ig1_salescost"] != null)
+                    {
+                        Money money = (Money)associatedCost["ig1_salescost"];
+                        salesCost = Convert.ToDecimal(money.Value); 
+                    }
+                    if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_designcost") && associatedCost["ig1_designcost"] != null)
+                    {
+                        Money money = (Money)associatedCost["ig1_designcost"];
+                        designCost = Convert.ToDecimal(money.Value);
+                    }
+                    if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_travelcost") && associatedCost["ig1_travelcost"] != null)
+                    {
+                        Money money = (Money)associatedCost["ig1_travelcost"];
+                        travelCost = Convert.ToDecimal(money.Value);
+                    }
+                    if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_pmlaborsme") && associatedCost["ig1_pmlaborsme"] != null && !category.Contains(categoryid))
+                    {
+                        laborCost = Convert.ToDecimal(associatedCost["ig1_pmlaborsme"]);
+                        totalLaborCost += laborCost;
+                        category[i] = categoryid;
+                        i++;
+                    }
+                    categorysdt = salesCost + designCost + travelCost;
+                    if (categoryMaterialCost > 0)
+                    {
+                        productsdt = (materialCost / categoryMaterialCost) * categorysdt;
+                    }
+                    totalMaterialCost = totalMaterialCost + productsdt;
+                    CreatePriceListItem(opportunity.Id, opportunity.Name, productid, defaultUnit, totalMaterialCost);
+                    CreateOpportunityLine(productid, opportunity.Id, defaultUnit);
+                }
+                if (totalLaborCost > 0)
+                {
+                    Guid defaultUnit = Guid.Empty;
+                    Guid productid = Guid.Empty;
+                    AttributeCollection result = GetPMLabor();
+                    if (result != null && result.Count > 0 && result.Contains("defaultuomid") && result["defaultuomid"] != null)
+                    {
+                        EntityReference entityReference = (EntityReference)result["defaultuomid"];
+                        defaultUnit = entityReference.Id;
+                    }
+                    if (result != null && result.Count > 0 && result.Contains("productid") && result["productid"] != null)
+                    {
+                        productid = (Guid)result["productid"];
+                    }
+                    CreatePriceListItem(opportunity.Id, opportunity.Name, productid, defaultUnit, totalLaborCost);
+                    CreateOpportunityLine(productid, opportunity.Id, defaultUnit);
                 }
             }
-            catch (Exception ex)
+        }
+        protected AttributeCollection IndirectCost(Guid bidsheetid, Guid categoryid)
+        {
+            var fetchData = new
             {
-                IOrganizationService serviceAdmin = serviceFactory.CreateOrganizationService(null);
-                Entity errorLog = new Entity("ig1_pluginserrorlogs");
-                errorLog["ig1_name"] = "An error occurred in CreateOpportunityLIne Plug-in";
-                errorLog["ig1_errormessage"] = ex.Message;
-                errorLog["ig1_errordescription"] = ex.ToString();
-                serviceAdmin.Create(errorLog);
+                ig1_bidsheet = bidsheetid,
+                ig1_bidsheetcategory = categoryid
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='ig1_associatedcost'>
+                                <attribute name='ig1_materialcost'/>
+                                <attribute name='ig1_margin' />
+                                <attribute name='ig1_salescost' />
+                                <attribute name='ig1_designcost' />
+                                <attribute name='ig1_travelcost' />
+                                <attribute name='ig1_pmlaborsme' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*912743e1-d823-4017-a7f8-93d0ac4a9298*/}'/>
+                                  <condition attribute='ig1_bidsheetcategory' operator='eq' value='{fetchData.ig1_bidsheetcategory/*b55a0caf-bd8b-ea11-a812-000d3a55dce2*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                return entityCollection.Entities[0].Attributes;
+            }
+            else
+            {
+                return null;
             }
         }
-        protected void CreatePriceListItem(string opportunityId, string opportunityName, Guid productId, Guid unitId, Money materialCost)
+        protected AttributeCollection GetPMLabor()
+        {
+            var fetchData = new
+            {
+                productnumber = "PML001",
+                statecode = "0",
+                ig1_bidsheetcategoryname = "Labor"
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='product'>
+                                <attribute name='productid'/>
+                                <attribute name='name'/>
+                                <attribute name='productnumber'/>
+                                <attribute name='defaultuomid'/>
+                                <filter type='and'>
+                                  <condition attribute='productnumber' operator='eq' value='{fetchData.productnumber/*PML001*/}'/>
+                                  <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*0*/}'/>
+                                  <condition attribute='ig1_bidsheetcategoryname' operator='eq' value='{fetchData.ig1_bidsheetcategoryname/*Labor*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                return entityCollection.Entities[0].Attributes;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        protected void CreatePriceListItem(Guid opportunityId, string opportunityName, Guid productId, Guid unitId, decimal materialCost)
         {
             var fetchDataOpportunity = new
             {
@@ -137,130 +263,43 @@ namespace IG_ActivateBidSheet
             if (priceLevelData.Entities.Count > 0)
             {
                 Guid priceList = priceLevelData.Entities[0].Id;
-                AddProductToPriceList(priceList, productId, unitId, materialCost);
-            }
-            else
-            {
-                var priceList = CreatePriceList(opportunityId, opportunityName);
-                AddProductToPriceList(priceList, productId, unitId, materialCost);
-            }
 
-        }
-
-        protected void CreateOpportunityLine(Guid productid, string opportunityId, Guid unitId)
-        {
-            var isProductNotExist = true;
-            var fetchData = new
-            {
-                opportunityid = opportunityId,
-                productid = productid
-            };
-            var fetchXml = $@"
-                            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
-                              <entity name='opportunityproduct'>
-                                <attribute name='opportunityproductid' />
-                                <attribute name='opportunityid' />
-                                <attribute name='uomid' />
-                                <attribute name='productid' />
-                                <attribute name='quantity' />
-                                <filter type='and'>
-                                  <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid}'/>
-                                  <condition attribute='productid' operator='eq' value='{fetchData.productid}'/>
-                                </filter>
-                              </entity>
-                            </fetch>";
-
-            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            var recordCount = result.Entities.Count;
-            var productId = new Guid();
-            var opportunityProductId = new Guid();
-            if (recordCount > 0)
-            {
-                productId = (Guid)((EntityReference)result.Entities[0].Attributes["productid"]).Id;
-                opportunityProductId = (Guid)(result.Entities[0].Attributes["opportunityproductid"]);
-                isProductNotExist = false;
-            }
-
-            if (isProductNotExist)
-            {
-                Entity opportunityLine = new Entity("opportunityproduct");
-                opportunityLine["productid"] = new EntityReference("product", productid);
-                opportunityLine["opportunityid"] = new EntityReference("opportunity", new Guid(opportunityId));
-                opportunityLine["uomid"] = new EntityReference("uom", unitId);
-                opportunityLine["quantity"] = new decimal(1);
-                service.Create(opportunityLine);
-            }
-            else
-            {
-                Entity opportunityLine = service.Retrieve("opportunityproduct", opportunityProductId, new ColumnSet("productid", "opportunityid", "uomid", "quantity"));
-                opportunityLine["productid"] = new EntityReference("product", productId);
-                opportunityLine["opportunityid"] = new EntityReference("opportunity", new Guid(opportunityId));
-                opportunityLine["uomid"] = new EntityReference("uom", unitId);
-                opportunityLine["quantity"] = new decimal(1);
-                service.Update(opportunityLine);
-            }
-        }
-
-        protected void AddProductToPriceList(Guid priceList, Guid productId, Guid unitId, Money materialCost)
-        {
-
-            var productPriceLevelData = new
-            {
-                productid = productId,
-                pricelevelid = priceList
-
-            };
-            var productPriceLevelfetchXml = $@"
-                                                    <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
-                                                        <entity name='productpricelevel'>
-                                                        <attribute name='productid' />
-                                                        <attribute name='pricelevelid' />
-                                                        <attribute name='productpricelevelid' />
-                                                        <attribute name='productidname' />
-                                                        <filter type='and'>
-                                                            <condition attribute='productid' operator='eq' value='{productPriceLevelData.productid}'/>
-                                                            <condition attribute='pricelevelid' operator='eq' value='{productPriceLevelData.pricelevelid}'/>
-                                                            </filter>
-                                                        </entity>
-                                                    </fetch>";
-            var check = true;
-            var productPriceLevelId = new Guid();
-            EntityCollection productPriceLevel = service.RetrieveMultiple(new FetchExpression(productPriceLevelfetchXml));
-            foreach (var product in productPriceLevel.Entities)
-            {
-                var proId = (EntityReference)(product.Attributes["productid"]);
-                if (proId.Id.Equals(productId) && !productPriceLevel.Equals(null))
-                {
-                    check = false;
-                    productPriceLevelId = (Guid)product.Attributes["productpricelevelid"];
-                }
-            }
-            if (check)
-            {
                 Entity priceListItem = new Entity("productpricelevel");
                 priceListItem["pricelevelid"] = new EntityReference("pricelevel", priceList);
                 priceListItem["productid"] = new EntityReference("product", productId);
                 priceListItem["uomid"] = new EntityReference("uom", unitId);
-                priceListItem["amount"] = materialCost;
+                priceListItem["amount"] = new Money(materialCost);
                 service.Create(priceListItem);
             }
             else
             {
+                var priceList = CreatePriceList(opportunityId, opportunityName);
 
-                Entity priceListItem = service.Retrieve("productpricelevel", productPriceLevelId, new ColumnSet("pricelevelid", "productid", "uomid", "amount"));
+                Entity priceListItem = new Entity("productpricelevel");
                 priceListItem["pricelevelid"] = new EntityReference("pricelevel", priceList);
                 priceListItem["productid"] = new EntityReference("product", productId);
                 priceListItem["uomid"] = new EntityReference("uom", unitId);
-                priceListItem["amount"] = materialCost;
-                service.Update(priceListItem);
+                priceListItem["amount"] = new Money(materialCost);
+                service.Create(priceListItem);
             }
+
         }
-        protected Guid CreatePriceList(string opportunityId, string opportunityName)
+
+        protected void CreateOpportunityLine(Guid productid, Guid opportunityId, Guid unitId)
+        {
+            Entity opportunityLine = new Entity("opportunityproduct");
+            opportunityLine["productid"] = new EntityReference("product", productid);
+            opportunityLine["opportunityid"] = new EntityReference("opportunity", opportunityId);
+            opportunityLine["uomid"] = new EntityReference("uom", unitId);
+            opportunityLine["quantity"] = new decimal(1);
+            service.Create(opportunityLine);
+        }
+        protected Guid CreatePriceList(Guid opportunityId, string opportunityName)
         {
             var existingPriceList = GetExistingPriceListByName(opportunityId, opportunityName);
             if (existingPriceList != null && existingPriceList != Guid.Empty)
             {
-                Entity opportunityEntity = service.Retrieve("opportunity", new Guid(opportunityId), new ColumnSet("pricelevelid"));
+                Entity opportunityEntity = service.Retrieve("opportunity", opportunityId, new ColumnSet("pricelevelid"));
                 opportunityEntity["pricelevelid"] = new EntityReference("pricelevel", existingPriceList);
                 service.Update(opportunityEntity);
 
@@ -268,7 +307,7 @@ namespace IG_ActivateBidSheet
             }
             else
             {
-                Entity entity = service.Retrieve("opportunity", new Guid(opportunityId), new ColumnSet("transactioncurrencyid"));
+                Entity entity = service.Retrieve("opportunity", opportunityId, new ColumnSet("transactioncurrencyid"));
 
                 Entity priceList = new Entity("pricelevel");
                 if (opportunityName != null && opportunityName != "")
@@ -293,7 +332,7 @@ namespace IG_ActivateBidSheet
 
                 if (priceList != null)
                 {
-                    Entity opportunityEntity = service.Retrieve("opportunity", new Guid(opportunityId), new ColumnSet("pricelevelid"));
+                    Entity opportunityEntity = service.Retrieve("opportunity", opportunityId, new ColumnSet("pricelevelid"));
                     opportunityEntity["pricelevelid"] = new EntityReference("pricelevel", priceListId);
                     service.Update(opportunityEntity);
                 }
@@ -301,11 +340,11 @@ namespace IG_ActivateBidSheet
             }
 
         }
-        protected Guid GetExistingPriceListByName(string opportunityId, string opportunityName)
+        protected Guid GetExistingPriceListByName(Guid opportunityId, string opportunityName)
         {
             var fetchData = new
             {
-                name = opportunityName + opportunityId
+                name = opportunityName + opportunityId.ToString()
             };
             var fetchXml = $@"
                                 <fetch mapping='logical' version='1.0'>

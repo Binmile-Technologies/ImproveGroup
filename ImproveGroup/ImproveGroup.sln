@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_IndirectCost", "IG_Indir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_CalculateLaborCost", "IG_CalculateLaborCost\IG_CalculateLaborCost.csproj", "{58AD1E6B-23AD-4A18-A373-F2BF62C60DA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_Delete_OpportunityAndPriceList_LineItems", "IG_Delete_OpportunityAndPriceList_LineItems\IG_Delete_OpportunityAndPriceList_LineItems.csproj", "{0BB9ABD2-3588-4FD5-A01D-DB98CA208D23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -156,6 +158,12 @@ Global
 		{58AD1E6B-23AD-4A18-A373-F2BF62C60DA0}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{58AD1E6B-23AD-4A18-A373-F2BF62C60DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58AD1E6B-23AD-4A18-A373-F2BF62C60DA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BB9ABD2-3588-4FD5-A01D-DB98CA208D23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB9ABD2-3588-4FD5-A01D-DB98CA208D23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB9ABD2-3588-4FD5-A01D-DB98CA208D23}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB9ABD2-3588-4FD5-A01D-DB98CA208D23}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{0BB9ABD2-3588-4FD5-A01D-DB98CA208D23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB9ABD2-3588-4FD5-A01D-DB98CA208D23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

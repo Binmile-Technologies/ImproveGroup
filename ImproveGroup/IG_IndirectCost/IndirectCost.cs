@@ -101,10 +101,10 @@ namespace IG_IndirectCost
             EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (entityCollection.Entities.Count > 0)
             {
-                foreach (var bscategory in entityCollection.Entities)
+                foreach (var lineitem in entityCollection.Entities)
                 {
                     decimal margin = Convert.ToDecimal(0);
-                    AttributeCollection result = bscategory.Attributes;
+                    AttributeCollection result = lineitem.Attributes;
                     if (result.Contains("defaultMargin") && result["defaultMargin"] != null)
                     {
                        var defaultMargin  = (AliasedValue)result["defaultMargin"];
@@ -116,7 +116,7 @@ namespace IG_IndirectCost
                         Guid associatedcostid = GetAssociatedCost(bidsheetid, category.Id);
                         if (associatedcostid == Guid.Empty)
                         {
-                            CreateAssociatedCost(bidsheetid, category.Id, margin);
+                            CreateAssociatedCost(bidsheetid, category.Id, lineitem, margin);
                         }
                         else
                         {
@@ -127,7 +127,7 @@ namespace IG_IndirectCost
             }
         }
 
-        protected void CreateAssociatedCost(Guid bidsheetid, Guid categoryid, decimal margin)
+        protected void CreateAssociatedCost(Guid bidsheetid, Guid categoryid, Entity lineitem, decimal margin)
         {
             decimal[] arr = BidSheetLineItems(bidsheetid, categoryid);
             decimal materialCost = arr[0];
@@ -216,8 +216,10 @@ namespace IG_IndirectCost
             }
             entity.Attributes["ig1_laborrate"] = laborRate;
             entity.Attributes["ig1_lodgingrate"] = lodging;
+
             entity.Attributes["ig1_perdiem"] = new Money(perDiem);
             entity.Attributes["ig1_lodgingtotal"] = Convert.ToDecimal(0);
+
             entity.Attributes["ig1_margin"] = margin;
             entity.Attributes["ig1_freight"] =new Money(freighttotal);
             entity.Attributes["ig1_freightsell"] = new Money(freightsell);
@@ -261,7 +263,13 @@ namespace IG_IndirectCost
             entity.Attributes["ig1_totalsellprice"] = new Money(sellPrice);
             entity.Attributes["ig1_totaldirectsell"] = new Money(freightsell + totalMaterialCost);
 
-            service.Create(entity);
+            Guid indirectCostId = service.Create(entity);
+
+            if (indirectCostId != Guid.Empty)
+            {
+                lineitem.Attributes["ig1_associatedcostid"] = new EntityReference("ig1_associatedcost", indirectCostId);
+                service.Update(lineitem);
+            }
         }
         protected void UpdateAssociatedCost(Guid associatedcostid, Guid bidsheetid, Guid categoryid)
         {
@@ -711,16 +719,22 @@ namespace IG_IndirectCost
 
                 bidsheet.Attributes["ig1_directcost"] = directPrice;
                 bidsheet.Attributes["ig1_indirectcost"] = indirectPrice;
+
                 bidsheet.Attributes["ig1_totalhours"] = salesHours + designHours + laborHours;
                 bidsheet.Attributes["ig1_totalcost"] = new Money(directPrice + indirectPrice);
+
                 bidsheet.Attributes["ig1_materialcost"] = materialCost;
                 bidsheet.Attributes["ig1_freightamount"] = new Money(freightCost);
+
                 bidsheet.Attributes["ig1_pmhours"] = laborHours;
                 bidsheet.Attributes["ig1_pmcost"] = laborPrice;
+
                 bidsheet.Attributes["ig1_designhours"] = designHours;
                 bidsheet.Attributes["ig1_designcost"] = new Money(designPrice);
+
                 bidsheet.Attributes["ig1_saleshours"] = salesHours;
                 bidsheet.Attributes["ig1_salescost"] = new Money(salesPrice);
+
                 bidsheet.Attributes["ig1_lodgingtotal"] = lodgingTotal;
                 bidsheet.Attributes["ig1_transtotal"] = transTotal;
                 bidsheet.Attributes["ig1_perdiem"] = new Money(perDiamTotal);
