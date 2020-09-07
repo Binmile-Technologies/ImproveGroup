@@ -20,51 +20,78 @@ namespace IG_IndirectCost
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 service = serviceFactory.CreateOrganizationService(null);
 
-                if (!context.InputParameters.Contains("Target") || !(context.InputParameters["Target"] is Entity))
+                if (context.MessageName.ToLower() == "delete" && context.PreEntityImages.Contains("Image"))
                 {
-                    return;
-                }
-
-                var entity = (Entity)context.InputParameters["Target"];
-                Guid bidsheetid = Guid.Empty;
-                Guid categoryid = Guid.Empty;
-
-                if (entity.LogicalName == "ig1_bidsheetpricelistitem")
-                {
-                    Entity bsLineItems = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet", "ig1_category"));
-                    if (bsLineItems.Attributes.Contains("ig1_bidsheet") && bsLineItems.Attributes["ig1_bidsheet"] != null)
+                    Guid bidsheetid = Guid.Empty;
+                    Guid categoryid = Guid.Empty;
+                    Entity entity = (Entity)context.PreEntityImages["Image"];
+                    if (entity.Attributes.Contains("ig1_bidsheet") && entity.Attributes["ig1_bidsheet"] != null)
                     {
-                        EntityReference entityReference = (EntityReference)bsLineItems.Attributes["ig1_bidsheet"];
+                        EntityReference entityReference = (EntityReference)entity.Attributes["ig1_bidsheet"];
                         bidsheetid = entityReference.Id;
                     }
-                    if (bsLineItems.Attributes.Contains("ig1_category") && bsLineItems.Attributes["ig1_category"]!=null)
+                    if (entity.Attributes.Contains("ig1_category") && entity.Attributes["ig1_category"] != null)
                     {
-                        EntityReference entityReference = (EntityReference)bsLineItems.Attributes["ig1_category"];
+                        EntityReference entityReference = (EntityReference)entity.Attributes["ig1_category"];
                         categoryid = entityReference.Id;
                     }
                     if (bidsheetid != Guid.Empty && categoryid != Guid.Empty)
                     {
+                        DeleteIndirectCost(bidsheetid);
                         CreateUpdateAssociatedCost(bidsheetid, categoryid);
                         IndirectCostTotals(bidsheetid);
                     }
                 }
-                else if (entity.LogicalName == "ig1_associatedcost")
+                else if (context.MessageName == "ig1_ReCalculateIndirectCost" && context.InputParameters != null && context.InputParameters.Contains("bidsheetid") && !string.IsNullOrEmpty(context.InputParameters["bidsheetid"].ToString()))
                 {
-                    Entity associatedCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet", "ig1_bidsheetcategory"));
-                    if (associatedCost.Attributes.Contains("ig1_bidsheet") && associatedCost.Attributes["ig1_bidsheet"] != null)
+                    Guid bidsheetid = new Guid(context.InputParameters["bidsheetid"].ToString());
+                    DeleteIndirectCost(bidsheetid);
+                    CreateUpdateAssociatedCostSync(bidsheetid);
+                    IndirectCostTotals(bidsheetid);
+                }
+                else if (context.InputParameters.Contains("Target") && (context.InputParameters["Target"] is Entity))
+                {
+                    Guid bidsheetid = Guid.Empty;
+                    Guid categoryid = Guid.Empty;
+                    Entity entity = (Entity)context.InputParameters["Target"];
+                    if (entity.LogicalName == "ig1_bidsheetpricelistitem")
                     {
-                        EntityReference entityReference = (EntityReference)associatedCost.Attributes["ig1_bidsheet"];
-                        bidsheetid = entityReference.Id;
+                        Entity bsLineItems = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet", "ig1_category"));
+                        if (bsLineItems.Attributes.Contains("ig1_bidsheet") && bsLineItems.Attributes["ig1_bidsheet"] != null)
+                        {
+                            EntityReference entityReference = (EntityReference)bsLineItems.Attributes["ig1_bidsheet"];
+                            bidsheetid = entityReference.Id;
+                        }
+                        if (bsLineItems.Attributes.Contains("ig1_category") && bsLineItems.Attributes["ig1_category"] != null)
+                        {
+                            EntityReference entityReference = (EntityReference)bsLineItems.Attributes["ig1_category"];
+                            categoryid = entityReference.Id;
+                        }
+                        if (bidsheetid != Guid.Empty && categoryid != Guid.Empty)
+                        {
+                            DeleteIndirectCost(bidsheetid);
+                            CreateUpdateAssociatedCost(bidsheetid, categoryid);
+                            IndirectCostTotals(bidsheetid);
+                        }
                     }
-                    if (associatedCost.Attributes.Contains("ig1_bidsheetcategory") && associatedCost.Attributes["ig1_bidsheetcategory"] != null)
+                    else if (entity.LogicalName == "ig1_associatedcost")
                     {
-                        EntityReference entityReference = (EntityReference)associatedCost.Attributes["ig1_bidsheetcategory"];
-                        categoryid = entityReference.Id;
-                    }
-                    if (bidsheetid != Guid.Empty && categoryid != Guid.Empty)
-                    {
-                        UpdateAssociatedCost(entity.Id, bidsheetid, categoryid);
-                        IndirectCostTotals(bidsheetid);
+                        Entity associatedCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet", "ig1_bidsheetcategory"));
+                        if (associatedCost.Attributes.Contains("ig1_bidsheet") && associatedCost.Attributes["ig1_bidsheet"] != null)
+                        {
+                            EntityReference entityReference = (EntityReference)associatedCost.Attributes["ig1_bidsheet"];
+                            bidsheetid = entityReference.Id;
+                        }
+                        if (associatedCost.Attributes.Contains("ig1_bidsheetcategory") && associatedCost.Attributes["ig1_bidsheetcategory"] != null)
+                        {
+                            EntityReference entityReference = (EntityReference)associatedCost.Attributes["ig1_bidsheetcategory"];
+                            categoryid = entityReference.Id;
+                        }
+                        if (bidsheetid != Guid.Empty && categoryid != Guid.Empty)
+                        {
+                            UpdateAssociatedCost(entity.Id, bidsheetid, categoryid);
+                            IndirectCostTotals(bidsheetid);
+                        }
                     }
                 }
             }
@@ -608,7 +635,17 @@ namespace IG_IndirectCost
             decimal transTotal = Convert.ToDecimal(0);
             decimal perDiamTotal = Convert.ToDecimal(0);
             decimal totalTravel = Convert.ToDecimal(0);
+            decimal sellPrice = Convert.ToDecimal(0);
             decimal totalSellPrice = Convert.ToDecimal(0);
+            decimal anticipatedGP = Convert.ToDecimal(0);
+            decimal anticipatedGPPercent = Convert.ToDecimal(0);
+            decimal anticipatedNet = Convert.ToDecimal(0);
+            decimal anticipatedNetPercent = Convert.ToDecimal(0);
+            decimal anticipatedNetPreCommissionper = Convert.ToDecimal(0);
+            decimal anticipatedCommissionableValue = Convert.ToDecimal(0);
+            decimal net_netamt = Convert.ToDecimal(0);
+            decimal net_netper = Convert.ToDecimal(0);
+
 
             var fetchData = new
             {
@@ -711,7 +748,7 @@ namespace IG_IndirectCost
                     if (result.Contains("ig1_totalsellprice") && result["ig1_totalsellprice"] != null)
                     {
                         Money money = (Money)result["ig1_totalsellprice"];
-                        totalSellPrice += Convert.ToDecimal(money.Value);
+                        sellPrice += Convert.ToDecimal(money.Value);
                     }
                 }
 
@@ -741,8 +778,36 @@ namespace IG_IndirectCost
                 bidsheet.Attributes["ig1_totaltravel"] = new Money(totalTravel);
 
                 decimal contingencyCost = GetContingency(bidsheetid);
+                totalSellPrice = sellPrice + contingencyCost;
                 bidsheet.Attributes["ig1_totalbomcost"] = materialCost + freightCost;
-                bidsheet.Attributes["ig1_sellprice"] = new Money(totalSellPrice + contingencyCost);
+                bidsheet.Attributes["ig1_sellprice"] = new Money(totalSellPrice);
+
+                //Project Finance Projection
+                anticipatedGP = totalSellPrice - directPrice - Convert.ToDecimal(0.7) * (designPrice + salesPrice + laborPrice) - totalTravel;
+                if (totalSellPrice > 0)
+                {
+                    anticipatedGPPercent = (anticipatedGP * 100) / totalSellPrice;
+                }
+                anticipatedNetPreCommissionper = anticipatedGPPercent - 14;
+                anticipatedNet = (anticipatedNetPreCommissionper / 100) * totalSellPrice;
+                anticipatedCommissionableValue = anticipatedNet * Convert.ToDecimal(0.3);
+                net_netamt = anticipatedNet - anticipatedCommissionableValue;
+                if (totalSellPrice != 0)
+                {
+                    net_netper = (net_netamt * 100) / totalSellPrice;
+                }
+                else
+                {
+                    net_netper = 0;
+                }
+                bidsheet.Attributes["ig1_anticipatedgp"] = new Money(anticipatedGP);
+                bidsheet.Attributes["ig1_anticipatedgpinpercent"] = anticipatedGPPercent;
+                bidsheet.Attributes["ig1_anticipatednetinpercent"] = anticipatedNetPreCommissionper;
+                bidsheet.Attributes["ig1_anticipatednet"] = new Money(anticipatedNet);
+                bidsheet.Attributes["ig1_anticipatedcommissionablevalue"] = new Money(anticipatedCommissionableValue);
+                bidsheet.Attributes["ig1_netnet"] = new Money(net_netamt);
+                bidsheet.Attributes["ig1_anticipatedcommissionablevalueinpercent"] = net_netper;
+
                 service.Update(bidsheet);
             }
 
@@ -780,5 +845,122 @@ namespace IG_IndirectCost
             }
             return materialCost;
         }
+        protected void DeleteIndirectCost(Guid bidsheetid)
+        {
+            var fetchData = new
+            {
+                ig1_bidsheet = bidsheetid
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='ig1_associatedcost'>
+                                <attribute name='ig1_associatedcostid' />
+                                <attribute name='ig1_bidsheetcategory' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*41b91ca9-c901-49ef-b55f-b35a624a1451*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                Entity entity = entityCollection.Entities[0];
+                foreach (var item in entityCollection.Entities)
+                {
+                    Guid categoryid = Guid.Empty;
+                    if (item.Attributes.Contains("ig1_bidsheetcategory") && item.Attributes["ig1_bidsheetcategory"] != null)
+                    {
+                        EntityReference entityReference = (EntityReference)item.Attributes["ig1_bidsheetcategory"];
+                        categoryid = entityReference.Id;
+                        bool isLineItemExist = IsBidsheetLineItemExist(bidsheetid, categoryid);
+                        if (!isLineItemExist)
+                        {
+                            service.Delete(entity.LogicalName, entity.Id);
+                        }
+                    }
+                }
+
+            }
+        }
+        protected bool IsBidsheetLineItemExist(Guid bidsheetid, Guid categoryid)
+        {
+            var fetchData = new
+            {
+                ig1_bidsheet = bidsheetid,
+                ig1_category = categoryid
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='ig1_bidsheetpricelistitem'>
+                                <attribute name='ig1_bidsheetpricelistitemid' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*41b91ca9-c901-49ef-b55f-b35a624a1451*/}'/>
+                                  <condition attribute='ig1_category' operator='eq' value='{fetchData.ig1_category/*ig1_bidsheetcategory*/}'/>
+                                </filter>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        protected void CreateUpdateAssociatedCostSync(Guid bidsheetid)
+        {
+            var fetchData = new
+            {
+                ig1_bidsheet = bidsheetid,
+                ig1_categoryname = "Labor",
+                ig1_categoryname2 = "Contingency"
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='ig1_bidsheetpricelistitem'>
+                                <attribute name='ig1_category' />
+                                <filter type='and'>
+                                  <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*ig1_bidsheet*/}'/>
+                                  <condition attribute='ig1_categoryname' operator='neq' value='{fetchData.ig1_categoryname/*Labor*/}'/>
+                                  <condition attribute='ig1_categoryname' operator='neq' value='{fetchData.ig1_categoryname2/*Contingency*/}'/>
+                                </filter>
+                                <link-entity name='ig1_bidsheetcategory' from='ig1_bidsheetcategoryid' to='ig1_category'>
+                                  <attribute name='ig1_defaultmatcostmargin' alias='defaultMargin'/>
+                                  <attribute name='ig1_name' />
+                                </link-entity>
+                              </entity>
+                            </fetch>";
+
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                foreach (var lineitem in entityCollection.Entities)
+                {
+                    decimal margin = Convert.ToDecimal(0);
+                    AttributeCollection result = lineitem.Attributes;
+                    if (result.Contains("defaultMargin") && result["defaultMargin"] != null)
+                    {
+                        var defaultMargin = (AliasedValue)result["defaultMargin"];
+                        margin = Convert.ToDecimal(defaultMargin.Value);
+                    }
+                    if (result.Contains("ig1_category") && result["ig1_category"] != null)
+                    {
+                        var category = (EntityReference)result["ig1_category"];
+                        Guid associatedcostid = GetAssociatedCost(bidsheetid, category.Id);
+                        if (associatedcostid == Guid.Empty)
+                        {
+                            CreateAssociatedCost(bidsheetid, category.Id, lineitem, margin);
+                        }
+                        else
+                        {
+                            UpdateAssociatedCost(associatedcostid, bidsheetid, category.Id);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

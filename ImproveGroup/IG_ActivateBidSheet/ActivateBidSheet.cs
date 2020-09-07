@@ -25,8 +25,6 @@ namespace IG_ActivateBidSheet
                 GetBidsheetLineItems(bidsheetid);
 
             }
-
-            
         }
 
         protected void GetBidsheetLineItems(Guid bidsheetid)
@@ -67,7 +65,7 @@ namespace IG_ActivateBidSheet
                     opportunity = (EntityReference)entity.Attributes["ig1_opportunitytitle"];
                 }
                 decimal totalLaborCost = Convert.ToDecimal(0);
-                Guid[] category = new Guid[entityCollection.Entities.Count-1];
+                Guid[] category = new Guid[entityCollection.Entities.Count];
                 int i = 0;
                 foreach (var item in entityCollection.Entities)
                 {
@@ -126,6 +124,14 @@ namespace IG_ActivateBidSheet
                             totalMaterialCost = materialCost;
                         }
                     }
+                    else if (item.Attributes.Contains("ig1_category") && item.Attributes["ig1_category"] != null)
+                    {
+                        EntityReference entityReference = (EntityReference)item.Attributes["ig1_category"];
+                        if (entityReference.Name == "Contingency")
+                        {
+                            totalMaterialCost = materialCost;
+                        }
+                    }
                     if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_salescost") && associatedCost["ig1_salescost"] != null)
                     {
                         Money money = (Money)associatedCost["ig1_salescost"];
@@ -157,6 +163,8 @@ namespace IG_ActivateBidSheet
                     CreatePriceListItem(opportunity.Id, opportunity.Name, productid, defaultUnit, totalMaterialCost);
                     CreateOpportunityLine(productid, opportunity.Id, defaultUnit);
                 }
+                i = 0;
+                Array.Clear(category, i, category.Length);
                 if (totalLaborCost > 0)
                 {
                     Guid defaultUnit = Guid.Empty;
