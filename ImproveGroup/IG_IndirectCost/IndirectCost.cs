@@ -807,6 +807,7 @@ namespace IG_IndirectCost
                 bidsheet.Attributes["ig1_anticipatedcommissionablevalue"] = new Money(anticipatedCommissionableValue);
                 bidsheet.Attributes["ig1_netnet"] = new Money(net_netamt);
                 bidsheet.Attributes["ig1_anticipatedcommissionablevalueinpercent"] = net_netper;
+                bidsheet.Attributes["ig1_isbidsheetcalculated"] = true;
 
                 service.Update(bidsheet);
             }

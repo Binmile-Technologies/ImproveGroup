@@ -28,7 +28,7 @@ namespace ImproveGroup
                 }
                 try
                 {
-                    if (entity.Attributes.Contains("transactioncurrencyid"))
+                    if (entity.Attributes.Contains("transactioncurrencyid") && entity.Attributes["transactioncurrencyid"]!=null)
                     {
                         var transactionCurrency = (EntityReference)entity.Attributes["transactioncurrencyid"];
                         var currencyId = (Guid)transactionCurrency.Id;

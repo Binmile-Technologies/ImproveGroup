@@ -15,16 +15,36 @@ namespace IG_CalculateSDT
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 service = serviceFactory.CreateOrganizationService(context.UserId);
-
-                if (context.InputParameters.Equals(null) && !context.InputParameters.Contains("bidsheetId"))
+                if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
-                    return;
+                    Entity entity = (Entity)context.InputParameters["Target"];
+                    if (entity.LogicalName == "ig1_bidsheetpricelistitem")
+                    {
+                        Entity bidsheetlineitem = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet"));
+                        if (bidsheetlineitem.Attributes.Contains("ig1_bidsheet") && bidsheetlineitem.Attributes["ig1_bidsheet"] != null)
+                        {
+                            EntityReference entityReference = (EntityReference)bidsheetlineitem.Attributes["ig1_bidsheet"];
+                            CalculateCategorySDT(entityReference.Id);
+                        }
+                    }
+                    else if (entity.LogicalName == "ig1_associatedcost")
+                    {
+                        Entity indirectCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_bidsheet"));
+                        if (indirectCost.Attributes.Contains("ig1_bidsheet") && indirectCost.Attributes["ig1_bidsheet"] != null)
+                        {
+                            EntityReference entityReference = (EntityReference)indirectCost.Attributes["ig1_bidsheet"];
+                            CalculateCategorySDT(entityReference.Id);
+                        }
+                    }
                 }
-
-                string bidsheetId = context.InputParameters["bidsheetId"].ToString();
-                if (!string.IsNullOrEmpty(bidsheetId))
+                else if (context.MessageName.ToLower() == "delete" && context.PreEntityImages.Contains("Image"))
                 {
-                   CalculateCategorySDT(new Guid(bidsheetId));
+                    Entity entity = (Entity)context.PreEntityImages["Image"];
+                    if (entity.Attributes.Contains("ig1_bidsheet") && entity.Attributes["ig1_bidsheet"] != null)
+                    {
+                        EntityReference entityReference = (EntityReference)entity.Attributes["ig1_bidsheet"];
+                        CalculateCategorySDT(entityReference.Id);
+                    }
                 }
             }
             catch (Exception ex)
