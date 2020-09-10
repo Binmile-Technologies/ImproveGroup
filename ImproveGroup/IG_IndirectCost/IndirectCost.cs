@@ -112,6 +112,7 @@ namespace IG_IndirectCost
                             <fetch>
                               <entity name='ig1_bidsheetpricelistitem'>
                                 <attribute name='ig1_category' />
+                                <attribute name='ig1_associatedcostid'/>
                                 <filter type='and'>
                                   <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet/*ig1_bidsheet*/}'/>
                                   <condition attribute='ig1_category' operator='eq' value='{fetchData.ig1_category/*ig1_bidsheet*/}'/>

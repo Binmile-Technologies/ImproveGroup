@@ -1,0 +1,11 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\IG_CalculateSDT.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\IG_CalculateSDT.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.csprojAssemblyReference.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateSDT\obj\Debug\IG_CalculateSDT.pdb

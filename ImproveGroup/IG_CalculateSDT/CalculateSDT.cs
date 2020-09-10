@@ -165,11 +165,11 @@ namespace IG_CalculateSDT
                     travelCost = (number_of_trip * peaple_per_trip * airFare) + (number_of_trip * peaple_per_trip * days_per_trip) * (perDiem + lodging);
                     
                     decimal categorySDT = salesCost + designCost + travelCost;
-                    CalculateProductSDT(categoryId, bidsheetId, materialCost, categorySDT);
+                    CalculateProductSDT(associatedItems.Id, categoryId, bidsheetId, materialCost, categorySDT);
                 }
             }
         }
-        protected void CalculateProductSDT(Guid categoryId, Guid bidsheetId, decimal categoryMaterialCost, decimal categorySDT)
+        protected void CalculateProductSDT(Guid associatedCostid, Guid categoryId, Guid bidsheetId, decimal categoryMaterialCost, decimal categorySDT)
         {
             var fetchData = new
             {
@@ -180,6 +180,7 @@ namespace IG_CalculateSDT
                             <fetch>
                               <entity name='ig1_bidsheetpricelistitem'>
                                 <attribute name='ig1_materialcost' />
+                                <attribute name='ig1_associatedcostid' />
                                 <filter type='and'>
                                   <condition attribute='ig1_category' operator='eq' value='{fetchData.ig1_category}'/>
                                   <condition attribute='ig1_bidsheet' operator='eq' value='{fetchData.ig1_bidsheet}'/>
@@ -203,6 +204,7 @@ namespace IG_CalculateSDT
                     sdt = (materialCost / categoryMaterialCost) * categorySDT;
 
                     lineItem.Attributes["ig1_sdt"] = new Money(sdt);
+                    lineItem.Attributes["ig1_associatedcostid"] = new EntityReference("ig1_associatedcost", associatedCostid);
                     service.Update(lineItem);
                 }
             }
