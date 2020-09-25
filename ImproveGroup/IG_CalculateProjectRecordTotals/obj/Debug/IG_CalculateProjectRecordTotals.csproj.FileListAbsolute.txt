@@ -4,6 +4,7 @@ E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Debug\Mi
 E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Debug\Microsoft.Xrm.Sdk.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.csprojAssemblyReference.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.csproj.CoreCompileInputs.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.dll
