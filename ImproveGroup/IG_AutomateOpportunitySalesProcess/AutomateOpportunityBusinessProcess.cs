@@ -15,7 +15,7 @@ namespace IG_AutomateOpportunitySalesProcess
             {
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                service = serviceFactory.CreateOrganizationService(null);
+                service = serviceFactory.CreateOrganizationService(context.UserId);
 
                 if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
