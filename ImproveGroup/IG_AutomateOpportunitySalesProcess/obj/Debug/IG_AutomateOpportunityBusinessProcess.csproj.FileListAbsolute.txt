@@ -4,7 +4,6 @@ E:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug
 E:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\Microsoft.Xrm.Sdk.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 E:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\Microsoft.Xrm.Sdk.xml
-E:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\obj\Debug\IG_AutomateOpportunityBusinessProcess.csprojAssemblyReference.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\obj\Debug\IG_AutomateOpportunityBusinessProcess.csproj.CoreCompileInputs.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\obj\Debug\IG_AutomateOpportunityBusinessProcess.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\obj\Debug\IG_AutomateOpportunityBusinessProcess.dll
