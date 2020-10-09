@@ -66,6 +66,15 @@ namespace IG_CalculateProjectRecordTotals
                             CalculateBidsheetTotals(projectRecord);
                         }
                     }
+                    if (entity.LogicalName == "ig1_projectrecordcost")
+                    {
+                        Entity actualCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_projectrecord", "ig1_name"));
+                        if (actualCost.Attributes.Contains("ig1_projectrecord") && actualCost.Attributes["ig1_projectrecord"] !=null)
+                        {
+                            EntityReference projectRecord = (EntityReference)actualCost.Attributes["ig1_projectrecord"];
+                            QuickBooksTotals(projectRecord);
+                        } 
+                    }
                 }
                 else if (context.MessageName.ToLower() == "delete" && context.PreEntityImages.Contains("Image"))
                 {
@@ -314,6 +323,66 @@ namespace IG_CalculateProjectRecordTotals
             Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
             entity.Attributes["ig1_totalnumberofassociatedbidsheets"] = count;
             entity.Attributes["ig1_totalamountofassociatedbidsheets"] = new Money(totalAmount);
+            service.Update(entity);
+        }
+        protected void QuickBooksTotals(EntityReference project)
+        {
+            decimal PO_Bills = Convert.ToDecimal(0);
+            decimal IG_Install_Po_Bills = Convert.ToDecimal(0);
+            decimal Travel = Convert.ToDecimal(0);
+
+
+        var fetchData = new
+        {
+            statecode = "0",
+            ig1_projectrecord = project.Id
+        };
+        var fetchXml = $@"
+                        <fetch>
+                            <entity name='ig1_projectrecordcost'>
+                            <attribute name='ig1_amount' />
+                            <attribute name='ig1_expensetype' />
+                            <filter type='and'>
+                                <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*0*/}'/>
+                                <condition attribute='ig1_txnid' operator='not-null' />
+                                <condition attribute='ig1_txnlineid' operator='not-null' />
+                                <condition attribute='ig1_projectrecord' operator='eq' value='{fetchData.ig1_projectrecord/*bd47d04f-cf32-ea11-a813-000d3a55d0f0*/}'/>
+                            </filter>
+                            </entity>
+                        </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                foreach (var item in entityCollection.Entities)
+                {
+                    if (item.Attributes.Contains("ig1_amount") && item.Attributes["ig1_amount"] != null)
+                    {
+                        Money money = (Money)item.Attributes["ig1_amount"];
+
+                        if (item.Attributes.Contains("ig1_expensetype") && item.Attributes["ig1_expensetype"] != null)
+                        {
+                            EntityReference entityReference = (EntityReference)item.Attributes["ig1_expensetype"];
+
+                            if (entityReference.Name == "PO Bill")
+                            {
+                                PO_Bills += Convert.ToDecimal(money.Value);
+                            }
+                            else if (entityReference.Name == "IG Install PO Bill")
+                            {
+                                IG_Install_Po_Bills += Convert.ToDecimal(money.Value);
+                            }
+                            else if (entityReference.Name == "Travel Cost")
+                            {
+                                Travel += Convert.ToDecimal(money.Value);
+                            }
+                        }
+                    }
+                }
+            }
+            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            entity.Attributes["ig1_pobills"] = new Money(PO_Bills);
+            entity.Attributes["ig1_iginstallpobill"] = new Money(IG_Install_Po_Bills);
+            entity.Attributes["ig1_travel"] = new Money(Travel);
             service.Update(entity);
         }
     }
