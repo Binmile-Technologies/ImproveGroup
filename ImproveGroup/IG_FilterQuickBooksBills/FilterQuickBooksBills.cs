@@ -60,7 +60,8 @@ namespace IG_FilterQuickBooksBills
                 EntityName = entity,
                 ColumnSet = new ColumnSet
                     (
-                        "ig1_qb_unique_id",
+                        "ig1_txnid",
+                        "ig1_txnlineid",
                         "ig1_refno",
                         "ig1_name",
                         "ig1_memo",
@@ -136,14 +137,20 @@ namespace IG_FilterQuickBooksBills
         //Save records to the restpective entity based on category..
         protected void SaveRecord(Entity record, string expenseType, string jobNumber, string entityName)
         {
-            string qb_unique_id = string.Empty;
-            if (record.Attributes.Contains("ig1_qb_unique_id") && !string.IsNullOrEmpty(record.Attributes["ig1_qb_unique_id"].ToString()))
+            string txnId = string.Empty;
+            string txnLineId = string.Empty;
+            if (record.Attributes.Contains("ig1_txnid") && !string.IsNullOrEmpty(record.Attributes["ig1_txnid"].ToString()))
             {
-                qb_unique_id = record.Attributes["ig1_qb_unique_id"].ToString();
+                txnId = record.Attributes["ig1_txnid"].ToString();
+            }
+            if (record.Attributes.Contains("ig1_txnlineid") && !string.IsNullOrEmpty(record.Attributes["ig1_txnlineid"].ToString()))
+            {
+                txnLineId = record.Attributes["ig1_txnlineid"].ToString();
             }
             var fetchData = new
             {
-                ig1_qb_unique_id = qb_unique_id,
+                ig1_txnid = txnId,
+                ig1_txnlineid = txnLineId,
                 statecode = "0"
             };
             var fetchXml = $@"
@@ -151,7 +158,8 @@ namespace IG_FilterQuickBooksBills
                               <entity name='{entityName}'>
                                 <attribute name='ig1_name' />
                                 <filter type='and'>
-                                  <condition attribute='ig1_qb_unique_id' operator='eq' value='{fetchData.ig1_qb_unique_id/*10AE83-1437585808*/}'/>
+                                  <condition attribute='ig1_txnid' operator='eq' value='{fetchData.ig1_txnid/*10AE83-1437585808*/}'/>
+                                  <condition attribute='ig1_txnlineid' operator='eq' value='{fetchData.ig1_txnlineid/*10AE83-1437585808*/}'/>
                                   <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*0*/}'/>
                                 </filter>
                               </entity>
@@ -216,8 +224,8 @@ namespace IG_FilterQuickBooksBills
                 service.Update(entity);
                 if (entityName == "ig1_projectrecordcost")
                 {
-                    DeleteRecord("ig1_quickbooksbillsnotcategorized", qb_unique_id);
-                    DeleteRecord("ig1_overhead", qb_unique_id);
+                    DeleteRecord("ig1_quickbooksbillsnotcategorized", txnId, txnLineId);
+                    DeleteRecord("ig1_overhead", txnId, txnLineId);
                 }
             }
             else
@@ -241,9 +249,13 @@ namespace IG_FilterQuickBooksBills
                 {
                     entity.Attributes["ig1_projectrecord"] = new EntityReference("ig1_projectrecord", projectRecordId);
                 }
-                if (record.Attributes.Contains("ig1_qb_unique_id") && !string.IsNullOrEmpty(record.Attributes["ig1_qb_unique_id"].ToString()))
+                if (record.Attributes.Contains("ig1_txnid") && !string.IsNullOrEmpty(record.Attributes["ig1_txnid"].ToString()))
                 {
-                    entity["ig1_qb_unique_id"] = record.Attributes["ig1_qb_unique_id"].ToString();
+                    entity["ig1_txnid"] = record.Attributes["ig1_txnid"].ToString();
+                }
+                if (record.Attributes.Contains("ig1_txnlineid") && !string.IsNullOrEmpty(record.Attributes["ig1_txnlineid"].ToString()))
+                {
+                    entity["ig1_txnlineid"] = record.Attributes["ig1_txnlineid"].ToString();
                 }
                 if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
                 {
@@ -276,19 +288,20 @@ namespace IG_FilterQuickBooksBills
                 Guid id = service.Create(entity);
                 if (entityName == "ig1_projectrecordcost")
                 {
-                    DeleteRecord("ig1_quickbooksbillsnotcategorized", qb_unique_id);
-                    DeleteRecord("ig1_overhead", qb_unique_id);
+                    DeleteRecord("ig1_quickbooksbillsnotcategorized", txnId, txnLineId);
+                    DeleteRecord("ig1_overhead", txnId, txnLineId);
                 }
             }
             service.Delete(record.LogicalName, record.Id);
         }
 
         //Delete Record from ig1_quickbooksbill entity which has been saved in respective entity...
-        protected void DeleteRecord(string entityName, string qb_unique_id)
+        protected void DeleteRecord(string entityName, string txnId, string txnLineId)
         {
             var fetchData = new
             {
-                ig1_qb_unique_id = qb_unique_id,
+                ig1_txnid = txnId,
+                ig1_txnlineid = txnLineId,
                 statuscode = "1"
             };
             var fetchXml = $@"
@@ -296,7 +309,8 @@ namespace IG_FilterQuickBooksBills
                               <entity name='{entityName}'>
                                 <attribute name='ig1_name' />
                                 <filter type='and'>
-                                  <condition attribute='ig1_qb_unique_id' operator='eq' value='{fetchData.ig1_qb_unique_id/*10AE83-1437585808*/}'/>
+                                  <condition attribute='ig1_txnid' operator='eq' value='{fetchData.ig1_txnid/*10AE83-1437585808*/}'/>
+                                  <condition attribute='ig1_txnlineid' operator='eq' value='{fetchData.ig1_txnlineid/*10AE83-1437585808*/}'/>
                                   <condition attribute='statuscode' operator='eq' value='{fetchData.statuscode/*1*/}'/>
                                 </filter>
                               </entity>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IG_DeleteBidsheetLineItems")]
+[assembly: AssemblyTitle("IG_UpdateFreightAndGPToOpp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IG_DeleteBidsheetLineItems")]
+[assembly: AssemblyProduct("IG_UpdateFreightAndGPToOpp")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("768acd64-bca1-4fe0-8fb9-15e4d6773319")]
+[assembly: Guid("07f7b5d0-4d97-4c75-bd16-9973ea2ebe4c")]
 
 // Version information for an assembly consists of the following four values:
 //

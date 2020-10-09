@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-namespace ImproveGroup
+
+namespace IG_UpdateFreightAndGPToOpp
 {
-    public class GetBidSheetDetailsToOpportunity : IPlugin
+    public class UpdateFreightAndGPToOpp : IPlugin
     {
         IPluginExecutionContext context;
         IOrganizationServiceFactory serviceFactory;
@@ -14,7 +15,7 @@ namespace ImproveGroup
             {
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                service = serviceFactory.CreateOrganizationService(null);
+                service = serviceFactory.CreateOrganizationService(context.UserId);
                 if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
                     Entity entity = (Entity)context.InputParameters["Target"];
@@ -92,10 +93,7 @@ namespace ImproveGroup
                     if (result.Contains("ig1_anticipatedgp") && result["ig1_anticipatedgp"] != null)
                     {
                         Money gp = (Money)result["ig1_anticipatedgp"];
-                        if (gp != null)
-                        {
-                            totalGP += Convert.ToDecimal(gp.Value);
-                        }
+                        totalGP += Convert.ToDecimal(gp.Value);
                     }
                 }
                 return new Money(totalGP);
@@ -141,10 +139,7 @@ namespace ImproveGroup
                     if (result.Contains("ig1_freighttotal") && result["ig1_freighttotal"] != null)
                     {
                         Money money = (Money)result["ig1_freighttotal"];
-                        if (money != null)
-                        {
-                            freightTotal += Convert.ToDecimal(money.Value);
-                        }
+                        freightTotal += Convert.ToDecimal(money.Value);
                     }
                 }
                 return new Money(freightTotal);
@@ -182,15 +177,12 @@ namespace ImproveGroup
                     if (result.Contains("ig1_sellprice") && result["ig1_sellprice"] != null)
                     {
                         Money money = (Money)result["ig1_sellprice"];
-                        if (money != null)
-                        {
-                            bidsheetTotal += Convert.ToDecimal(money.Value);
-                        }
+                        bidsheetTotal += Convert.ToDecimal(money.Value);
                     }
                 }
                 return bidsheetTotal;
             }
-            else 
+            else
             {
                 return Convert.ToDecimal(0);
             }
