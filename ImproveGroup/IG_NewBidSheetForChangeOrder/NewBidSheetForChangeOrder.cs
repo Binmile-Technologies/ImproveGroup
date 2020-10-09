@@ -85,13 +85,24 @@ namespace IG_NewBidSheetForChangeOrder
         }
         protected void UpdateUpperRevisionId(Guid opportunityId, Guid bidSheetId)
         {
-                var maxUpperRevisionId = MaxUpperRevisionId(opportunityId);
-                Entity entity = service.Retrieve("ig1_bidsheet", bidSheetId, new ColumnSet("ig1_upperrevisionid"));
-                if (!entity.Attributes.Contains("ig1_upperrevisionid"))
+            var maxUpperRevisionId = MaxUpperRevisionId(opportunityId);
+            var maxRevisionId = MaxRevisionId(opportunityId, maxUpperRevisionId);
+            Entity entity = service.Retrieve("ig1_bidsheet", bidSheetId, new ColumnSet("ig1_upperrevisionid", "ig1_iscreateorder"));
+            bool par = entity.GetAttributeValue<bool>("ig1_iscreateorder");
+            if (!entity.Attributes.Contains("ig1_upperrevisionid") || entity.Attributes["ig1_upperrevisionid"] == null)
+            {
+                if (par == true)
                 {
                     entity["ig1_upperrevisionid"] = maxUpperRevisionId + 1;
                     service.Update(entity);
                 }
+                else
+                {
+                    entity["ig1_upperrevisionid"] = maxUpperRevisionId;
+                    entity["ig1_revisionid"] = maxRevisionId + 1;
+                    service.Update(entity);
+                }
+            }
         }
         protected void UpdateProjectNumber(Guid opportunityId, Guid bidSheetId)
         {
@@ -112,6 +123,38 @@ namespace IG_NewBidSheetForChangeOrder
                 projectNumber = Convert.ToString(entity["ig1_projectnumber"]);
             }
             return projectNumber;
+        }
+
+        protected int MaxRevisionId(Guid opportunityId,int upperid)
+        {
+            int revise = 0;
+            var fetchData = new
+            {
+                ig1_opportunitytitle = opportunityId,
+                ig1_upperrevisionid = upperid
+            };
+            var fetchXml = $@"
+                             <fetch>
+                            <entity name='ig1_bidsheet'>
+                             <attribute name='ig1_revisionid' />
+                              <attribute name='ig1_upperrevisionid' />
+                              <filter type='and'>
+                              <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*12a9e283-5608-41db-97b6-90526fd0b5a4*/}'/>
+                              <condition attribute='ig1_upperrevisionid' operator='eq' value='{fetchData.ig1_upperrevisionid/*2*/}'/>
+                                </filter>
+                              </entity>
+                               </fetch>";
+
+
+            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            foreach (var bidsheet in result.Entities)
+            {
+                var revisionId = (int)bidsheet.Attributes["ig1_revisionid"];
+                if (revisionId > revise)
+                    revise = revisionId;
+            }
+            return revise;           
+
         }
     }
 }

@@ -48,6 +48,7 @@ namespace IG_ReviseBidSheet
                         {
                             bidSheet[attr.Key] = false;
                         }
+                        
                         else
                         {
                             bidSheet[attr.Key] = attr.Value;

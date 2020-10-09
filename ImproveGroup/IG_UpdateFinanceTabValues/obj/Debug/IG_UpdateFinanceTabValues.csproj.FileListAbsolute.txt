@@ -4,3 +4,8 @@ D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\bin\Debug\Microso
 D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.dll
 D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.pdb
 D:\Project\IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\ImproveGroup\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\ImproveGroup\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_UpdateFinanceTabValues\obj\Debug\IG_UpdateFinanceTabValues.pdb
+D:\Github\ImproveGroup\ImproveGroup\IG_UpdateFinanceTabValues\bin\Debug\IG_UpdateFinanceTabValues.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_UpdateFinanceTabValues\bin\Debug\IG_UpdateFinanceTabValues.pdb

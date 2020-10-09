@@ -8,3 +8,12 @@ E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actua
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.dll
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.pdb
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.pdb
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.pdb

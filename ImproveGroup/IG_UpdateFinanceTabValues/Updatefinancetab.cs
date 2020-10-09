@@ -235,7 +235,7 @@ namespace IG_UpdateFinanceTabValues
 
                 actualgp = totalofinvoice - (cost[0] + cost[1]);
             }
-            if (actualgp > 0)
+            if (actualgp > 0 && totalofinvoice !=0)
             {
 
 
@@ -250,7 +250,7 @@ namespace IG_UpdateFinanceTabValues
             }
             if (actualnetper > 0)
             {
-             decimal roundvalue=  decimal.Round(actualnetper, 2);
+                decimal roundvalue=  decimal.Round(actualnetper, 2);
                 decimal roundvalueinvoice = decimal.Round(totalofinvoice,2);
 
                 actualnet = (roundvalue * roundvalueinvoice) /100;

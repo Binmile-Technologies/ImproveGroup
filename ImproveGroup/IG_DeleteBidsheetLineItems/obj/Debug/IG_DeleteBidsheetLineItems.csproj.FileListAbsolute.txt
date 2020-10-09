@@ -1,0 +1,8 @@
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidsheetLineItems\bin\Debug\IG_DeleteBidsheetLineItems.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidsheetLineItems\bin\Debug\IG_DeleteBidsheetLineItems.pdb
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidsheetLineItems\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidsheetLineItems\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidsheetLineItems\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidsheetLineItems\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidsheetLineItems\obj\Debug\IG_DeleteBidsheetLineItems.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidsheetLineItems\obj\Debug\IG_DeleteBidsheetLineItems.pdb

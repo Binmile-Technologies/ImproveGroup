@@ -10,6 +10,7 @@ namespace IG_ActivateBidSheet
         IPluginExecutionContext context;
         IOrganizationServiceFactory serviceFactory;
         IOrganizationService service;
+        Guid bidsheetid = Guid.Empty;
         public void Execute(IServiceProvider serviceProvider)
         {
             #region Setup
@@ -21,7 +22,7 @@ namespace IG_ActivateBidSheet
 
             if (context.InputParameters!=null && context.InputParameters.Contains("bidSheetId"))
             {
-                Guid bidsheetid =new Guid(context.InputParameters["bidSheetId"].ToString());
+                bidsheetid = new Guid(context.InputParameters["bidSheetId"].ToString());
                 GetBidsheetLineItems(bidsheetid);
 
             }
@@ -160,7 +161,7 @@ namespace IG_ActivateBidSheet
                         productsdt = (materialCost / categoryMaterialCost) * categorysdt;
                     }
                     totalMaterialCost = totalMaterialCost + productsdt;
-                    CreatePriceListItem(opportunity.Id, opportunity.Name, productid, defaultUnit, totalMaterialCost);
+                    CreatePriceListItem(bidsheetid, productid, defaultUnit, totalMaterialCost);
                     CreateOpportunityLine(productid, opportunity.Id, defaultUnit);
                 }
                 i = 0;
@@ -179,7 +180,7 @@ namespace IG_ActivateBidSheet
                     {
                         productid = (Guid)result["productid"];
                     }
-                    CreatePriceListItem(opportunity.Id, opportunity.Name, productid, defaultUnit, totalLaborCost);
+                    CreatePriceListItem(bidsheetid, productid, defaultUnit, totalLaborCost);
                     CreateOpportunityLine(productid, opportunity.Id, defaultUnit);
                 }
             }
@@ -248,51 +249,67 @@ namespace IG_ActivateBidSheet
                 return null;
             }
         }
-        protected void CreatePriceListItem(Guid opportunityId, string opportunityName, Guid productId, Guid unitId, decimal materialCost)
+        protected void CreatePriceListItem(Guid bidsheetid, Guid productId, Guid unitId, decimal materialCost)
         {
-            var fetchDataOpportunity = new
+            var fetchData = new
             {
-                PriceLevelopportunityid = opportunityId,
+                ig1_bidsheetid = bidsheetid
             };
-            var PriceLevelFetch = $@"
-                                    <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
-                                        <entity name='pricelevel'>
-                                        <attribute name='transactioncurrencyid' />
-                                        <attribute name='name' />
-                                        <attribute name='pricelevelid' />
-                                        <link-entity name='opportunity' from='pricelevelid' to='pricelevelid'>
-                                            <filter type='and'>
-                                            <condition attribute='opportunityid' operator='eq' value='{fetchDataOpportunity.PriceLevelopportunityid}'/>
-                                            </filter>
-                                        </link-entity>
+            var fetchXml = $@"
+                                      <fetch>
+                                      <entity name='ig1_bidsheet'>
+                                      <attribute name='ig1_upperrevisionid' />
+                                      <attribute name='ig1_projectnumber' />
+                                      <attribute name='ig1_pricelist' />
+                                      <filter type='and'>
+                                     <condition attribute='ig1_bidsheetid' operator='eq' value='{fetchData.ig1_bidsheetid/*31156121-3df3-ea11-a815-000d3a98d873*/}'/>
+                                          </filter>
                                         </entity>
-                                    </fetch>";
-            EntityCollection priceLevelData = service.RetrieveMultiple(new FetchExpression(PriceLevelFetch));
-            if (priceLevelData.Entities.Count > 0)
+                                         </fetch>";
+
+            EntityCollection entitycollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entitycollection.Entities.Count > 0)
             {
-                Guid priceList = priceLevelData.Entities[0].Id;
+                String projectnumber = entitycollection.Entities[0].GetAttributeValue<string>("ig1_projectnumber").ToString();
+                //  String pricelistname= priceLevelData.Entities[0].GetAttributeValue<string>("ig1_pricelist").ToString();
+                int uppreviseid = entitycollection.Entities[0].GetAttributeValue<int>("ig1_upperrevisionid");
 
-                Entity priceListItem = new Entity("productpricelevel");
-                priceListItem["pricelevelid"] = new EntityReference("pricelevel", priceList);
-                priceListItem["productid"] = new EntityReference("product", productId);
-                priceListItem["uomid"] = new EntityReference("uom", unitId);
-                priceListItem["amount"] = new Money(materialCost);
-                service.Create(priceListItem);
+
+                if (entitycollection.Entities[0].Attributes.Contains("ig1_pricelist") && entitycollection.Entities[0].Attributes["ig1_pricelist"] != null)
+                {
+                    Guid priceList = entitycollection.Entities[0].GetAttributeValue<EntityReference>("ig1_pricelist").Id;
+
+                    Entity priceListItem = new Entity("productpricelevel");
+                    priceListItem["pricelevelid"] = new EntityReference("pricelevel", priceList);
+                    priceListItem["productid"] = new EntityReference("product", productId);
+                    priceListItem["uomid"] = new EntityReference("uom", unitId);
+                    priceListItem["amount"] = new Money(materialCost);
+                    service.Create(priceListItem);
+
+                    Entity opportunity = service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_opportunitytitle"));
+                    Guid oppid = opportunity.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
+
+
+                    Entity opportunityEntity = service.Retrieve("opportunity", oppid, new ColumnSet("pricelevelid"));
+                    opportunityEntity["pricelevelid"] = new EntityReference("pricelevel", priceList);
+                    service.Update(opportunityEntity);
+
+                }
+                else
+                {
+                    var priceList = CreatePriceList(projectnumber, uppreviseid);
+                    Entity priceListItem = new Entity("productpricelevel");
+                    priceListItem["pricelevelid"] = new EntityReference("pricelevel", priceList);
+                    priceListItem["productid"] = new EntityReference("product", productId);
+                    priceListItem["uomid"] = new EntityReference("uom", unitId);
+                    priceListItem["amount"] = new Money(materialCost);
+                    service.Create(priceListItem);
+
+                
+                }
+
             }
-            else
-            {
-                var priceList = CreatePriceList(opportunityId, opportunityName);
-
-                Entity priceListItem = new Entity("productpricelevel");
-                priceListItem["pricelevelid"] = new EntityReference("pricelevel", priceList);
-                priceListItem["productid"] = new EntityReference("product", productId);
-                priceListItem["uomid"] = new EntityReference("uom", unitId);
-                priceListItem["amount"] = new Money(materialCost);
-                service.Create(priceListItem);
-            }
-
         }
-
         protected void CreateOpportunityLine(Guid productid, Guid opportunityId, Guid unitId)
         {
             Entity opportunityLine = new Entity("opportunityproduct");
@@ -302,77 +319,49 @@ namespace IG_ActivateBidSheet
             opportunityLine["quantity"] = new decimal(1);
             service.Create(opportunityLine);
         }
-        protected Guid CreatePriceList(Guid opportunityId, string opportunityName)
+        protected Guid CreatePriceList(string priceprojectnumber,int upperreviseid)
         {
-            var existingPriceList = GetExistingPriceListByName(opportunityId, opportunityName);
+            var existingPriceList = GetExistingPriceListByName(priceprojectnumber, upperreviseid);
             if (existingPriceList != null && existingPriceList != Guid.Empty)
             {
-                Entity opportunityEntity = service.Retrieve("opportunity", opportunityId, new ColumnSet("pricelevelid"));
+                Entity opportunity=service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_opportunitytitle"));
+                Guid oppid = opportunity.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
+
+
+                Entity opportunityEntity = service.Retrieve("opportunity", oppid, new ColumnSet("pricelevelid"));
                 opportunityEntity["pricelevelid"] = new EntityReference("pricelevel", existingPriceList);
                 service.Update(opportunityEntity);
 
                 return existingPriceList;
             }
+            
             else
             {
-                Entity entity = service.Retrieve("opportunity", opportunityId, new ColumnSet("transactioncurrencyid"));
-
-                Entity priceList = new Entity("pricelevel");
-                if (opportunityName != null && opportunityName != "")
-                {
-                    priceList["name"] = opportunityName + opportunityId;
-                }
-                if (entity.Attributes["transactioncurrencyid"] != null)
-                {
-                    EntityReference transactionCurrency = (EntityReference)entity.Attributes["transactioncurrencyid"];
-                    priceList["transactioncurrencyid"] = transactionCurrency;
-                }
-                else
-                {
-                    var transactionCurrencyId = GetDefaultCurrencyId();
-                    if (transactionCurrencyId != null && transactionCurrencyId != Guid.Empty)
-                    {
-                        priceList["transactioncurrencyid"] = new EntityReference("transactioncurrency", transactionCurrencyId);
-                    }
-                }
-
-                var priceListId = service.Create(priceList);
-
-                if (priceList != null)
-                {
-                    Entity opportunityEntity = service.Retrieve("opportunity", opportunityId, new ColumnSet("pricelevelid"));
-                    opportunityEntity["pricelevelid"] = new EntityReference("pricelevel", priceListId);
-                    service.Update(opportunityEntity);
-                }
-                return priceListId;
+                return Guid.Empty; 
             }
 
         }
-        protected Guid GetExistingPriceListByName(Guid opportunityId, string opportunityName)
+        protected Guid GetExistingPriceListByName(string prjnumber,int id)
         {
-            var fetchData = new
-            {
-                name = opportunityName + opportunityId.ToString()
-            };
-            var fetchXml = $@"
-                                <fetch mapping='logical' version='1.0'>
-                                  <entity name='pricelevel'>
-                                    <attribute name='pricelevelid' />
-                                    <filter>
-                                      <condition attribute='name' operator='eq' value='{fetchData.name/*Price List Issue4d87e32b-0f02-ea11-a811-000d3a55d2c3*/}'/>
-                                    </filter>
-                                  </entity>
-                                </fetch>";
+            //Entity transid = service.Retrieve("opportunity", bidsheetid, new ColumnSet("transactioncurrencyid"));
+            Entity opptitle= service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_opportunitytitle"));
+            Guid oppid = opptitle.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
+            Entity transid = service.Retrieve("opportunity", oppid, new ColumnSet("transactioncurrencyid"));
+            
+            var transactionCurrency = (EntityReference)transid.Attributes["transactioncurrencyid"];
+            var currencyId = (Guid)transactionCurrency.Id;
+            var priceListName = prjnumber + " - " + id.ToString();
+            Entity priceList = new Entity("pricelevel");
+            priceList.Attributes["name"] = priceListName;
+            priceList.Attributes["transactioncurrencyid"] = new EntityReference(transactionCurrency.LogicalName, currencyId);
 
-            EntityCollection existingPriceList = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (existingPriceList.Entities.Count > 0)
-            {
-                return existingPriceList.Entities[0].Id;
-            }
-            else
-            {
-                return Guid.Empty;
-            }
+            Guid pricelistid = service.Create(priceList);
+            Entity objbidsheet = new Entity("ig1_bidsheet", bidsheetid);
+            objbidsheet["ig1_pricelist"] = new EntityReference("pricelevel",pricelistid);
+            service.Update(objbidsheet);
+            return pricelistid;
+
+
         }
         protected Guid GetDefaultCurrencyId()
         {

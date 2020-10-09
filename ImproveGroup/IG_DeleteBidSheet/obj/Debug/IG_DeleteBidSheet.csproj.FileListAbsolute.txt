@@ -1,0 +1,6 @@
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidSheet\bin\Debug\IG_DeleteBidSheet.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidSheet\bin\Debug\IG_DeleteBidSheet.pdb
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidSheet\obj\Debug\IG_DeleteBidSheet.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidSheet\obj\Debug\IG_DeleteBidSheet.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidSheet\obj\Debug\IG_DeleteBidSheet.pdb
