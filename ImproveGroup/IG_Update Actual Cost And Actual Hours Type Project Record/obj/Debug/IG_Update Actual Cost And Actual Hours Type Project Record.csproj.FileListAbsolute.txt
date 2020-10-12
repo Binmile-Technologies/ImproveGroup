@@ -17,3 +17,13 @@ D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type 
 D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.csprojResolveAssemblyReference.cache
 D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.dll
 D:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_Update Actual Cost And Actual Hours Type Project Record\obj\Debug\IG_Update Actual Cost And Actual Hours Type Project Record.pdb

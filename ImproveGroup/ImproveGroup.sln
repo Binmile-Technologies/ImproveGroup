@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImproveGroup", "ImproveGroup\ImproveGroup.csproj", "{BA93A25F-2DC6-4AC0-A1B3-2BBB67DF15F3}"
 EndProject
@@ -44,6 +44,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_DeleteBidSheet", "IG_DeleteBidSheet\IG_DeleteBidSheet.csproj", "{C2EAD022-32BB-43AC-9B8B-4CD21F91CEB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateFinanceTabValues", "IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues.csproj", "{8C5111B7-AC6C-4203-A3F3-381FAD6BAB4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_CalculateProjectRecordTotals", "IG_CalculateProjectRecordTotals\IG_CalculateProjectRecordTotals.csproj", "{E270646F-EBC5-47A0-A413-2CCA0AD9B9DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -180,6 +182,12 @@ Global
 		{8C5111B7-AC6C-4203-A3F3-381FAD6BAB4D}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{8C5111B7-AC6C-4203-A3F3-381FAD6BAB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C5111B7-AC6C-4203-A3F3-381FAD6BAB4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E270646F-EBC5-47A0-A413-2CCA0AD9B9DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E270646F-EBC5-47A0-A413-2CCA0AD9B9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E270646F-EBC5-47A0-A413-2CCA0AD9B9DF}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{E270646F-EBC5-47A0-A413-2CCA0AD9B9DF}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{E270646F-EBC5-47A0-A413-2CCA0AD9B9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E270646F-EBC5-47A0-A413-2CCA0AD9B9DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

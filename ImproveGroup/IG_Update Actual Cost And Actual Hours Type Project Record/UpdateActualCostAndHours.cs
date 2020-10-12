@@ -49,7 +49,7 @@ namespace IG_Update_Actual_Cost_And_Actual_Hours_Type_Project_Record
                             string type = entity.Attributes["ig1_costtype"].ToString();
                             if (type != "Sales Cost" && type != "Design Cost" && type != "PM Cost")
                             {
-                                expenseType = GetExpenseType("Miscellaneous");
+                                expenseType = GetExpenseType("Installer Cost");
                             }
                             else
                             {
