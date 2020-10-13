@@ -1,0 +1,6 @@
+D:\Project\OpportunityPricelist_New\OpportunityPricelist_New\bin\Debug\OpportunityPricelist_New.dll
+D:\Project\OpportunityPricelist_New\OpportunityPricelist_New\bin\Debug\OpportunityPricelist_New.pdb
+D:\Project\OpportunityPricelist_New\OpportunityPricelist_New\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Project\OpportunityPricelist_New\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.csprojResolveAssemblyReference.cache
+D:\Project\OpportunityPricelist_New\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.dll
+D:\Project\OpportunityPricelist_New\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.pdb
