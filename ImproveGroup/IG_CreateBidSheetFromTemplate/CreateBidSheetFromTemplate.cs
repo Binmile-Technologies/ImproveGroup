@@ -15,7 +15,7 @@ namespace IG_CreateBidSheetFromTemplate
             {
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                service = serviceFactory.CreateOrganizationService(null);
+                service = serviceFactory.CreateOrganizationService(context.UserId);
                 if (context.InputParameters.Equals(null) || string.IsNullOrEmpty(context.InputParameters["templateId"].ToString()) || string.IsNullOrEmpty(context.InputParameters["opportunityId"].ToString()) || string.IsNullOrEmpty(context.InputParameters["topic"].ToString()))
                 {
                     return;
@@ -24,37 +24,33 @@ namespace IG_CreateBidSheetFromTemplate
                 string templateId = context.InputParameters["templateId"].ToString();
                 string topic = context.InputParameters["topic"].ToString();
                 string opportunityId = context.InputParameters["opportunityId"].ToString();
+                bool keepPricing = Convert.ToBoolean(context.InputParameters["keepPricing"]);
+                bool isChangeOrder = Convert.ToBoolean(context.InputParameters["isChangeOrder"]);
                 Entity template = service.Retrieve("ig1_bidsheet", new Guid(templateId), new ColumnSet(true));
-                Guid bidSheetId = CreateBidSheet(template, opportunityId, topic);
+                Guid bidSheetId = CreateBidSheet(template, opportunityId, topic, keepPricing, isChangeOrder);
                 if (bidSheetId != Guid.Empty)
                 {
                     CreateBidSheetCategories(template.Id, bidSheetId);
-                    CreateBidSheetProducts(template.Id, bidSheetId);
-                    CreateTemplateLineItems(template.Id, bidSheetId);
+                    CreateBidSheetProducts(template.Id, bidSheetId, keepPricing);
+                    CreateBidSheetLineItems(template.Id, bidSheetId, keepPricing);
                     UpdateTemplate(template);
 
                 }
             }
             catch (Exception ex)
             {
-                Entity errorLog = new Entity("ig1_pluginserrorlogs");
-                errorLog["ig1_name"] = "An error occurred in CreateTemplateFromBidSheet Plug-in";
-                errorLog["ig1_errormessage"] = ex.Message;
-                errorLog["ig1_errordescription"] = ex.ToString();
-                service.Create(errorLog);
+                var trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+                trace.Trace("Throwing CreateBidSheetFromTemplate Plugin");
+                throw new InvalidPluginExecutionException("Error " + ex);
             }
         }
-        protected Guid CreateBidSheet(Entity template, string opportunityId, string topic)
+        protected Guid CreateBidSheet(Entity template, string opportunityId, string topic, bool keepPricing, bool isChangeOrder)
         {
-            string projectNumber = string.Empty;
-            string revisionId = string.Empty;
-            string bidSheetTitle = string.Empty;
-
             Entity bidSheet = new Entity("ig1_bidsheet");
 
             foreach (var attribute in template.Attributes)
             {
-                if (attribute.Key == "ig1_bidsheetid" || attribute.Key == "ig1_upperrevisionid" || attribute.Key == "ig1_projectnumber")
+                if (attribute.Key == "ig1_bidsheetid" || attribute.Key == "ig1_upperrevisionid" || attribute.Key== "ig1_revisionid" || attribute.Key == "ig1_projectnumber" || attribute.Key== "ig1_pricelist")
                 {
                     continue;
                 }
@@ -72,15 +68,28 @@ namespace IG_CreateBidSheetFromTemplate
                 }
                 else
                 {
-                    bidSheet[attribute.Key] = attribute.Value;
+                    Type type = attribute.Value.GetType();
+
+                    if (type.Name == "Money" && !keepPricing)
+                    {
+                        bidSheet[attribute.Key] = new Money(0);
+                    }
+                    else if (type.Name == "Decimal" && !keepPricing)
+                    {
+                        bidSheet[attribute.Key] = Convert.ToDecimal(0);
+                    }
+                    else
+                    {
+                        bidSheet[attribute.Key] = attribute.Value;
+                    }
                 }
             }
             if (!string.IsNullOrEmpty(opportunityId))
             {
                 bidSheet["ig1_opportunitytitle"] = new EntityReference("opportunity", new Guid(opportunityId));
             }
+            bidSheet["ig1_iscreateorder"] = isChangeOrder;
             Guid bidSheetId = service.Create(bidSheet);
-
             return bidSheetId;
         }
         protected void CreateBidSheetCategories(Guid templateId, Guid bidSheetId)
@@ -112,7 +121,7 @@ namespace IG_CreateBidSheetFromTemplate
                 service.Create(bidSheetCategory);
             }
         }
-        protected void CreateBidSheetProducts(Guid templateId, Guid bidSheetId)
+        protected void CreateBidSheetProducts(Guid templateId, Guid bidSheetId, bool keepPricing)
         {
             QueryByAttribute query = new QueryByAttribute("ig1_bidsheetproduct");
             query.ColumnSet = new ColumnSet(true);
@@ -135,13 +144,25 @@ namespace IG_CreateBidSheetFromTemplate
                     }
                     else
                     {
-                        bidSheetProducts[attribute.Key] = attribute.Value;
+                        Type type = attribute.Value.GetType();
+                        if (type.Name == "Money" && !keepPricing)
+                        {
+                            bidSheetProducts[attribute.Key] = new Money(0);
+                        }
+                        else if (type.Name == "Decimal" && !keepPricing)
+                        {
+                            bidSheetProducts[attribute.Key] = Convert.ToDecimal(0);
+                        }
+                        else
+                        {
+                            bidSheetProducts[attribute.Key] = attribute.Value;
+                        }
                     }
                 }
                 service.Create(bidSheetProducts);
             }
         }
-        protected void CreateTemplateLineItems(Guid templateId, Guid bidSheetId)
+        protected void CreateBidSheetLineItems(Guid templateId, Guid bidSheetId, bool keepPricing)
         {
             QueryByAttribute query = new QueryByAttribute("ig1_bidsheetpricelistitem");
             query.ColumnSet = new ColumnSet(true);
@@ -149,38 +170,50 @@ namespace IG_CreateBidSheetFromTemplate
             query.Values.AddRange(templateId);
 
             EntityCollection templateLineItems = service.RetrieveMultiple(query);
-            foreach (Entity lineItems in templateLineItems.Entities)
+            foreach (Entity items in templateLineItems.Entities)
             {
                 Entity bidSheetLineItems = new Entity("ig1_bidsheetpricelistitem");
-                foreach (var attribute in lineItems.Attributes)
+                foreach (var attribute in items.Attributes)
                 {
-                    if (attribute.Key == "ig1_bidsheetpricelistitemid")
+                    if (attribute.Key == "ig1_bidsheetpricelistitemid" || attribute.Key == "ig1_associatedcostid")
                     {
                         continue;
-                    }
-                    else if (attribute.Key == "ig1_associatedcostid")
-                    {
-                        EntityReference bsAssociatedCost = (EntityReference)attribute.Value;
-                        Guid bidSheetAssociatedCostId = CreateTemplateAssociatedCost(bsAssociatedCost.Id, bidSheetId);
-                        if (bidSheetAssociatedCostId != null && bidSheetAssociatedCostId != Guid.Empty)
-                        {
-                            bidSheetLineItems[attribute.Key] = new EntityReference("ig1_associatedcost", bidSheetAssociatedCostId);
-                        }
                     }
                     else if (attribute.Key== "ig1_bidsheet")
                     {
                         bidSheetLineItems["ig1_bidsheet"] = new EntityReference("ig1_bidsheet", bidSheetId);
                     }
+                    /*else if (attribute.Key == "ig1_associatedcostid")
+                    {
+                        EntityReference bsAssociatedCost = (EntityReference)attribute.Value;
+                        Guid bidSheetAssociatedCostId = GetBidsheetAssociatedCost(bsAssociatedCost.Id, bidSheetId);
+                        if (bidSheetAssociatedCostId != null && bidSheetAssociatedCostId != Guid.Empty)
+                        {
+                            bidSheetLineItems[attribute.Key] = new EntityReference("ig1_associatedcost", bidSheetAssociatedCostId);
+                        }
+                    }*/
                     else
                     {
-                        bidSheetLineItems[attribute.Key] = attribute.Value;
+                        Type type = attribute.Value.GetType();
+                        if (type.Name == "Money" && !keepPricing)
+                        {
+                            bidSheetLineItems[attribute.Key] = new Money(0);
+                        }
+                        else if (type.Name == "Decimal" && !keepPricing)
+                        {
+                            bidSheetLineItems[attribute.Key] = Convert.ToDecimal(0);
+                        }
+                        else
+                        {
+                            bidSheetLineItems[attribute.Key] = attribute.Value;
+                        }
                     }
                 }
                 service.Create(bidSheetLineItems);
             }
 
         }
-        protected Guid CreateTemplateAssociatedCost(Guid associatedCostId, Guid bidSheetId)
+        /*protected Guid GetBidsheetAssociatedCost(Guid associatedCostId, Guid bidSheetId)
         {
             Entity templateAssociatedCost = service.Retrieve("ig1_associatedcost", associatedCostId, new ColumnSet(true));
             Entity bsAssociatedCost = new Entity("ig1_associatedcost");
@@ -202,7 +235,7 @@ namespace IG_CreateBidSheetFromTemplate
             Guid bidSheetAssociatedCostId = service.Create(bsAssociatedCost);
 
             return bidSheetAssociatedCostId;
-        }
+        }*/
         protected void UpdateTemplate(Entity template)
         {
             Entity entity = service.Retrieve(template.LogicalName, template.Id, new ColumnSet("ig1_createdbidsheets"));

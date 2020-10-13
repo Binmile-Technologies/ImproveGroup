@@ -32,20 +32,19 @@ namespace IG_NewBidSheetForChangeOrder
                         {
                             var opportunityId = (Guid)opportunity.Id;
                             if (opportunityId != Guid.Empty && opportunityId != null)
-                            UpdateUpperRevisionId(opportunityId, entity.Id);
-                            UpdateProjectNumber(opportunityId, entity.Id);
+                            {
+                                UpdateUpperRevisionId(opportunityId, entity.Id);
+                                UpdateProjectNumber(opportunityId, entity.Id);
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                IOrganizationService serviceAdmin = servicefactory.CreateOrganizationService(null);
-                Entity errorLog = new Entity("ig1_pluginserrorlogs");
-                errorLog["ig1_name"] = "An error occurred in NewBidSheetForChangeOrder Plug-in";
-                errorLog["ig1_errormessage"] = ex.Message;
-                errorLog["ig1_errordescription"] = ex.ToString();
-                serviceAdmin.Create(errorLog);
+                var trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+                trace.Trace("NewBidSheetForChangeOrderP lugin Exception");
+                throw new InvalidPluginExecutionException("Error " + ex);
             }
         }
 
@@ -94,6 +93,7 @@ namespace IG_NewBidSheetForChangeOrder
                 if (par == true)
                 {
                     entity["ig1_upperrevisionid"] = maxUpperRevisionId + 1;
+                    entity["ig1_revisionid"] = 0;
                     service.Update(entity);
                 }
                 else
@@ -149,12 +149,16 @@ namespace IG_NewBidSheetForChangeOrder
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
             foreach (var bidsheet in result.Entities)
             {
-                var revisionId = (int)bidsheet.Attributes["ig1_revisionid"];
-                if (revisionId > revise)
-                    revise = revisionId;
+                if (bidsheet.Attributes.Contains("ig1_revisionid") && bidsheet.Attributes["ig1_revisionid"] != null)
+                {
+                    var revisionId = (int)bidsheet.Attributes["ig1_revisionid"];
+                    if (revisionId > revise)
+                    {
+                        revise = revisionId;
+                    }
+                }
             }
-            return revise;           
-
+            return revise;
         }
     }
 }

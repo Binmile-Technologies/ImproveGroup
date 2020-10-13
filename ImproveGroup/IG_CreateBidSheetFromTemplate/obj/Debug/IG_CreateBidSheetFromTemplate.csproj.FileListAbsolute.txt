@@ -7,3 +7,13 @@ D:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Micr
 D:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.csprojResolveAssemblyReference.cache
 D:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.dll
 D:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\IG_CreateBidSheetFromTemplate.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\IG_CreateBidSheetFromTemplate.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CreateBidSheetFromTemplate\obj\Debug\IG_CreateBidSheetFromTemplate.pdb
