@@ -18,7 +18,7 @@ namespace IG_IndirectCost
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                service = serviceFactory.CreateOrganizationService(null);
+                service = serviceFactory.CreateOrganizationService(context.InitiatingUserId);
 
                 if (context.MessageName.ToLower() == "delete" && context.PreEntityImages.Contains("Image"))
                 {

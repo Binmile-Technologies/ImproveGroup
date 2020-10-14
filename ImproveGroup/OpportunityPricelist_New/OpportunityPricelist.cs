@@ -26,7 +26,7 @@ namespace OpportunityPricelist_New
             tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-            service = serviceFactory.CreateOrganizationService(context.UserId);
+            service = serviceFactory.CreateOrganizationService(context.InitiatingUserId);
 
 
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
@@ -34,8 +34,6 @@ namespace OpportunityPricelist_New
                 Entity entity = (Entity)context.InputParameters["Target"];
                 if (entity.LogicalName == "opportunity")
                 {
-
-
                     try
                     {
                         if (entity.Attributes.Contains("transactioncurrencyid") && entity.Attributes["transactioncurrencyid"] != null)
@@ -55,68 +53,66 @@ namespace OpportunityPricelist_New
                     }
                     catch (Exception ex)
                     {
-                        IOrganizationService serviceAdmin = serviceFactory.CreateOrganizationService(null);
-                        Entity errorLog = new Entity("ig1_pluginserrorlogs");
-                        errorLog["ig1_name"] = "An error occurred in OpportunityPriceList Plug-in";
-                        errorLog["ig1_errormessage"] = ex.Message;
-                        errorLog["ig1_errordescription"] = ex.ToString();
-                        serviceAdmin.Create(errorLog);
+                        var trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+                        trace.Trace("OpportunityPriceList Plug-in");
+                        throw new InvalidPluginExecutionException("Error " + ex);
                     }
-
-                   
-
-
                 }
-
-
                 else if (entity.LogicalName == "ig1_bidsheet")
                 {
-
-                    Entity fetchentity = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_opportunitytitle"));
-                    Guid id = fetchentity.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
-
+                    Guid id = Guid.Empty;
+                    Entity fetchentity = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_opportunitytitle", "ig1_status"));
+                    if (fetchentity.Attributes.Contains("ig1_opportunitytitle") && fetchentity.Attributes["ig1_opportunitytitle"] != null)
+                    {
+                        id = fetchentity.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
+                    }
                     var fetchData = new
                     {
-                        ig1_bidsheetid = entity.Id
+                        ig1_bidsheetid = entity.Id,
+                        ig1_status = "286150003"
                     };
                     var fetchXml = $@"
-                                 <fetch>
-                            <entity name='ig1_bidsheet'>
-                                <attribute name='ig1_upperrevisionid' />
-                               <attribute name='ig1_projectnumber' />
-                               <filter type='and'>
-                              <condition attribute='ig1_bidsheetid' operator='eq' value='{fetchData.ig1_bidsheetid/*a43f327c-7434-4c43-ad1e-da3929406fd4*/}'/>
-                               </filter>
-                                 </entity>
-                                 </fetch>";
-
-
-                    EntityCollection result  =service.RetrieveMultiple(new FetchExpression(fetchXml));
-
-                      if(result.Entities.Count>0 && result.Entities != null)
+                                   <fetch>
+                                    <entity name='ig1_bidsheet'>
+                                       <attribute name='ig1_upperrevisionid' />
+                                       <attribute name='ig1_projectnumber' />
+                                       <filter type='and'>
+                                         <condition attribute='ig1_bidsheetid' operator='eq' value='{fetchData.ig1_bidsheetid/*a43f327c-7434-4c43-ad1e-da3929406fd4*/}'/>
+                                         <condition attribute='ig1_status' operator='neq' value='{fetchData.ig1_status/*286150003*/}'/>
+                                       </filter>
+                                     </entity>
+                                   </fetch>";
+                    EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+                    if (result.Entities.Count > 0 && result.Entities != null)
                     {
+                        var attrributes = result.Entities[0];
+                        string projectnumber = string.Empty;
+                        string uppreviseid = string.Empty;
+                        string pricelist = string.Empty;
 
-                        String projectnumber  =result.Entities[0].GetAttributeValue<string>("ig1_projectnumber").ToString();
-                        int uppreviseid = result.Entities[0].GetAttributeValue<int>("ig1_upperrevisionid");
+                        if (attrributes.Attributes.Contains("ig1_projectnumber") && attrributes.Attributes["ig1_projectnumber"] != null)
+                        {
+                            projectnumber = attrributes.GetAttributeValue<string>("ig1_projectnumber").ToString();
+                        }
+                        if (attrributes.Attributes.Contains("ig1_upperrevisionid") && attrributes.Attributes["ig1_upperrevisionid"] != null)
+                        {
+                            uppreviseid = result.Entities[0].GetAttributeValue<int>("ig1_upperrevisionid").ToString();
+                        }
+                        if (projectnumber != string.Empty && uppreviseid != string.Empty)
+                        {
+                            pricelist = projectnumber + " - " + uppreviseid;
+                        }
 
-                        var pricelist= projectnumber +" - "+uppreviseid.ToString();
-
-                         Guid pricedlistidforbs  = GetPricelist(pricelist, id);
-
-                        Entity objentity = new Entity(entity.LogicalName,entity.Id);
-                                               
-                        objentity["ig1_pricelist"] = new EntityReference("pricelevel", pricedlistidforbs);
-                        service.Update(objentity);
-
-
+                        Guid pricedlistidforbs = GetPricelist(pricelist, id);
+                        if (pricedlistidforbs != Guid.Empty)
+                        {
+                            Entity objentity = new Entity(entity.LogicalName, entity.Id);
+                            objentity["ig1_pricelist"] = new EntityReference("pricelevel", pricedlistidforbs);
+                            service.Update(objentity);
+                        }
                     }
-
-
-
                 }
             }
-
-           
         }
         protected void UpdateOpportunityPriceList(Guid priceListId, Guid opportunityId)
         {

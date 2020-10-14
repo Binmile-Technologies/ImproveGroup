@@ -15,7 +15,7 @@ namespace IG_NewBidSheetForChangeOrder
             context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             tracing = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             servicefactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-            service = servicefactory.CreateOrganizationService(context.UserId);
+            service = servicefactory.CreateOrganizationService(context.InitiatingUserId);
             try
             {
                 if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
@@ -25,17 +25,24 @@ namespace IG_NewBidSheetForChangeOrder
                     {
                         return;
                     }
-                    if (entity.Attributes.Contains("ig1_opportunitytitle"))
+
+                    Entity bs = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_status", "ig1_opportunitytitle"));
+                    EntityReference opportunity = null;
+                    OptionSetValue status = null;
+                    if (bs.Attributes.Contains("ig1_opportunitytitle") && bs.Attributes["ig1_opportunitytitle"] != null)
                     {
-                        var opportunity = (EntityReference)entity.Attributes["ig1_opportunitytitle"];
-                        if (opportunity != null)
+                        opportunity = (EntityReference)entity.Attributes["ig1_opportunitytitle"];
+                    }
+                    if (bs.Attributes.Contains("ig1_status") && bs.Attributes["ig1_status"] != null)
+                    {
+                        status = (OptionSetValue)bs.Attributes["ig1_status"];
+                    }
+                    if (opportunity != null && status.Value != Convert.ToInt32("286150003"))
+                    {
+                        if (opportunity.Id != Guid.Empty)
                         {
-                            var opportunityId = (Guid)opportunity.Id;
-                            if (opportunityId != Guid.Empty && opportunityId != null)
-                            {
-                                UpdateUpperRevisionId(opportunityId, entity.Id);
-                                UpdateProjectNumber(opportunityId, entity.Id);
-                            }
+                            UpdateUpperRevisionId(opportunity.Id, entity.Id);
+                            UpdateProjectNumber(opportunity.Id, entity.Id);
                         }
                     }
                 }
