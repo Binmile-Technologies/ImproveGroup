@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_IndirectCost", "IG_Indir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_CalculateLaborCost", "IG_CalculateLaborCost\IG_CalculateLaborCost.csproj", "{58AD1E6B-23AD-4A18-A373-F2BF62C60DA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_DeleteBidsheetLineItems", "IG_DeleteBidsheetLineItems\IG_DeleteBidsheetLineItems.csproj", "{768ACD64-BCA1-4FE0-8FB9-15E4D6773319}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_DeleteBidSheet", "IG_DeleteBidSheet\IG_DeleteBidSheet.csproj", "{C2EAD022-32BB-43AC-9B8B-4CD21F91CEB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateFinanceTabValues", "IG_UpdateFinanceTabValues\IG_UpdateFinanceTabValues.csproj", "{8C5111B7-AC6C-4203-A3F3-381FAD6BAB4D}"
@@ -48,6 +46,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_CalculateProjectRecordTotals", "IG_CalculateProjectRecordTotals\IG_CalculateProjectRecordTotals.csproj", "{E270646F-EBC5-47A0-A413-2CCA0AD9B9DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpportunityPricelist_New", "OpportunityPricelist_New\OpportunityPricelist_New.csproj", "{1818896D-6D58-4262-87C8-DB3E6FCA5EB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_ReopenBidSheet", "IG_ReopenBidSheet\IG_ReopenBidSheet.csproj", "{CD91DFBB-F49B-45E3-A395-CD7EE2403BDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -166,12 +166,6 @@ Global
 		{58AD1E6B-23AD-4A18-A373-F2BF62C60DA0}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{58AD1E6B-23AD-4A18-A373-F2BF62C60DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58AD1E6B-23AD-4A18-A373-F2BF62C60DA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{768ACD64-BCA1-4FE0-8FB9-15E4D6773319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{768ACD64-BCA1-4FE0-8FB9-15E4D6773319}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{768ACD64-BCA1-4FE0-8FB9-15E4D6773319}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
-		{768ACD64-BCA1-4FE0-8FB9-15E4D6773319}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
-		{768ACD64-BCA1-4FE0-8FB9-15E4D6773319}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{768ACD64-BCA1-4FE0-8FB9-15E4D6773319}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2EAD022-32BB-43AC-9B8B-4CD21F91CEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C2EAD022-32BB-43AC-9B8B-4CD21F91CEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2EAD022-32BB-43AC-9B8B-4CD21F91CEB2}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
@@ -196,6 +190,12 @@ Global
 		{1818896D-6D58-4262-87C8-DB3E6FCA5EB3}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{1818896D-6D58-4262-87C8-DB3E6FCA5EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1818896D-6D58-4262-87C8-DB3E6FCA5EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD91DFBB-F49B-45E3-A395-CD7EE2403BDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD91DFBB-F49B-45E3-A395-CD7EE2403BDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD91DFBB-F49B-45E3-A395-CD7EE2403BDE}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD91DFBB-F49B-45E3-A395-CD7EE2403BDE}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{CD91DFBB-F49B-45E3-A395-CD7EE2403BDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD91DFBB-F49B-45E3-A395-CD7EE2403BDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
