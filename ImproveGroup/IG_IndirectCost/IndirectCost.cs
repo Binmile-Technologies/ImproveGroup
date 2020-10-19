@@ -253,7 +253,7 @@ namespace IG_IndirectCost
             entity.Attributes["ig1_freightsell"] = new Money(freightsell);
             entity.Attributes["ig1_totalmaterialcost"] = new Money(materialCost);
 
-            laborCost = laborRate * luExtend;
+            laborCost = Math.Round((laborRate * luExtend), 2);
             entity.Attributes["ig1_pmlaborsme"] = laborCost;
             entity.Attributes["ig1_baselabor"] =new Money(laborCost * laborMargin);
 
@@ -279,7 +279,7 @@ namespace IG_IndirectCost
 
             if (margin >= 0 && margin < 100)
             {
-                totalMaterialCost = materialCost / (1 - margin / 100);
+                totalMaterialCost = Math.Round((materialCost / (1 - margin / 100)), 2);
                 sellPrice = salesCost + designCost + travelCost + freightsell + totalMaterialCost + laborCost;
             }
             else
@@ -457,7 +457,7 @@ namespace IG_IndirectCost
                 associatedCost.Attributes["ig1_designhours"] = designHours;
                 associatedCost.Attributes["ig1_saleshours"] = salesHours;
 
-                laborCost = laborRate * luExtend;
+                laborCost = Math.Round((laborRate * luExtend),2);
                 baseLabor = laborCost * laborMargin;
                 associatedCost.Attributes["ig1_pmlaborsme"] = laborCost;
                 associatedCost.Attributes["ig1_baselabor"] = new Money(baseLabor);
@@ -475,7 +475,7 @@ namespace IG_IndirectCost
                 if (margin > 0 && margin < 100)
                 {
                     
-                    totalMaterialCost = materialCost / (1 - margin / 100);
+                    totalMaterialCost =Math.Round((materialCost / (1 - margin / 100)), 2);
                     associatedCost.Attributes["ig1_totalmaterialcost"] = new Money(totalMaterialCost);
                     associatedCost.Attributes["ig1_totalsellprice"] = salesCost + designCost + travelCost + laborCost + totalMaterialCost + freightsell;
                 }

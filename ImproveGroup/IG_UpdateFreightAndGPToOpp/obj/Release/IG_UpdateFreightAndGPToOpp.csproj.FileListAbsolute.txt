@@ -1,0 +1,11 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Release\IG_UpdateFreightAndGPToOpp.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Release\IG_UpdateFreightAndGPToOpp.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Release\IG_UpdateFreightAndGPToOpp.csprojAssemblyReference.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Release\IG_UpdateFreightAndGPToOpp.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Release\IG_UpdateFreightAndGPToOpp.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Release\IG_UpdateFreightAndGPToOpp.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Release\IG_UpdateFreightAndGPToOpp.pdb

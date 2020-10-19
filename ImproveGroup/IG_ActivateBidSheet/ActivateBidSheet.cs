@@ -118,7 +118,7 @@ namespace IG_ActivateBidSheet
                         margin = Convert.ToDecimal(associatedCost["ig1_margin"]);
                         if (margin > 0 && margin < 100)
                         {
-                            totalMaterialCost = materialCost / (1 - margin / 100);
+                            totalMaterialCost = Math.Round((materialCost / (1 - margin / 100)), 2);
                         }
                         else
                         {

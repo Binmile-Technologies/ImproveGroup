@@ -1,0 +1,10 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\bin\Release\IG_ReopenBidSheet.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\bin\Release\IG_ReopenBidSheet.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\obj\Release\IG_ReopenBidSheet.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\obj\Release\IG_ReopenBidSheet.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\obj\Release\IG_ReopenBidSheet.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\obj\Release\IG_ReopenBidSheet.pdb

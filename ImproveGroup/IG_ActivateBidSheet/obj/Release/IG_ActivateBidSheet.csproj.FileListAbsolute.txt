@@ -1,0 +1,10 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Release\IG_ActivateBidSheet.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Release\IG_ActivateBidSheet.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Release\IG_ActivateBidSheet.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Release\IG_ActivateBidSheet.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Release\IG_ActivateBidSheet.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Release\IG_ActivateBidSheet.pdb

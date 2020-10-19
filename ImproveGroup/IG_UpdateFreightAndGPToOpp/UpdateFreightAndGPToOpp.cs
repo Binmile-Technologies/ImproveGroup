@@ -29,48 +29,26 @@ namespace IG_UpdateFreightAndGPToOpp
                         EntityReference oppRef = (EntityReference)bs.Attributes["ig1_opportunitytitle"];
                         if (oppRef.Id != Guid.Empty)
                         {
-                            Entity opp = service.Retrieve(oppRef.LogicalName, oppRef.Id, new ColumnSet("ig1_totalgrossprofit"));
-                            Money totalGP = TotalGP(oppRef.Id);
-                            if (totalGP != null)
-                            {
-                                opp.Attributes["ig1_totalgrossprofit"] = totalGP;
-                            }
-                            else
-                            {
-                                opp.Attributes["ig1_totalgrossprofit"] = null;
-                            }
-                            Money freightTotal = FreightTotal(entity.Id);
-                            if (freightTotal != null)
-                            {
-                                opp.Attributes["freightamount"] = freightTotal;
-                            }
-                            else
-                            {
-                                opp.Attributes["freightamount"] = null;
-                            }
-                            decimal bidSheetTotal = BidSheetTotal(oppRef.Id);
-                            opp.Attributes["ig1_bidsheettotal"] = bidSheetTotal;
-                            service.Update(opp);
+                            Entity opportunity = service.Retrieve(oppRef.LogicalName, oppRef.Id, new ColumnSet("ig1_totalgrossprofit"));
+                            FreightTotal(entity.Id, opportunity);
+                            TotalGP(opportunity);
+                            BidSheetTotal(opportunity);
                         }
-
-
                     }
                 }
             }
             catch (Exception ex)
             {
-                Entity errorLog = new Entity("ig1_pluginserrorlogs");
-                errorLog["ig1_name"] = "An error occurred in BidSheetGrossProfitToOpportunity Plug-in";
-                errorLog["ig1_errormessage"] = ex.Message;
-                errorLog["ig1_errordescription"] = ex.ToString();
-                service.Create(errorLog);
+                var trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+                trace.Trace("UpdateFreightAndGPToOpp lugin Exception");
+                throw new InvalidPluginExecutionException("Error " + ex);
             }
         }
-        protected Money TotalGP(Guid oppId)
+        protected void TotalGP(Entity opportunity)
         {
             var fetchData = new
             {
-                ig1_opportunitytitle = oppId,
+                ig1_opportunitytitle = opportunity.Id,
                 ig1_associated = "1"
             };
             var fetchXml = $@"
@@ -96,14 +74,16 @@ namespace IG_UpdateFreightAndGPToOpp
                         totalGP += Convert.ToDecimal(gp.Value);
                     }
                 }
-                return new Money(totalGP);
+                opportunity.Attributes["ig1_totalgrossprofit"] = new Money(totalGP);
+                service.Update(opportunity);
             }
             else
             {
-                return new Money(0);
+                opportunity.Attributes["ig1_totalgrossprofit"] = new Money(0);
+                service.Update(opportunity);
             }
         }
-        protected Money FreightTotal(Guid bidSheetId)
+        protected void FreightTotal(Guid bidSheetId, Entity opportunity)
         {
             var fetchData = new
             {
@@ -142,18 +122,15 @@ namespace IG_UpdateFreightAndGPToOpp
                         freightTotal += Convert.ToDecimal(money.Value);
                     }
                 }
-                return new Money(freightTotal);
-            }
-            else
-            {
-                return new Money(0);
+                opportunity.Attributes["freightamount"] = new Money(freightTotal);
+                service.Update(opportunity);
             }
         }
-        protected decimal BidSheetTotal(Guid oppId)
+        protected void BidSheetTotal(Entity opportunity)
         {
             var fetchData = new
             {
-                ig1_opportunitytitle = oppId,
+                ig1_opportunitytitle = opportunity.Id,
                 ig1_associated = "1"
             };
             var fetchXml = $@"
@@ -180,11 +157,13 @@ namespace IG_UpdateFreightAndGPToOpp
                         bidsheetTotal += Convert.ToDecimal(money.Value);
                     }
                 }
-                return bidsheetTotal;
+                opportunity.Attributes["ig1_bidsheettotal"] = bidsheetTotal;
+                service.Update(opportunity);
             }
             else
             {
-                return Convert.ToDecimal(0);
+                opportunity.Attributes["ig1_bidsheettotal"] = Convert.ToDecimal(0);
+                service.Update(opportunity);
             }
         }
     }

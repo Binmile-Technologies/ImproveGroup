@@ -1,3 +1,11 @@
+D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\IG_ActivateBidSheet.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\IG_ActivateBidSheet.pdb
+D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.pdb
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\IG_ActivateBidSheet.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\IG_ActivateBidSheet.pdb
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
@@ -8,11 +16,3 @@ E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBid
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.pdb
-D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\IG_ActivateBidSheet.dll
-D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\IG_ActivateBidSheet.pdb
-D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
-D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
-D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
-D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
-D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.dll
-D:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.pdb
