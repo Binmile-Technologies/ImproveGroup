@@ -36,11 +36,9 @@ namespace IG_DeleteBidSheet
             }
             catch (Exception ex)
             {
-                Entity errorLog = new Entity("ig1_pluginserrorlogs");
-                errorLog["ig1_name"] = "An error occurred in DeleteBidSheet Plug-in";
-                errorLog["ig1_errormessage"] = ex.Message;
-                errorLog["ig1_errordescription"] = ex.ToString();
-                service.Create(errorLog);
+                var trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+                trace.Trace("Throwing DeleteBidSheet Plugin");
+                throw new InvalidPluginExecutionException("Error " + ex);
             }
         }
         protected void DeleteAssociatedRecords(Guid recordId, string entityname)

@@ -13,18 +13,26 @@ namespace IG_ActivateBidSheet
         Guid bidsheetid = Guid.Empty;
         public void Execute(IServiceProvider serviceProvider)
         {
-            #region Setup
-            tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-            context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
-            serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-            service = serviceFactory.CreateOrganizationService(context.UserId);
-            #endregion
-
-            if (context.InputParameters!=null && context.InputParameters.Contains("bidSheetId"))
+            try
             {
-                bidsheetid = new Guid(context.InputParameters["bidSheetId"].ToString());
-                GetBidsheetLineItems(bidsheetid);
+                #region Setup
+                tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+                context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+                serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+                service = serviceFactory.CreateOrganizationService(context.UserId);
+                #endregion
 
+                if (context.InputParameters != null && context.InputParameters.Contains("bidSheetId"))
+                {
+                    bidsheetid = new Guid(context.InputParameters["bidSheetId"].ToString());
+                    GetBidsheetLineItems(bidsheetid);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                tracingService.Trace("Exception in ActivateBidSheet plugin");
+                throw new InvalidPluginExecutionException("Error "+ex);
             }
         }
 
@@ -89,7 +97,7 @@ namespace IG_ActivateBidSheet
                     if (result.Contains("ig1_materialcost") && result["ig1_materialcost"] != null)
                     {
                         Money money = (Money)result["ig1_materialcost"];
-                        materialCost = Convert.ToDecimal(money.Value);
+                        materialCost =Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_product") && result["ig1_product"]!=null)
                     {
@@ -111,14 +119,14 @@ namespace IG_ActivateBidSheet
                     if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_materialcost") && associatedCost["ig1_materialcost"] != null)
                     {
                         Money money = (Money)associatedCost["ig1_materialcost"];
-                        categoryMaterialCost = Convert.ToDecimal(money.Value);
+                        categoryMaterialCost = Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_margin") && associatedCost["ig1_margin"] != null)
                     {
-                        margin = Convert.ToDecimal(associatedCost["ig1_margin"]);
+                        margin =Math.Round(Convert.ToDecimal(associatedCost["ig1_margin"]), 2);
                         if (margin > 0 && margin < 100)
                         {
-                            totalMaterialCost = Math.Round((materialCost / (1 - margin / 100)), 2);
+                            totalMaterialCost =Math.Round((materialCost / (1 - margin / 100)), 2);
                         }
                         else
                         {
@@ -136,21 +144,21 @@ namespace IG_ActivateBidSheet
                     if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_salescost") && associatedCost["ig1_salescost"] != null)
                     {
                         Money money = (Money)associatedCost["ig1_salescost"];
-                        salesCost = Convert.ToDecimal(money.Value); 
+                        salesCost = Math.Round(Convert.ToDecimal(money.Value), 2); 
                     }
                     if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_designcost") && associatedCost["ig1_designcost"] != null)
                     {
                         Money money = (Money)associatedCost["ig1_designcost"];
-                        designCost = Convert.ToDecimal(money.Value);
+                        designCost = Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_travelcost") && associatedCost["ig1_travelcost"] != null)
                     {
                         Money money = (Money)associatedCost["ig1_travelcost"];
-                        travelCost = Convert.ToDecimal(money.Value);
+                        travelCost = Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (associatedCost != null && associatedCost.Count > 0 && associatedCost.Contains("ig1_pmlaborsme") && associatedCost["ig1_pmlaborsme"] != null && !category.Contains(categoryid))
                     {
-                        laborCost = Convert.ToDecimal(associatedCost["ig1_pmlaborsme"]);
+                        laborCost = Math.Round(Convert.ToDecimal(associatedCost["ig1_pmlaborsme"]), 2);
                         totalLaborCost += laborCost;
                         category[i] = categoryid;
                         i++;
@@ -158,7 +166,7 @@ namespace IG_ActivateBidSheet
                     categorysdt = salesCost + designCost + travelCost;
                     if (categoryMaterialCost > 0)
                     {
-                        productsdt = (materialCost / categoryMaterialCost) * categorysdt;
+                        productsdt = Math.Round(((materialCost / categoryMaterialCost) * categorysdt), 2);
                     }
                     totalMaterialCost = totalMaterialCost + productsdt;
                     CreatePriceListItem(bidsheetid, productid, defaultUnit, totalMaterialCost);
