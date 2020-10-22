@@ -1,0 +1,2 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidSheet\obj\Release\IG_DeleteBidSheet.csprojAssemblyReference.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_DeleteBidSheet\obj\Release\IG_DeleteBidSheet.csproj.CoreCompileInputs.cache

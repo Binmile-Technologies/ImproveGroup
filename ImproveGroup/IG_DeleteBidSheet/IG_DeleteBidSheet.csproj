@@ -37,6 +37,9 @@
     <AssemblyOriginatorKeyFile>deletebidsheet.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy">
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.5\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xrm.Sdk">
       <HintPath>..\..\..\..\SDK_V.9\Tools\CoreTools\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>

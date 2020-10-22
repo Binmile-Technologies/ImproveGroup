@@ -25,17 +25,20 @@ namespace IG_DeleteBidSheet
                 bool indirectCostDeleted = false;
                 bool bsProductsDeleted = false;
                 bool categoriesDeleted = false;
-
-                Guid recordid = new Guid(context.InputParameters["recordId"].ToString());
-                if (recordid != Guid.Empty)
+                string[] recordsids =Convert.ToString(context.InputParameters["recordId"]).Split(',');
+                for (int i = 0; i < recordsids.Length; i++)
                 {
-                    lineItemsDeleted = BidSheetLineItems(recordid);
-                    indirectCostDeleted = IndirectCosts(recordid);
-                    bsProductsDeleted = BidsheetProducts(recordid);
-                    categoriesDeleted = Categories(recordid);
-                    if (lineItemsDeleted && indirectCostDeleted && bsProductsDeleted && categoriesDeleted)
+                    Guid recordid = new Guid(recordsids[i]);
+                    if (recordid != Guid.Empty)
                     {
-                        service.Delete("ig1_bidsheet", recordid);
+                        lineItemsDeleted = BidSheetLineItems(recordid);
+                        indirectCostDeleted = IndirectCosts(recordid);
+                        bsProductsDeleted = BidsheetProducts(recordid);
+                        categoriesDeleted = Categories(recordid);
+                        if (lineItemsDeleted && indirectCostDeleted && bsProductsDeleted && categoriesDeleted)
+                        {
+                            service.Delete("ig1_bidsheet", recordid);
+                        }
                     }
                 }
             }
