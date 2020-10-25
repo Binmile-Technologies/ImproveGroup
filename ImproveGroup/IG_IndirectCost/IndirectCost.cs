@@ -135,7 +135,7 @@ namespace IG_IndirectCost
                     AttributeCollection result = lineitem.Attributes;
                     if (result.Contains("defaultMargin") && result["defaultMargin"] != null)
                     {
-                       var defaultMargin  = (AliasedValue)result["defaultMargin"];
+                        var defaultMargin = (AliasedValue)result["defaultMargin"];
                         margin = Convert.ToDecimal(defaultMargin.Value);
                     }
                     if (result.Contains("ig1_category") && result["ig1_category"] != null)
@@ -248,13 +248,13 @@ namespace IG_IndirectCost
             entity.Attributes["ig1_lodgingtotal"] = Convert.ToDecimal(0);
 
             entity.Attributes["ig1_margin"] = margin;
-            entity.Attributes["ig1_freight"] =new Money(freighttotal);
+            entity.Attributes["ig1_freight"] = new Money(freighttotal);
             entity.Attributes["ig1_freightsell"] = new Money(freightsell);
             entity.Attributes["ig1_totalmaterialcost"] = new Money(materialCost);
 
             laborCost = Math.Round((laborRate * luExtend), 2);
             entity.Attributes["ig1_pmlaborsme"] = laborCost;
-            entity.Attributes["ig1_baselabor"] =new Money(laborCost * laborMargin);
+            entity.Attributes["ig1_baselabor"] = new Money(laborCost * laborMargin);
 
             entity.Attributes["ig1_designfactor"] = designFactor;
             entity.Attributes["ig1_designlaborrate"] = new Money(designLaborRate);
@@ -458,7 +458,7 @@ namespace IG_IndirectCost
                 associatedCost.Attributes["ig1_designhours"] = designHours;
                 associatedCost.Attributes["ig1_saleshours"] = salesHours;
 
-                laborCost = Math.Round((laborRate * luExtend),2);
+                laborCost = Math.Round((laborRate * luExtend), 2);
                 baseLabor = laborCost * laborMargin;
                 associatedCost.Attributes["ig1_pmlaborsme"] = laborCost;
                 associatedCost.Attributes["ig1_baselabor"] = new Money(baseLabor);
@@ -475,8 +475,8 @@ namespace IG_IndirectCost
 
                 if (margin > 0 && margin < 100)
                 {
-                    
-                    totalMaterialCost =Math.Round((materialCost / (1 - margin / 100)), 2);
+
+                    totalMaterialCost = Math.Round((materialCost / (1 - margin / 100)), 2);
                     associatedCost.Attributes["ig1_totalmaterialcost"] = new Money(totalMaterialCost);
                     associatedCost.Attributes["ig1_totalsellprice"] = salesCost + designCost + travelCost + laborCost + totalMaterialCost + freightsell;
                 }
@@ -489,7 +489,7 @@ namespace IG_IndirectCost
 
                 associatedCost.Attributes["ig1_totalcost"] = new Money(salesCost + designCost + travelCost + laborCost + materialCost + freighttotal);
                 associatedCost.Attributes["ig1_totalprojecthours"] = salesHours + designHours + luExtend;
-                associatedCost.Attributes["ig1_totaldirectsell"] =new Money(freightsell + totalMaterialCost);
+                associatedCost.Attributes["ig1_totaldirectsell"] = new Money(freightsell + totalMaterialCost);
                 service.Update(associatedCost);
             }
 
@@ -586,7 +586,7 @@ namespace IG_IndirectCost
 
             if (entityCollection.Entities.Count > 0)
             {
-                
+
                 AttributeCollection projectCostAllowances = GetDefaults();
                 foreach (var lineItem in entityCollection.Entities)
                 {
@@ -647,6 +647,7 @@ namespace IG_IndirectCost
             decimal anticipatedCommissionableValue = Convert.ToDecimal(0);
             decimal net_netamt = Convert.ToDecimal(0);
             decimal net_netper = Convert.ToDecimal(0);
+            decimal corpGNA = Convert.ToDecimal(0);
 
 
             var fetchData = new
@@ -689,20 +690,20 @@ namespace IG_IndirectCost
                         Money money = (Money)result["ig1_materialcost"];
                         materialCost += Convert.ToDecimal(money.Value);
                     }
-                    if (result.Contains("ig1_freight") && result["ig1_freight"]!=null)
+                    if (result.Contains("ig1_freight") && result["ig1_freight"] != null)
                     {
                         Money money = (Money)result["ig1_freight"];
                         freightCost += Convert.ToDecimal(money.Value);
                     }
-                    if (result.Contains("ig1_totaldirectcost") && result["ig1_totaldirectcost"]!=null)
+                    if (result.Contains("ig1_totaldirectcost") && result["ig1_totaldirectcost"] != null)
                     {
-                        directPrice += Convert.ToDecimal(result["ig1_totaldirectcost"]);    
+                        directPrice += Convert.ToDecimal(result["ig1_totaldirectcost"]);
                     }
                     if (result.Contains("ig1_totalindirectcost") && result["ig1_totalindirectcost"] != null)
                     {
                         indirectPrice += Convert.ToDecimal(result["ig1_totalindirectcost"]);
                     }
-                    if (result.Contains("ig1_saleshours") && result["ig1_saleshours"]!=null)
+                    if (result.Contains("ig1_saleshours") && result["ig1_saleshours"] != null)
                     {
                         salesHours += Convert.ToDecimal(result["ig1_saleshours"]);
                     }
@@ -714,7 +715,7 @@ namespace IG_IndirectCost
                     {
                         laborHours += Convert.ToDecimal(result["ig1_luextend"]);
                     }
-                    if (result.Contains("ig1_pmlaborsme") && result["ig1_pmlaborsme"]!=null)
+                    if (result.Contains("ig1_pmlaborsme") && result["ig1_pmlaborsme"] != null)
                     {
                         laborPrice += Convert.ToDecimal(result["ig1_pmlaborsme"]);
                     }
@@ -754,8 +755,11 @@ namespace IG_IndirectCost
                     }
                 }
 
-                Entity bidsheet = service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_name"));
-
+                Entity bidsheet = service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_name", "ig1_defaultcorpgna"));
+                if (bidsheet.Attributes.Contains("ig1_defaultcorpgna") && bidsheet.Attributes["ig1_defaultcorpgna"] != null)
+                {
+                    corpGNA = Math.Round(Convert.ToDecimal(bidsheet.Attributes["ig1_defaultcorpgna"]), 2);
+                }
                 bidsheet.Attributes["ig1_directcost"] = Math.Round(directPrice, 2);
                 bidsheet.Attributes["ig1_indirectcost"] = Math.Round(indirectPrice, 2);
 
@@ -764,6 +768,7 @@ namespace IG_IndirectCost
 
                 bidsheet.Attributes["ig1_materialcost"] = Math.Round(materialCost, 2);
                 bidsheet.Attributes["ig1_freightamount"] = new Money(Math.Round(freightCost, 2));
+                bidsheet.Attributes["ig1_freightcost"] = Math.Round(freightCost, 2);
 
                 bidsheet.Attributes["ig1_pmhours"] = laborHours;
                 bidsheet.Attributes["ig1_pmcost"] = Math.Round(laborPrice, 2);
@@ -790,7 +795,7 @@ namespace IG_IndirectCost
                 {
                     anticipatedGPPercent = (anticipatedGP * 100) / totalSellPrice;
                 }
-                anticipatedNetPreCommissionper = anticipatedGPPercent - 14;
+                anticipatedNetPreCommissionper = anticipatedGPPercent - corpGNA;
                 anticipatedNet = (anticipatedNetPreCommissionper / 100) * totalSellPrice;
                 anticipatedCommissionableValue = anticipatedNet * Convert.ToDecimal(0.3);
                 net_netamt = anticipatedNet - anticipatedCommissionableValue;
