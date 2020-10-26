@@ -126,7 +126,7 @@ namespace IG_ActivateBidSheet
                         margin =Math.Round(Convert.ToDecimal(associatedCost["ig1_margin"]), 2);
                         if (margin > 0 && margin < 100)
                         {
-                            totalMaterialCost =Math.Round((materialCost / (1 - margin / 100)), 2);
+                            totalMaterialCost =materialCost / (1 - margin / 100);
                         }
                         else
                         {
@@ -166,9 +166,9 @@ namespace IG_ActivateBidSheet
                     categorysdt = salesCost + designCost + travelCost;
                     if (categoryMaterialCost > 0)
                     {
-                        productsdt = Math.Round(((materialCost / categoryMaterialCost) * categorysdt), 2);
+                        productsdt = (materialCost / categoryMaterialCost) * categorysdt;
                     }
-                    totalMaterialCost = totalMaterialCost + productsdt;
+                    totalMaterialCost = Math.Round((totalMaterialCost + productsdt), 2);
                     CreatePriceListItem(bidsheetid, productid, defaultUnit, totalMaterialCost);
                     CreateOpportunityLine(productid, opportunity.Id, defaultUnit);
                 }

@@ -97,6 +97,7 @@ namespace IG_IndirectCost
             }
             catch (Exception ex)
             {
+                throw new InvalidPluginExecutionException("Error in IndirectCost Plugin "+ex);
             }
         }
         protected void CreateUpdateAssociatedCost(Guid bidsheetid, Guid categoryid)
