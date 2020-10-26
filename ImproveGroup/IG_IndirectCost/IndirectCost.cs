@@ -183,8 +183,7 @@ namespace IG_IndirectCost
             decimal sellPrice = Convert.ToDecimal(0);
             decimal totalMaterialCost = Convert.ToDecimal(0);
 
-            AttributeCollection projectCostAllowances = GetDefaults();
-
+            Entity defaults = service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_defaultdesignfactor", "ig1_defaultdesignlaborrate", "ig1_defaultdesignmargin", "ig1_defaultsalesfactor", "ig1_defaultsaleslaborrate", "ig1_defaultsalesmargin", "ig1_defaultlaborrate", "ig1_defaultlabormargin", "ig1_defaulttravelmargin", "ig1_defaultlodging", "ig1_defaultperdiem", "ig1_defaultmargin", "ig1_defaultcorpgna"));
 
             Entity entity = new Entity("ig1_associatedcost");
             if (bidsheetid != Guid.Empty)
@@ -198,48 +197,49 @@ namespace IG_IndirectCost
 
             entity.Attributes["ig1_luextend"] = luExtend;
 
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_defaultlaborrate") && projectCostAllowances["ig1_defaultlaborrate"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultlaborrate") && defaults.Attributes["ig1_defaultlaborrate"] != null)
             {
-                laborRate = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_defaultlaborrate"]), 2);
+                Money money = (Money)defaults.Attributes["ig1_defaultlaborrate"];
+                laborRate = Math.Round(Convert.ToDecimal(money.Value), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_lodging") && projectCostAllowances["ig1_lodging"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultlodging") && defaults.Attributes["ig1_defaultlodging"] != null)
             {
-                lodging = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_lodging"]), 2);
+                lodging = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultlodging"]), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_perdiem") && projectCostAllowances["ig1_perdiem"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultperdiem") && defaults.Attributes["ig1_defaultperdiem"] != null)
             {
-                Money money = (Money)projectCostAllowances["ig1_perdiem"];
+                Money money = (Money)defaults.Attributes["ig1_defaultperdiem"];
                 perDiem = Math.Round(Convert.ToDecimal(money.Value), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_labormargin") && projectCostAllowances["ig1_labormargin"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultlabormargin") && defaults.Attributes["ig1_defaultlabormargin"] != null)
             {
-                laborMargin = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_labormargin"]), 2);
+                laborMargin = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultlabormargin"]), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_designfactor") && projectCostAllowances["ig1_designfactor"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultdesignfactor") && defaults.Attributes["ig1_defaultdesignfactor"] != null)
             {
-                designFactor = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_designfactor"]), 2);
+                designFactor = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultdesignfactor"]), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_designlaborrate") && projectCostAllowances["ig1_designlaborrate"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultdesignlaborrate") && defaults.Attributes["ig1_defaultdesignlaborrate"] != null)
             {
-                Money money = (Money)projectCostAllowances["ig1_designlaborrate"];
+                Money money = (Money)defaults.Attributes["ig1_defaultdesignlaborrate"];
                 designLaborRate = Math.Round(Convert.ToDecimal(money.Value), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_designmargin") && projectCostAllowances["ig1_designmargin"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultdesignmargin") && defaults.Attributes["ig1_defaultdesignmargin"] != null)
             {
-                designMargin = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_designmargin"]), 2);
+                designMargin = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultdesignmargin"]), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_salesfactor") && projectCostAllowances["ig1_salesfactor"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultsalesfactor") && defaults.Attributes["ig1_defaultsalesfactor"] != null)
             {
-                salesFactor = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_salesfactor"]), 2);
+                salesFactor = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultsalesfactor"]), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_saleslaborrate") && projectCostAllowances["ig1_saleslaborrate"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultsaleslaborrate") && defaults.Attributes["ig1_defaultsaleslaborrate"] != null)
             {
-                Money money = (Money)projectCostAllowances["ig1_saleslaborrate"];
+                Money money = (Money)defaults.Attributes["ig1_defaultsaleslaborrate"];
                 salesLaborRate = Math.Round(Convert.ToDecimal(money.Value), 2);
             }
-            if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_salesmargin") && projectCostAllowances["ig1_salesmargin"] != null)
+            if (defaults.Attributes.Contains("ig1_defaultsalesmargin") && defaults.Attributes["ig1_defaultsalesmargin"] != null)
             {
-                salesMargin = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_salesmargin"]), 2);
+                salesMargin = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultsalesmargin"]), 2);
             }
             entity.Attributes["ig1_laborrate"] = laborRate;
             entity.Attributes["ig1_lodgingrate"] = lodging;
@@ -372,7 +372,7 @@ namespace IG_IndirectCost
                 decimal designHours = Convert.ToDecimal(0);
                 decimal totalMaterialCost = Convert.ToDecimal(0);
 
-                AttributeCollection projectCostAllowances = GetDefaults();
+                Entity defaults = service.Retrieve("ig1_bidsheet", bidsheetid, new ColumnSet("ig1_defaultdesignfactor", "ig1_defaultdesignlaborrate", "ig1_defaultdesignmargin", "ig1_defaultsalesfactor", "ig1_defaultsaleslaborrate", "ig1_defaultsalesmargin", "ig1_defaultlaborrate", "ig1_defaultlabormargin", "ig1_defaulttravelmargin", "ig1_defaultlodging", "ig1_defaultperdiem", "ig1_defaultmargin", "ig1_defaultcorpgna"));
                 if (result.Contains("ig1_designfactor") && result["ig1_designfactor"] != null)
                 {
                     designFactor = Math.Round(Convert.ToDecimal(result["ig1_designfactor"]), 2);
@@ -399,17 +399,17 @@ namespace IG_IndirectCost
                 {
                     margin = Math.Round(Convert.ToDecimal(result["ig1_margin"]), 2);
                 }
-                if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_labormargin") && projectCostAllowances["ig1_labormargin"] != null)
+                if (defaults.Attributes.Contains("ig1_defaultlabormargin") && defaults["ig1_defaultlabormargin"] != null)
                 {
-                    laborMargin = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_labormargin"]), 2);
+                    laborMargin = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultlabormargin"]), 2);
                 }
-                if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_designmargin") && projectCostAllowances["ig1_designmargin"] != null)
+                if (defaults.Attributes.Contains("ig1_defaultdesignmargin") && defaults.Attributes["ig1_defaultdesignmargin"] != null)
                 {
-                    designMargin = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_designmargin"]), 2);
+                    designMargin = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultdesignmargin"]), 2);
                 }
-                if (projectCostAllowances.Count > 0 && projectCostAllowances.Contains("ig1_salesmargin") && projectCostAllowances["ig1_salesmargin"] != null)
+                if (defaults.Attributes.Contains("ig1_defaultsalesmargin") && defaults.Attributes["ig1_defaultsalesmargin"] != null)
                 {
-                    salesMargin = Math.Round(Convert.ToDecimal(projectCostAllowances["ig1_salesmargin"]), 2);
+                    salesMargin = Math.Round(Convert.ToDecimal(defaults.Attributes["ig1_defaultsalesmargin"]), 2);
                 }
                 if (result.Contains("ig1_numberoftrip") && result["ig1_numberoftrip"] != null)
                 {
@@ -523,36 +523,6 @@ namespace IG_IndirectCost
                 return Guid.Empty;
             }
         }
-        protected AttributeCollection GetDefaults()
-        {
-            var fetchXml = $@"
-                            <fetch>
-                              <entity name='ig1_projectcostallowances'>
-                                <attribute name='ig1_designfactor' />
-                                <attribute name='ig1_salesfactor' />
-                                <attribute name='ig1_designmargin' />
-                                <attribute name='ig1_designlaborrate' />
-                                <attribute name='ig1_perdiem' />
-                                <attribute name='ig1_saleslaborrate' />
-                                <attribute name='ig1_corpgna' />
-                                <attribute name='ig1_salesmargin' />
-                                <attribute name='ig1_effectivedate' />
-                                <attribute name='ig1_labormargin' />
-                                <attribute name='ig1_margin' />
-                                <attribute name='ig1_defaultlaborrate' />
-                                <attribute name='ig1_lodging' />
-                              </entity>
-                            </fetch>";
-            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (entityCollection.Entities.Count > 0)
-            {
-                return entityCollection.Entities[0].Attributes;
-            }
-            else
-            {
-                return null;
-            }
-        }
         protected decimal[] BidSheetLineItems(Guid bidsheetid, Guid categoryid)
         {
             decimal materialCost = Convert.ToDecimal(0);
@@ -586,8 +556,6 @@ namespace IG_IndirectCost
 
             if (entityCollection.Entities.Count > 0)
             {
-
-                AttributeCollection projectCostAllowances = GetDefaults();
                 foreach (var lineItem in entityCollection.Entities)
                 {
                     var result = lineItem.Attributes;
