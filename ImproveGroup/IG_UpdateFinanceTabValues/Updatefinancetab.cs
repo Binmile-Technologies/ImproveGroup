@@ -36,25 +36,32 @@ namespace IG_UpdateFinanceTabValues
 
                         if (entity.LogicalName == "invoice")
                         {
-                            EntityReference er = (EntityReference)entity.Attributes["opportunityid"];
-                            Guid oppid = er.Id;
-                            Entity result = service.Retrieve("opportunity", oppid, new ColumnSet("ig1_projectrecord"));
-                            Guid projid = result.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
-                            objentity = new Entity("ig1_projectrecord", projid);
-                            GetInvoiceEntityfields(oppid);
+                            if (entity.Attributes.Contains("opportunityid") && entity.Attributes["opportunityid"] != null)
+                            {
+                                EntityReference er = (EntityReference)entity.Attributes["opportunityid"];
+                                Guid oppid = er.Id;
+
+                                Entity result = service.Retrieve("opportunity", oppid, new ColumnSet("ig1_projectrecord"));
+                                if (result.Attributes.Contains("ig1_projectrecord") && result.Attributes["ig1_projectrecord"] != null)
+                                {
+                                    Guid projid = result.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
+                                    objentity = new Entity("ig1_projectrecord", projid);
+                                    GetInvoiceEntityfields(oppid);
+                                }
+                            }
                         }
 
-                        else if(entity.LogicalName == "ig1_projectrecordcost")
+                        else if (entity.LogicalName == "ig1_projectrecordcost")
                         {
+                            if (entity.Attributes.Contains("ig1_projectrecord") && entity.Attributes["ig1_projectrecord"] != null)
+                            {
 
-                            EntityReference er = (EntityReference)entity.Attributes["ig1_projectrecord"];
-                            Guid projid = er.Id;
+                                EntityReference er = (EntityReference)entity.Attributes["ig1_projectrecord"];
+                                Guid projid = er.Id;
 
-                            //Entity fetchentity = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_projectrecord"));
-                            //Guid projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
-                            objentity = new Entity("ig1_projectrecord", projid);
-                            GetActualcostentityfields(projid);
-
+                                objentity = new Entity("ig1_projectrecord", projid);
+                                GetActualcostentityfields(projid);
+                            }
                         }
                     }
 
@@ -62,14 +69,13 @@ namespace IG_UpdateFinanceTabValues
                 }
 
 
-              else  if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+                else if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
 
 
                     Entity entity = (Entity)context.InputParameters["Target"];
 
                     string entityName = entity.LogicalName;
-
 
                     if (entityName == "opportunity")
                     {
@@ -85,20 +91,39 @@ namespace IG_UpdateFinanceTabValues
 
                     else if (entityName == "invoice")
                     {
-                        Entity fetchentity = service.Retrieve(entityName, entity.Id, new ColumnSet("ig1_projectrecord", "opportunityid"));
-                        Guid projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
-                        Guid oppid = fetchentity.GetAttributeValue<EntityReference>("opportunityid").Id;
-                        objentity = new Entity("ig1_projectrecord", projid);
+                        Guid projid = Guid.Empty;
+                        Guid oppid = Guid.Empty;
 
-                        GetInvoiceEntityfields(oppid);
+                        Entity fetchentity = service.Retrieve(entityName, entity.Id, new ColumnSet("ig1_projectrecord", "opportunityid"));
+                        if (fetchentity.Attributes.Contains("ig1_projectrecord") && fetchentity.Attributes["ig1_projectrecord"] != null)
+                        {
+                            projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
+                            if (fetchentity.Attributes.Contains("opportunityid") && fetchentity.Attributes["opportunityid"] != null)
+                            {
+                                oppid = fetchentity.GetAttributeValue<EntityReference>("opportunityid").Id;
+
+                            }
+
+                            objentity = new Entity("ig1_projectrecord", projid);
+
+                            GetInvoiceEntityfields(oppid);
+                        }
                     }
 
                     else if (entityName == "quote")
                     {
-
+                        Guid projid = Guid.Empty;
+                        Guid oppid = Guid.Empty;
                         Entity fetchentity = service.Retrieve(entityName, entity.Id, new ColumnSet("ig1_projectrecord", "opportunityid"));
-                        Guid projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
-                        Guid oppid = fetchentity.GetAttributeValue<EntityReference>("opportunityid").Id;
+                        if (fetchentity.Attributes.Contains("ig1_projectrecord") && fetchentity.Attributes["ig1_projectrecord"] != null)
+                        {
+                            projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
+                        }
+
+                        if (fetchentity.Attributes.Contains("opportunityid") && fetchentity.Attributes["opportunityid"] != null)
+                        {
+                            oppid = fetchentity.GetAttributeValue<EntityReference>("opportunityid").Id;
+                        }
                         objentity = new Entity("ig1_projectrecord", projid);
                         GetQuoteEntityfieldcost(oppid);
 
@@ -106,28 +131,52 @@ namespace IG_UpdateFinanceTabValues
 
                     else if (entityName == "ig1_bidsheet")
                     {
+                        Guid projid = Guid.Empty;
+                        Guid id = Guid.Empty;
+
                         Entity fetchentity = service.Retrieve(entityName, entity.Id, new ColumnSet("ig1_projectrecord", "ig1_opportunitytitle"));
-                        Guid projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
-                        Guid id = fetchentity.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
+                        if (fetchentity.Attributes.Contains("ig1_projectrecord") && fetchentity.Attributes["ig1_projectrecord"] != null)
+                        {
+                            projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
+                        }
+
+                        if (fetchentity.Attributes.Contains("ig1_opportunitytitle") && fetchentity.Attributes["ig1_opportunitytitle"] != null)
+                        {
+                            id = fetchentity.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
+                        }
                         objentity = new Entity("ig1_projectrecord", projid);
                         GetBidsheetEntityfieldcost(id);
-                        
+
                     }
 
                     else if (entityName == "ig1_projectrecordcost")
                     {
+                        Guid projid = Guid.Empty;
+
                         Entity fetchentity = service.Retrieve(entityName, entity.Id, new ColumnSet("ig1_projectrecord"));
-                        Guid projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
+                        if (fetchentity.Attributes.Contains("ig1_projectrecord") && fetchentity.Attributes["ig1_projectrecord"] != null)
+                        {
+                            projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
+                        }
                         objentity = new Entity("ig1_projectrecord", projid);
                         GetActualcostentityfields(projid);
 
                     }
 
-                    else if(entityName== "msdyn_workorder")
+                    else if (entityName == "msdyn_workorder")
                     {
+                        Guid projid = Guid.Empty;
+                        Guid id = Guid.Empty;
+
                         Entity fetchentity = service.Retrieve(entityName, entity.Id, new ColumnSet("ig1_projectrecord", "msdyn_opportunityid"));
-                        Guid projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
-                        Guid id = fetchentity.GetAttributeValue<EntityReference>("msdyn_opportunityid").Id;
+                        if (fetchentity.Attributes.Contains("ig1_projectrecord") && fetchentity.Attributes["ig1_projectrecord"] != null)
+                        {
+                            projid = fetchentity.GetAttributeValue<EntityReference>("ig1_projectrecord").Id;
+                        }
+                        if (fetchentity.Attributes.Contains("msdyn_opportunityid") && fetchentity.Attributes["msdyn_opportunityid"] != null)
+                        {
+                            id = fetchentity.GetAttributeValue<EntityReference>("msdyn_opportunityid").Id;
+                        }
                         objentity = new Entity("ig1_projectrecord", projid);
                         Getworkorderfield(id);
 
@@ -185,30 +234,41 @@ namespace IG_UpdateFinanceTabValues
                             if (expensetype == "PO Bill")
                             {
                                 Money poamount = new Money(0);
-                                poamount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
+                                if (result.Entities[i].Attributes.Contains("ig1_amount"))
+                                {
+                                    poamount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
+                                }
                                 actualtotalpobills = actualtotalpobills + Convert.ToDecimal(poamount.Value);
 
                             }
-                            
-                            
-                                Money hamount = new Money(0);
+
+
+                            Money hamount = new Money(0);
+                            if (result.Entities[i].Attributes.Contains("ig1_amount"))
+                            {
                                 hamount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
                                 hardcost = hardcost + Convert.ToDecimal(hamount.Value);
-                            
+                            }
                         }
 
-                        else if (expensetype == "Design Cost" || expensetype == "Miscellaneous" || expensetype == "PM Cost" || expensetype == "Sales Cost")
+                        else if (expensetype == "Design Cost" || expensetype == "Installer Cost" || expensetype == "PM Cost" || expensetype == "Sales Cost")
                         {
                             Money samount = new Money(0);
-                            samount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
+                            if (result.Entities[i].Attributes.Contains("ig1_amount") && result.Entities[i].Attributes["ig1_amount"] != null)
+                            {
+                                samount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
+                            }
                             softcost = softcost + Convert.ToDecimal(samount.Value);
 
                         }
-                      
+
 
                         Money actamount = new Money(0);
-                        actamount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
+                        if (result.Entities[i].Attributes.Contains("ig1_amount") && result.Entities[i].Attributes["ig1_amount"] != null)
+                        {
 
+                            actamount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
+                        }
                         actualtotal = actualtotal + Convert.ToDecimal(actamount.Value);
                     }
 
@@ -217,8 +277,12 @@ namespace IG_UpdateFinanceTabValues
 
             }
 
-            Entity resultoppid= service.Retrieve("ig1_projectrecord", id, new ColumnSet("ig1_opportunity"));
-            Guid oppid  =resultoppid.GetAttributeValue<EntityReference>("ig1_opportunity").Id;
+            Entity resultoppid = service.Retrieve("ig1_projectrecord", id, new ColumnSet("ig1_opportunity"));
+            Guid oppid = Guid.Empty;
+            if (resultoppid.Attributes.Contains("ig1_opportunity") && resultoppid.Attributes["ig1_opportunity"] != null)
+            {
+                oppid = resultoppid.GetAttributeValue<EntityReference>("ig1_opportunity").Id;
+            }
             decimal totalofinvoice = TotalAllinvoices(oppid);
             IList<Decimal> cost = Hardcostandsoftcost(id);
             decimal actualgp = 0;
@@ -227,45 +291,43 @@ namespace IG_UpdateFinanceTabValues
             decimal actualnet = 0;
             decimal commissionableamount = 0;
 
-               
-
-              
             if (cost.Count > 0 && cost != null)
             {
 
                 actualgp = totalofinvoice - (cost[0] + cost[1]);
             }
-            if (actualgp > 0 && totalofinvoice !=0)
+            if (actualgp != 0 && totalofinvoice != 0)
             {
-
-
                 actualgpper = (actualgp / totalofinvoice) * 100;
             }
-            if (actualgpper > 0)
-            {
+            
+            
                 decimal gna = 0;
-                gna =CorpGna();
+                gna = CorpGna(id);
 
                 actualnetper = actualgpper - gna;
-            }
-            if (actualnetper > 0)
+            
+            if (actualnetper != 0)
             {
-                decimal roundvalue=  decimal.Round(actualnetper, 2);
-                decimal roundvalueinvoice = decimal.Round(totalofinvoice,2);
-
-                actualnet = (roundvalue * roundvalueinvoice) /100;
+                decimal roundvalue = decimal.Round(actualnetper, 2);
+                
+                decimal roundvalueinvoice = decimal.Round(totalofinvoice, 2);
+                if (roundvalueinvoice != 0)
+                {
+                    actualnet = (roundvalue * roundvalueinvoice) / 100;
+                }
             }
-            if (actualnet > 0)
-            {
+       
+            
                 commissionableamount = actualnet * Convert.ToDecimal(0.3);
-            }
+            
             objentity["ig1_actualgp"] = actualgp;
             objentity["ig1_commisionableamount"] = commissionableamount;
             objentity["ig1_actualnetpercentage"] = actualnetper;
             objentity["ig1_actualgppercent"] = actualgpper;
             objentity["ig1_actualnet"] = actualnet;
             objentity["ig1_totalallinvoices"] = totalofinvoice;
-           // service.Update(objentity);
+            // service.Update(objentity);
 
 
 
@@ -286,16 +348,16 @@ namespace IG_UpdateFinanceTabValues
             };
             var fetchXml = $@"
                            <fetch>
-          <entity name='invoice'>
-    <attribute name='new_dbms_qbpaid_amount' />
-    <attribute name='totalamount' />
-     <attribute name='totaltax' />
-    <attribute name='statecode' />
-    <filter>
-      <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*b59ae3b0-3fcd-407c-83b6-a69c1189be2e*/}'/>
-    </filter>
-  </entity>
-</fetch>";
+              <entity name='invoice'>
+              <attribute name='new_dbms_qbpaid_amount' />
+              <attribute name='totalamount' />
+              <attribute name='totaltax' />
+              <attribute name='statecode' />
+              <filter>
+              <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*b59ae3b0-3fcd-407c-83b6-a69c1189be2e*/}'/>
+              </filter>
+              </entity>
+              </fetch>";
 
 
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
@@ -303,7 +365,7 @@ namespace IG_UpdateFinanceTabValues
             Decimal totalopeninvoice = 0;
             Decimal allinvoice = 0;
             decimal totaltax = 0;
-            decimal resnotyetinvoiced = 0; 
+            decimal resnotyetinvoiced = 0;
             if (result.Entities != null && result.Entities.Count > 0)
             {
 
@@ -326,23 +388,23 @@ namespace IG_UpdateFinanceTabValues
                         else if (status.Value == 0)
                         {
                             Money resultactive = new Money(0);
-                            if (result.Entities[i].Attributes.Contains("new_dbms_qbpaid_amount") && result.Entities[i].Attributes["new_dbms_qbpaid_amount"] != null && status.Value !=3)
+                            if (result.Entities[i].Attributes.Contains("totalamount") && result.Entities[i].Attributes["totalamount"] != null && status.Value != 3)
                             {
 
-                                resultactive = result.Entities[i].GetAttributeValue<Money>("new_dbms_qbpaid_amount");
+                                resultactive = result.Entities[i].GetAttributeValue<Money>("totalamount");
                                 totalopeninvoice = totalopeninvoice + Convert.ToDecimal(resultactive.Value);
                             }
                         }
 
 
                         Money resulttotalamount = new Money(0);
-                        if (result.Entities[i].Attributes.Contains("totalamount") && result.Entities[i].Attributes["totalamount"] != null && status.Value !=3)
+                        if (result.Entities[i].Attributes.Contains("totalamount") && result.Entities[i].Attributes["totalamount"] != null && status.Value != 3)
                         {
                             resulttotalamount = result.Entities[i].GetAttributeValue<Money>("totalamount");
                             allinvoice = allinvoice + Convert.ToDecimal(resulttotalamount.Value);
                         }
 
-                        if(result.Entities[i].Attributes.Contains("totaltax") && result.Entities[i].Attributes["totaltax"] != null && status.Value != 3)
+                        if (result.Entities[i].Attributes.Contains("totaltax") && result.Entities[i].Attributes["totaltax"] != null && status.Value != 3)
                         {
                             Money resulttotaltax = new Money(0);
                             resulttotaltax = result.Entities[i].GetAttributeValue<Money>("totaltax");
@@ -380,15 +442,15 @@ namespace IG_UpdateFinanceTabValues
                 statecode = "2"
             };
             var fetchXml = $@"
-      <fetch>
-         <entity name='quote'>
-    <attribute name='totalamount' />
-    <filter type='and'>
-      <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*b59ae3b0-3fcd-407c-83b6-a69c1189be2e*/}'/>
-      <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*2*/}'/>
-    </filter>
-       </entity>
-         </fetch>";
+                             <fetch>
+                             <entity name='quote'>
+                             <attribute name='totalamount' />
+                             <filter type='and'>
+                             <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*b59ae3b0-3fcd-407c-83b6-a69c1189be2e*/}'/>
+                             <condition attribute='statecode' operator='eq' value='{fetchData.statecode/*2*/}'/>
+                             </filter>
+                             </entity>
+                             </fetch>";
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
             Decimal totalofquote = 0;
             if (result != null && result.Entities.Count > 0)
@@ -428,7 +490,7 @@ namespace IG_UpdateFinanceTabValues
                                 <attribute name='ig1_sellprice' />
                                  <filter type='and'>
                                 <condition attribute='ig1_associated' operator='eq' value='{fetchData.ig1_associated/*1*/}'/>
-                              <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*b59ae3b0-3fcd-407c-83b6-a69c1189be2e*/}'/>
+                                <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*b59ae3b0-3fcd-407c-83b6-a69c1189be2e*/}'/>
                                 </filter>
                                </entity>
                                </fetch>";
@@ -436,7 +498,7 @@ namespace IG_UpdateFinanceTabValues
             Decimal sumtotalofactivatedbidsheet = 0;
             Decimal sumanticipatedgp = 0;
             Decimal anticipatednet = 0;
-           // Decimal commisionableamount = 0;
+            // Decimal commisionableamount = 0;
             Decimal anticipatednetpercent = 0;
             Decimal anticipatedgpper = 0;
             if (result.Entities != null && result.Entities.Count > 0)
@@ -549,14 +611,14 @@ namespace IG_UpdateFinanceTabValues
             };
             var fetchXml = $@"
                            <fetch>
-          <entity name='invoice'>    
-    <attribute name='totalamount' />
-    <attribute name='statecode' />
-    <filter>
-      <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*b59ae3b0-3fcd-407c-83b6-a69c1189be2e*/}'/>
-    </filter>
-  </entity>
-</fetch>";
+                           <entity name='invoice'>    
+                           <attribute name='totalamount' />
+                           <attribute name='statecode' />
+                           <filter>
+                           <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*b59ae3b0-3fcd-407c-83b6-a69c1189be2e*/}'/>
+                           </filter>
+                           </entity>
+                           </fetch>";
 
 
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
@@ -609,12 +671,12 @@ namespace IG_UpdateFinanceTabValues
 
             EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
 
-              if(result.Entities !=null && result.Entities.Count > 0)
+            if (result.Entities != null && result.Entities.Count > 0)
             {
 
-                if (result.Entities[0].Attributes.Contains("ig1_requiredcompletiondate") && result.Entities[0].Attributes["ig1_requiredcompletiondate"] !=null)
+                if (result.Entities[0].Attributes.Contains("ig1_requiredcompletiondate") && result.Entities[0].Attributes["ig1_requiredcompletiondate"] != null)
                 {
-                  objentity["ig1_anticipatedprojectcompletiondate"] = result.Entities[0].GetAttributeValue<DateTime>("ig1_requiredcompletiondate");
+                    objentity["ig1_anticipatedprojectcompletiondate"] = result.Entities[0].GetAttributeValue<DateTime>("ig1_requiredcompletiondate");
 
                 }
                 else
@@ -654,8 +716,8 @@ namespace IG_UpdateFinanceTabValues
 
                 EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
 
-                
-               
+
+
                 if (result.Entities != null && result.Entities.Count > 0)
                 {
                     for (int i = 0; i < result.Entities.Count; i++)
@@ -671,7 +733,7 @@ namespace IG_UpdateFinanceTabValues
                                 Money hamount = new Money(0);
                                 hamount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
                                 hardcost = hardcost + Convert.ToDecimal(hamount.Value);
-                               // list.Add(hardcost);
+                                // list.Add(hardcost);
                             }
 
                             else if (expensetype == "Design Cost" || expensetype == "Miscellaneous" || expensetype == "PM Cost" || expensetype == "Sales Cost")
@@ -679,7 +741,7 @@ namespace IG_UpdateFinanceTabValues
                                 Money samount = new Money(0);
                                 samount = result.Entities[i].GetAttributeValue<Money>("ig1_amount");
                                 softcost = softcost + Convert.ToDecimal(samount.Value);
-                               // list.Add(softcost);
+                                // list.Add(softcost);
                             }
 
 
@@ -689,34 +751,89 @@ namespace IG_UpdateFinanceTabValues
                 }
             }
 
-              list.Add(hardcost);
-              list.Add(softcost);
-                return list;           
+            list.Add(hardcost);
+            list.Add(softcost);
+            return list;
         }
 
-        public decimal CorpGna()
+        public decimal CorpGna(Guid id)
         {
-            Money corpgna = new Money(0);
-            var fetchXml = $@"
-                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
-                <entity name='ig1_projectcostallowances'>
-                 <attribute name='ig1_corpgna' />
-              </entity>
-             </fetch>";
-          EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
-
-           if(result.Entities[0].Attributes.Contains("ig1_corpgna") && result.Entities[0].Attributes["ig1_corpgna"] != null)
+            decimal roundvaluegna = 0;
+            var fetchData = new
+            {
+                ig1_projectrecordid = id
+            };
+            var fetchXml1 = $@"
+                             <fetch>
+                             <entity name='ig1_projectrecord'>
+                             <attribute name='ig1_estpaydate' />
+                             <filter>
+                             <condition attribute='ig1_projectrecordid' operator='eq' value='{fetchData.ig1_projectrecordid/*a5c627ce-a3bf-ea11-a812-000d3a55d7ac*/}'/>
+                             </filter>
+                             </entity>
+                             </fetch>";
+            EntityCollection gnacollection = service.RetrieveMultiple(new FetchExpression(fetchXml1));
+            if (gnacollection.Entities.Count > 0 && gnacollection.Entities[0].Attributes.Contains("ig1_estpaydate"))
             {
 
-                corpgna = result.Entities[0].GetAttributeValue<Money>("ig1_corpgna");
+                DateTime estpaydate = gnacollection.Entities[0].GetAttributeValue<DateTime>("ig1_estpaydate");
+                String estpaydateyear  =estpaydate.ToString("yyyy");
+
+
+                var fetchData1 = new
+                {
+                    ig1_year = estpaydateyear
+                };
+                var fetchXml2 = $@"
+                                         <fetch>
+                                         <entity name='ig1_corpgna'>
+                                         <attribute name='ig1_corpgnavalue' />
+                                         <attribute name='ig1_year' />
+                                         <filter>
+                                         <condition attribute='ig1_year' operator='in-fiscal-year' value='{fetchData1.ig1_year/*2023*/}'/>
+                                         </filter>
+                                         </entity>
+                                         </fetch>";
+
+                EntityCollection corpg = service.RetrieveMultiple(new FetchExpression(fetchXml2));
+                if (corpg.Entities.Count > 0 && corpg.Entities[0].Attributes.Contains("ig1_corpgnavalue"))
+                {
+                   decimal gnvalue = corpg.Entities[0].GetAttributeValue<decimal>("ig1_corpgnavalue");
+                     roundvaluegna = decimal.Round(gnvalue, 2);
+                    return roundvaluegna;
+                }
+
 
             }
+            else
+            {
+                //decimal corpgna = 0;
+                var fetchXml = $@"
+                               <fetch>
+                               <entity name='ig1_corpgna'>
+                               <attribute name='ig1_corpgnavalue' />
+                               <attribute name='ig1_year' />
+                                <filter>
+                               <condition attribute='ig1_year' operator='this-year' />
+                                  </filter>
+                                </entity>
+                                </fetch>";
 
-            return Convert.ToDecimal(corpgna.Value);
+
+                EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+
+                if (result.Entities[0].Attributes.Contains("ig1_corpgnavalue") && result.Entities[0].Attributes["ig1_corpgnavalue"] != null)
+                {
+
+                  decimal  gnvalue = result.Entities[0].GetAttributeValue<decimal>("ig1_corpgnavalue");
+                     roundvaluegna = decimal.Round(gnvalue, 2);
+                }
+
+               
+            }
+            return roundvaluegna;
+
         }
-
-
-
 
     }
 }
