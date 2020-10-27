@@ -89,7 +89,7 @@ namespace IG_CalculateSDT
                     decimal designfactor = Convert.ToDecimal(0);
                     decimal designlaborrate = Convert.ToDecimal(0);
                     decimal number_of_trip = Convert.ToDecimal(0);
-                    decimal peaple_per_trip = Convert.ToDecimal(0);
+                    int peaple_per_trip = Convert.ToInt32(0);
                     decimal airFare = Convert.ToDecimal(0);
                     decimal days_per_trip = Convert.ToDecimal(0);
                     decimal perDiem = Convert.ToDecimal(0);
@@ -105,47 +105,47 @@ namespace IG_CalculateSDT
                     var result = associatedItems.Attributes;
                     if (result.Contains("ig1_designfactor") && result["ig1_designfactor"] != null)
                     {
-                        designfactor = Convert.ToDecimal(result["ig1_designfactor"]);
+                        designfactor = Math.Round(Convert.ToDecimal(result["ig1_designfactor"]), 2);
                     }
                     if (result.Contains("ig1_designlaborrate") && result["ig1_designlaborrate"] != null)
                     {
                         Money money = (Money)result["ig1_designlaborrate"];
-                        designlaborrate = Convert.ToDecimal(money.Value);
+                        designlaborrate = Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_salesfactor") && result["ig1_salesfactor"] != null)
                     {
-                        salesfactor = Convert.ToDecimal(result["ig1_salesfactor"]);
+                        salesfactor = Math.Round(Convert.ToDecimal(result["ig1_salesfactor"]), 2);
                     }
                     if (result.Contains("ig1_saleslaborrate") && result["ig1_saleslaborrate"] != null)
                     {
                         Money money = (Money)result["ig1_saleslaborrate"];
-                        saleslaborrate = Convert.ToDecimal(money.Value);
+                        saleslaborrate = Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_numberoftrip") && result["ig1_numberoftrip"] != null)
                     {
-                        number_of_trip = Convert.ToDecimal(result["ig1_numberoftrip"]);
+                        number_of_trip = Math.Round(Convert.ToDecimal(result["ig1_numberoftrip"]), 2);
                     }
                     if (result.Contains("ig1_days") && result["ig1_days"] != null)
                     {
-                        days_per_trip = Convert.ToDecimal(result["ig1_days"]);
+                        days_per_trip = Math.Round(Convert.ToDecimal(result["ig1_days"]), 2);
                     }
                     if (result.Contains("ig1_airfaretrans") && result["ig1_airfaretrans"] != null)
                     {
                         Money money = (Money)result["ig1_airfaretrans"];
-                        airFare = Convert.ToDecimal(money.Value);
+                        airFare = Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_perdiem") && result["ig1_perdiem"] != null)
                     {
                         Money money = (Money)result["ig1_perdiem"];
-                        perDiem = Convert.ToDecimal(money.Value);
+                        perDiem = Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_peoplepertrip") && result["ig1_peoplepertrip"] != null)
                     {
-                        peaple_per_trip = Convert.ToDecimal(result["ig1_peoplepertrip"]);
+                        peaple_per_trip = Convert.ToInt32(result["ig1_peoplepertrip"]);
                     }
                     if (result.Contains("ig1_lodgingrate") && result["ig1_lodgingrate"]!=null)
                     {
-                        lodging = Convert.ToDecimal(result["ig1_lodgingrate"]);
+                        lodging = Math.Round(Convert.ToDecimal(result["ig1_lodgingrate"]), 2);
                     }
                     if (result.Contains("ig1_bidsheetcategory") && result["ig1_bidsheetcategory"] != null)
                     {
@@ -199,9 +199,9 @@ namespace IG_CalculateSDT
                     if (result.Contains("ig1_materialcost") && result["ig1_materialcost"] != null)
                     {
                         Money money = (Money)result["ig1_materialcost"];
-                        materialCost = Convert.ToDecimal(money.Value);
+                        materialCost = Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
-                    sdt = (materialCost / categoryMaterialCost) * categorySDT;
+                    sdt = Math.Round(((materialCost / categoryMaterialCost) * categorySDT), 2);
 
                     lineItem.Attributes["ig1_sdt"] = new Money(sdt);
                     lineItem.Attributes["ig1_associatedcostid"] = new EntityReference("ig1_associatedcost", associatedCostid);
@@ -247,8 +247,8 @@ namespace IG_CalculateSDT
                         categoryLaborHours += Convert.ToDecimal(result["ig1_luextend"]);
                     }
                 }
-                categoryValues[0] = categoryMaterialCost;
-                categoryValues[1] = categoryLaborHours;
+                categoryValues[0] = Math.Round(categoryMaterialCost, 2);
+                categoryValues[1] =Math.Round( categoryLaborHours,2);
             }
             return categoryValues;
         }

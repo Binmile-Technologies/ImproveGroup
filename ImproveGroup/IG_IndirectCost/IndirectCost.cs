@@ -657,28 +657,28 @@ namespace IG_IndirectCost
                     if (result.Contains("ig1_materialcost") && result["ig1_materialcost"] != null)
                     {
                         Money money = (Money)result["ig1_materialcost"];
-                        materialCost += Convert.ToDecimal(money.Value);
+                        materialCost += Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_freight") && result["ig1_freight"] != null)
                     {
                         Money money = (Money)result["ig1_freight"];
-                        freightCost += Convert.ToDecimal(money.Value);
+                        freightCost += Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_totaldirectcost") && result["ig1_totaldirectcost"] != null)
                     {
-                        directPrice += Convert.ToDecimal(result["ig1_totaldirectcost"]);
+                        directPrice += Math.Round(Convert.ToDecimal(result["ig1_totaldirectcost"]), 2);
                     }
                     if (result.Contains("ig1_totalindirectcost") && result["ig1_totalindirectcost"] != null)
                     {
-                        indirectPrice += Convert.ToDecimal(result["ig1_totalindirectcost"]);
+                        indirectPrice += Math.Round(Convert.ToDecimal(result["ig1_totalindirectcost"]), 2);
                     }
                     if (result.Contains("ig1_saleshours") && result["ig1_saleshours"] != null)
                     {
-                        salesHours += Convert.ToDecimal(result["ig1_saleshours"]);
+                        salesHours += Math.Round(Convert.ToDecimal(result["ig1_saleshours"]), 2);
                     }
                     if (result.Contains("ig1_designhours") && result["ig1_designhours"] != null)
                     {
-                        designHours += Convert.ToDecimal(result["ig1_designhours"]);
+                        designHours += Math.Round(Convert.ToDecimal(result["ig1_designhours"]), 2);
                     }
                     if (result.Contains("ig1_luextend") && result["ig1_luextend"] != null)
                     {
@@ -686,41 +686,41 @@ namespace IG_IndirectCost
                     }
                     if (result.Contains("ig1_pmlaborsme") && result["ig1_pmlaborsme"] != null)
                     {
-                        laborPrice += Convert.ToDecimal(result["ig1_pmlaborsme"]);
+                        laborPrice += Math.Round(Convert.ToDecimal(result["ig1_pmlaborsme"]), 2);
                     }
                     if (result.Contains("ig1_salescost") && result["ig1_salescost"] != null)
                     {
                         Money money = (Money)result["ig1_salescost"];
-                        salesPrice += Convert.ToDecimal(money.Value);
+                        salesPrice += Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_designcost") && result["ig1_designcost"] != null)
                     {
                         Money money = (Money)result["ig1_designcost"];
-                        designPrice += Convert.ToDecimal(money.Value);
+                        designPrice += Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_lodgingtotal") && result["ig1_lodgingtotal"] != null)
                     {
-                        lodgingTotal += Convert.ToDecimal(result["ig1_lodgingtotal"]);
+                        lodgingTotal += Math.Round(Convert.ToDecimal(result["ig1_lodgingtotal"]), 2);
                     }
                     if (result.Contains("ig1_transporttotal") && result["ig1_transporttotal"] != null)
                     {
                         Money money = (Money)result["ig1_transporttotal"];
-                        transTotal += Convert.ToDecimal(money.Value);
+                        transTotal += Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_perdiemtotal") && result["ig1_perdiemtotal"] != null)
                     {
                         Money money = (Money)result["ig1_perdiemtotal"];
-                        perDiamTotal += Convert.ToDecimal(money.Value);
+                        perDiamTotal += Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_travelcost") && result["ig1_travelcost"] != null)
                     {
                         Money money = (Money)result["ig1_travelcost"];
-                        totalTravel += Convert.ToDecimal(money.Value);
+                        totalTravel += Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                     if (result.Contains("ig1_totalsellprice") && result["ig1_totalsellprice"] != null)
                     {
                         Money money = (Money)result["ig1_totalsellprice"];
-                        sellPrice += Convert.ToDecimal(money.Value);
+                        sellPrice += Math.Round(Convert.ToDecimal(money.Value), 2);
                     }
                 }
 
@@ -920,7 +920,7 @@ namespace IG_IndirectCost
                     if (result.Contains("defaultMargin") && result["defaultMargin"] != null)
                     {
                         var defaultMargin = (AliasedValue)result["defaultMargin"];
-                        margin = Convert.ToDecimal(defaultMargin.Value);
+                        margin = Math.Round(Convert.ToDecimal(defaultMargin.Value), 2);
                     }
                     if (result.Contains("ig1_category") && result["ig1_category"] != null)
                     {
