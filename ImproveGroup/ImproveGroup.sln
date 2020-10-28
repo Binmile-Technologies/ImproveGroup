@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30225.117
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImproveGroup", "ImproveGroup\ImproveGroup.csproj", "{BA93A25F-2DC6-4AC0-A1B3-2BBB67DF15F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_NewBidSheetForChangeOrder", "IG_NewBidSheetForChangeOrder\IG_NewBidSheetForChangeOrder.csproj", "{B05BD776-6C75-420B-9AD4-58CC83DA3549}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateProjectRecordStatus", "IG_UpdateProjectRecordStatus\IG_UpdateProjectRecordStatus.csproj", "{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}"
-EndProject
-Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "Reports", "Reports\Reports.rptproj", "{9826C8DD-8207-4D2C-9539-1171089CD55B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_Calculate Est. Pay Date", "Calculate Est. Pay Date\IG_Calculate Est. Pay Date.csproj", "{4AB3FC40-F861-4CC1-8D69-39ABF496453B}"
 EndProject
@@ -53,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateFreightAndGPToOpp"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_GetBidsheetDefault", "IG_GetBidsheetDefault\IG_GetBidsheetDefault.csproj", "{0F2DE1BC-BB8F-4822-8D0A-ACF7F26C359F}"
 EndProject
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "Reports", "Reports\Reports.rptproj", "{6F83FCA3-9823-4572-AFD0-890740D37000}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,14 +78,6 @@ Global
 		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9826C8DD-8207-4D2C-9539-1171089CD55B}.Debug|Any CPU.ActiveCfg = Debug
-		{9826C8DD-8207-4D2C-9539-1171089CD55B}.Debug|Any CPU.Build.0 = Debug
-		{9826C8DD-8207-4D2C-9539-1171089CD55B}.Debug|Any CPU.Deploy.0 = Debug
-		{9826C8DD-8207-4D2C-9539-1171089CD55B}.DebugLocal|Any CPU.ActiveCfg = DebugLocal
-		{9826C8DD-8207-4D2C-9539-1171089CD55B}.DebugLocal|Any CPU.Build.0 = DebugLocal
-		{9826C8DD-8207-4D2C-9539-1171089CD55B}.Release|Any CPU.ActiveCfg = Release
-		{9826C8DD-8207-4D2C-9539-1171089CD55B}.Release|Any CPU.Build.0 = Release
-		{9826C8DD-8207-4D2C-9539-1171089CD55B}.Release|Any CPU.Deploy.0 = Release
 		{4AB3FC40-F861-4CC1-8D69-39ABF496453B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4AB3FC40-F861-4CC1-8D69-39ABF496453B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AB3FC40-F861-4CC1-8D69-39ABF496453B}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
@@ -212,6 +204,14 @@ Global
 		{0F2DE1BC-BB8F-4822-8D0A-ACF7F26C359F}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{0F2DE1BC-BB8F-4822-8D0A-ACF7F26C359F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F2DE1BC-BB8F-4822-8D0A-ACF7F26C359F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F83FCA3-9823-4572-AFD0-890740D37000}.Debug|Any CPU.ActiveCfg = Debug
+		{6F83FCA3-9823-4572-AFD0-890740D37000}.Debug|Any CPU.Build.0 = Debug
+		{6F83FCA3-9823-4572-AFD0-890740D37000}.Debug|Any CPU.Deploy.0 = Debug
+		{6F83FCA3-9823-4572-AFD0-890740D37000}.DebugLocal|Any CPU.ActiveCfg = DebugLocal
+		{6F83FCA3-9823-4572-AFD0-890740D37000}.DebugLocal|Any CPU.Build.0 = DebugLocal
+		{6F83FCA3-9823-4572-AFD0-890740D37000}.Release|Any CPU.ActiveCfg = Release
+		{6F83FCA3-9823-4572-AFD0-890740D37000}.Release|Any CPU.Build.0 = Release
+		{6F83FCA3-9823-4572-AFD0-890740D37000}.Release|Any CPU.Deploy.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
