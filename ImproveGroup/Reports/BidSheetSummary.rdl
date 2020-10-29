@@ -336,7 +336,6 @@
                                   <Value>=IIF(IsNothing(Fields!ig1_anticipatedgp.Value), 0, Fields!ig1_anticipatedgp.Value)</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>'$'0.00;('$'0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -379,7 +378,6 @@
                                   <Value>=IIF(IsNothing(Fields!ig1_anticipatedgpinpercent.Value), 0, Fields!ig1_anticipatedgpinpercent.Value)</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -421,7 +419,6 @@
                                   <Value>=IIF(IsNothing(Fields!ig1_anticipatednetinpercent.Value), 0, Fields!ig1_anticipatednetinpercent.Value)</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -463,7 +460,6 @@
                                   <Value>=IIF(IsNothing(Fields!ig1_anticipatednet.Value), 0, Fields!ig1_anticipatednet.Value)</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>'$'0.00;('$'0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -506,7 +502,6 @@
                                   <Value>=IIF(IsNothing(Fields!ig1_anticipatedcommissionablevalue.Value), 0, Fields!ig1_anticipatedcommissionablevalue.Value)</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>'$'0.00;('$'0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -549,7 +544,6 @@
                                   <Value>=IIF(IsNothing(Fields!ig1_netnet.Value), 0, Fields!ig1_netnet.Value)</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>'$'0.00;('$'0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -592,7 +586,6 @@
                                   <Value>=IIF(IsNothing(Fields!ig1_anticipatedcommissionablevalueinpercent.Value), 0, Fields!ig1_anticipatedcommissionablevalueinpercent.Value)</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -642,7 +635,6 @@
                                 <Value>Anticipated GP</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -680,7 +672,6 @@
                                 <Value>Anticipated GP %</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -718,7 +709,6 @@
                                 <Value>Anticipated Net-Pre Commission %</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -756,7 +746,6 @@
                                 <Value>Anticipated Net-Pre Commission $</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -794,7 +783,6 @@
                                 <Value>Anticipated Commissionable Value</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -832,7 +820,6 @@
                                 <Value>Net-Net $</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -870,7 +857,6 @@
                                 <Value>Net-Net %</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -1005,7 +991,6 @@
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontFamily>Arial</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>'$'0.00;('$'0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -1049,7 +1034,6 @@
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontFamily>Arial</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -1092,7 +1076,6 @@
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontFamily>Arial</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -1135,7 +1118,6 @@
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontFamily>Arial</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -1178,7 +1160,6 @@
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontFamily>Arial</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -1201,6 +1182,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1229,7 +1211,6 @@
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -1268,7 +1249,6 @@
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -1307,7 +1287,6 @@
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -1346,7 +1325,6 @@
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -1385,7 +1363,6 @@
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
@@ -1659,7 +1636,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Direct Cost</Value>
+                                  <Value>Direct Price</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontSize>12pt</FontSize>
@@ -1697,7 +1674,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Indirect Cost</Value>
+                                  <Value>Indirect Price</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontSize>12pt</FontSize>
@@ -1738,13 +1715,14 @@
                                   <Value>Sell Price</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox148</rd:DefaultName>
@@ -1754,6 +1732,7 @@
                               <Style>Solid</Style>
                             </Border>
                             <BackgroundColor>Tan</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2197,7 +2176,6 @@
                                   <Value />
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2211,7 +2189,6 @@
                                   <Value>=Fields!BSLine_Product.Value</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2510,6 +2487,9 @@
                     <CellContents>
                       <Textbox Name="AC_Category">
                         <CanGrow>true</CanGrow>
+                        <ToggleImage>
+                          <InitialState>true</InitialState>
+                        </ToggleImage>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
@@ -2555,7 +2535,6 @@
                         <TablixMember />
                       </TablixMembers>
                       <Visibility>
-                        <Hidden>true</Hidden>
                         <ToggleItem>AC_Category</ToggleItem>
                       </Visibility>
                     </TablixMember>
@@ -2684,7 +2663,6 @@
                                   <Value>=Fields!ig1_product.Value</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
