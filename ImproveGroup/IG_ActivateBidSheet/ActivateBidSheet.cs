@@ -166,9 +166,9 @@ namespace IG_ActivateBidSheet
                     categorysdt = salesCost + designCost + travelCost;
                     if (categoryMaterialCost > 0)
                     {
-                        productsdt = Math.Round(((materialCost / categoryMaterialCost) * categorysdt), 2);
+                        productsdt = (materialCost / categoryMaterialCost) * categorysdt;
                     }
-                    totalMaterialCost = Math.Round((totalMaterialCost + productsdt), 2);
+                    totalMaterialCost = totalMaterialCost + productsdt;
                     CreatePriceListItem(bidsheetid, productid, defaultUnit, totalMaterialCost);
                     CreateOpportunityLine(productid, opportunity.Id, defaultUnit);
                 }

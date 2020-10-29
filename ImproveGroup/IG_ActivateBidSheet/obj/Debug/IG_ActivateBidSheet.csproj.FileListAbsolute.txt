@@ -12,7 +12,6 @@ E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Crm.
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
-E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.csprojAssemblyReference.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.csproj.CoreCompileInputs.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_ActivateBidSheet\obj\Debug\IG_ActivateBidSheet.dll
