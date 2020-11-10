@@ -15,6 +15,7 @@
 using System;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using System.Text.RegularExpressions;
 
 namespace IG_FilterQuickBooksBills
 {
@@ -394,6 +395,22 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project") + 7, 5);
                     }
                 }
+                else if (memo.Contains("- "))
+                {
+                    string submemo = memo.Substring(memo.IndexOf("- ") + 2);
+                    if (submemo.Length >= 5)
+                    {
+                        jobNumber = Regex.Match(submemo, "(\\d{5})").Value;
+                    }
+                }
+                else if (memo.Contains("-"))
+                {
+                    string submemo = memo.Substring(memo.IndexOf("-") + 1);
+                    if (submemo.Length >= 5)
+                    {
+                        jobNumber = Regex.Match(submemo, "(\\d{5})").Value;
+                    }
+                }
                 else if (memo.Length == 5)
                 {
                     int num;
@@ -402,7 +419,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = num.ToString();
                     }
                 }
-                else if (memo.Length > 5 && !memo.Contains("job #") && !memo.Contains("job# ") && !memo.Contains("job#") && !memo.Contains("project #") && !memo.Contains("project# ") && !memo.Contains("project#") && !memo.Contains("project ") && !memo.Contains("project"))
+                else if (memo.Length > 5 && !memo.Contains("job #") && !memo.Contains("job# ") && !memo.Contains("job#") && !memo.Contains("project #") && !memo.Contains("project# ") && !memo.Contains("project#") && !memo.Contains("project ") && !memo.Contains("project") && !memo.Contains("- ") && !memo.Contains("-"))
                 {
                     char ch = Convert.ToChar(memo.Substring(5, 1));
                     if (!Char.IsDigit(ch))
