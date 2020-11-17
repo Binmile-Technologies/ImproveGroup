@@ -151,7 +151,7 @@ namespace IG_UpdateProjectRecordStatus
 
         public int CheckWorkOrderExistsOrNot(IOrganizationService service)
         {
-            int[] arrOpen = { 690970000, 690970001, 690970002, 690970003 }; //Open statuses of Work Order for ex.(Open-Scheduled 690970001,Open-Inprogress 690970002, Open-UnScheduled 690970000,Open-Completed 690970003)
+            int[] arrOpen = { 286150000, 286150001, 286150002 }; //Open statuses of Work Order for ex.(Open-Scheduled 690970001,Open-Inprogress 690970002, Open-UnScheduled 690970000)
             int inResult = 0;
             if (OpportunityId != Guid.Empty)
             {
@@ -163,7 +163,7 @@ namespace IG_UpdateProjectRecordStatus
                 var fetchXml = $@"
                             <fetch attribute='statuscodename' operator='eq'>
                               <entity name='msdyn_workorder'>
-                                <attribute name='msdyn_systemstatus' />
+                                <attribute name='ig1_workorderstatus' />
                                 <attribute name='msdyn_opportunityid' />
                                 <filter>
                                   <condition attribute='msdyn_opportunityid' operator='eq' value='{fetchData.msdyn_opportunityid/*a1980122-a02b-ea11-a810-000d3a55dd4e*/}'/>
@@ -178,9 +178,9 @@ namespace IG_UpdateProjectRecordStatus
                 {
                     for (int i = 0; i < result.Entities.Count; i++)
                     {
-                        if (result.Entities[i].Attributes.Contains("msdyn_systemstatus"))
+                        if (result.Entities[i].Attributes.Contains("ig1_workorderstatus"))
                         {
-                            var woStatus = (OptionSetValue)result.Entities[i].Attributes["msdyn_systemstatus"];
+                            var woStatus = (OptionSetValue)result.Entities[i].Attributes["ig1_workorderstatus"];
                             if (arrOpen.Contains(woStatus.Value))
                             {
                                 inResult = 1;
