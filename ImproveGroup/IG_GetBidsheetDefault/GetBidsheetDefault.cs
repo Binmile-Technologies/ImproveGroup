@@ -16,12 +16,26 @@ namespace IG_GetBidsheetDefault
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 service = serviceFactory.CreateOrganizationService(context.InitiatingUserId);
-                if(context.MessageName=="Create" && context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+                if (context.MessageName == "Create" && context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
                     Entity entity = (Entity)context.InputParameters["Target"];
                     if (entity.LogicalName == "ig1_bidsheet")
                     {
-                        FetchAndSaveBidsheetDefaultToRecord(entity);
+                        if (!entity.Attributes.Contains("ig1_defaultcorpgna") || entity.Attributes["ig1_defaultcorpgna"] == null)
+                        {
+                            FetchAndSaveBidsheetDefaultToRecord(entity);
+                        }
+                    }
+                }
+                else if (context.MessageName == "Update" && context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+                {
+                    Entity entity = (Entity)context.InputParameters["Target"];
+                    if (entity.LogicalName == "ig1_bidsheet")
+                    {
+                        if (entity.Attributes.Contains("ig1_revisionid") && entity.Attributes["ig1_revisionid"] != null && Convert.ToInt32(entity.Attributes["ig1_revisionid"]) > 0)
+                        {
+                            FetchAndSaveBidsheetDefaultToRecord(entity);
+                        }
                     }
                 }
             }

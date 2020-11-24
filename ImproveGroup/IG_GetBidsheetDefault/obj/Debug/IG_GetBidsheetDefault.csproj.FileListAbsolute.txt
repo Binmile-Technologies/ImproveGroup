@@ -4,6 +4,7 @@ E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Debug\Microsoft.Cr
 E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Debug\Microsoft.Xrm.Sdk.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Debug\IG_GetBidsheetDefault.csprojAssemblyReference.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Debug\IG_GetBidsheetDefault.csproj.CoreCompileInputs.cache
 E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Debug\IG_GetBidsheetDefault.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Debug\IG_GetBidsheetDefault.dll
