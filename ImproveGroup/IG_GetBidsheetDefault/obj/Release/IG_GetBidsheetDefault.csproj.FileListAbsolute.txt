@@ -1,0 +1,11 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Release\IG_GetBidsheetDefault.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Release\IG_GetBidsheetDefault.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Release\IG_GetBidsheetDefault.csprojAssemblyReference.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Release\IG_GetBidsheetDefault.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Release\IG_GetBidsheetDefault.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Release\IG_GetBidsheetDefault.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_GetBidsheetDefault\obj\Release\IG_GetBidsheetDefault.pdb

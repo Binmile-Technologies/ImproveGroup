@@ -159,7 +159,7 @@ namespace IG_GetBidsheetDefault
 
             entity.Attributes["ig1_defaulttravelmargin"] = travelMargin;
             entity.Attributes["ig1_defaultlodging"] = lodging;
-            entity.Attributes["ig1_defaultperdiem"] = new Money(lodging);
+            entity.Attributes["ig1_defaultperdiem"] = new Money(perDiem);
 
             entity.Attributes["ig1_defaultmargin"] = margin;
             entity.Attributes["ig1_defaultcorpgna"] = corpGNA;
