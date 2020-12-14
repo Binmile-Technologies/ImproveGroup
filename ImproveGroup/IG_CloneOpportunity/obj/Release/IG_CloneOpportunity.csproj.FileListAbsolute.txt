@@ -1,0 +1,11 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\bin\Release\IG_CloneOpportunity.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\bin\Release\IG_CloneOpportunity.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\obj\Release\IG_CloneOpportunity.csprojAssemblyReference.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\obj\Release\IG_CloneOpportunity.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\obj\Release\IG_CloneOpportunity.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\obj\Release\IG_CloneOpportunity.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CloneOpportunity\obj\Release\IG_CloneOpportunity.pdb
