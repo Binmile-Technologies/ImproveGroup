@@ -411,7 +411,7 @@ namespace IG_CalculateProjectRecordTotals
                 ig1_amount = "0"
             };
             var fetchXml = $@"
-                            <fetch>
+                            <fetch distinct='true'>
                               <entity name='ig1_projectrecordcost'>
                                 <attribute name='ig1_expensetype' />
                                 <attribute name='ig1_amount' />
@@ -476,7 +476,7 @@ namespace IG_CalculateProjectRecordTotals
                 ig1_duration = "0"
             };
             var fetchXml = $@"
-                            <fetch>
+                            <fetch distinct='true'>
                               <entity name='ig1_projectrecordhours'>
                                 <attribute name='ig1_duration' />
                                 <attribute name='ig1_type' />

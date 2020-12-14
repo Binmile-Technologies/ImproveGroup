@@ -1,0 +1,11 @@
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Release\IG_CalculateProjectRecordTotals.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Release\IG_CalculateProjectRecordTotals.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Release\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\bin\Release\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Release\IG_CalculateProjectRecordTotals.csprojAssemblyReference.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Release\IG_CalculateProjectRecordTotals.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Release\IG_CalculateProjectRecordTotals.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Release\IG_CalculateProjectRecordTotals.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Release\IG_CalculateProjectRecordTotals.pdb
