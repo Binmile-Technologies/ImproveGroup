@@ -35,6 +35,7 @@ namespace IG_CloneOpportunity
         }
         protected void Clone_Opportunity(Guid opportunityid)
         {
+            string name = string.Empty;
             var fetchData = new
             {
                 opportunityid = opportunityid
@@ -142,7 +143,16 @@ namespace IG_CloneOpportunity
                 }
                 if (result.Contains("name") && result["name"] != null)
                 {
-                    entity.Attributes["name"] = "Cloned_"+projectNumber+"_"+result["name"];
+                    name = "Cloned_" + projectNumber + "_" + result["name"];
+                    if (name.Length > 50)
+                    {
+                        name = name.Substring(0, 50);
+                        entity.Attributes["name"] = name;
+                    }
+                    else
+                    {
+                        entity.Attributes["name"] = name;
+                    }
                 }
                 if (result.Contains("contactid") && result["contactid"] != null)
                 {
@@ -229,7 +239,11 @@ namespace IG_CloneOpportunity
                     entity.Attributes["ig1_installzippostalcode"] = result["ig1_installzippostalcode"];
                 }
 
-                service.Create(entity);
+                Guid clonedOppoertunityid = service.Create(entity);
+                if (clonedOppoertunityid != Guid.Empty)
+                {
+                    context.OutputParameters["clonedopportunityid"] = Convert.ToString(clonedOppoertunityid);
+                }
             }
         }
     }

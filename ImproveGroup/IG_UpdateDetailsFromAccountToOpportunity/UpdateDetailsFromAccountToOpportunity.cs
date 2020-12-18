@@ -22,10 +22,10 @@ namespace IG_UpdateDetailsFromAccountToOpportunity
                     Entity entity = (Entity)context.InputParameters["Target"];
                     if (entity.LogicalName == "account")
                     {
-                        string baseLocation = string.Empty;
+                        EntityReference baseLocation = null;
                         if (entity.Attributes.Contains("ig1_baselocation") && entity.Attributes["ig1_baselocation"] != null)
                         {
-                            baseLocation = Convert.ToString(entity.Attributes["ig1_baselocation"]);
+                            baseLocation = (EntityReference)entity.Attributes["ig1_baselocation"];
                         }
                         UpdateOpportunityBaseLocation(entity.Id, baseLocation);
                     }
@@ -34,7 +34,7 @@ namespace IG_UpdateDetailsFromAccountToOpportunity
                         if (entity.Attributes.Contains("parentaccountid") && entity.Attributes["parentaccountid"] != null)
                         {
                             EntityReference entityReference = (EntityReference)entity.Attributes["parentaccountid"];
-                            string baseLocation = GetAccountBseLocation(entityReference.Id);
+                            EntityReference baseLocation = GetAccountBseLocation(entityReference.Id);
                             entity.Attributes["ig1_baselocation"] = baseLocation;
                             service.Update(entity);
                         }
@@ -46,7 +46,7 @@ namespace IG_UpdateDetailsFromAccountToOpportunity
                 throw new InvalidPluginExecutionException("Error in UpdateDetailsFromAccountToOpportunity Plug-in " + ex);
             }
         }
-        protected void UpdateOpportunityBaseLocation(Guid accountid, string baseLocation)
+        protected void UpdateOpportunityBaseLocation(Guid accountid, EntityReference baseLocation)
         {
             var fetchData = new
             {
@@ -75,14 +75,14 @@ namespace IG_UpdateDetailsFromAccountToOpportunity
             {
                 foreach (Entity entity in entityCollection.Entities)
                 {
-                    entity.Attributes["ig1_baselocation"] = baseLocation;
+                    entity.Attributes["ig1_baselocation"] =new EntityReference(baseLocation.LogicalName, baseLocation.Id);
                     service.Update(entity);
                 }
             }
         }
-        protected string GetAccountBseLocation(Guid accountid)
+        protected EntityReference GetAccountBseLocation(Guid accountid)
         {
-            string baseLocation = string.Empty;
+            EntityReference baseLocation = null;
             var fetchData = new
             {
                 statecode = "0",
@@ -104,7 +104,8 @@ namespace IG_UpdateDetailsFromAccountToOpportunity
                 Entity entity = entityCollection.Entities[0];
                 if (entity.Attributes.Contains("ig1_baselocation") && entity.Attributes["ig1_baselocation"] != null)
                 {
-                    baseLocation = Convert.ToString(entity.Attributes["ig1_baselocation"]);
+                    EntityReference entityrence = (EntityReference)entity.Attributes["ig1_baselocation"];
+                    baseLocation = new EntityReference(entityrence.LogicalName, entityrence.Id);
                 }
             }
             return baseLocation;
