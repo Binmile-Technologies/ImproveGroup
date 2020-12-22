@@ -73,7 +73,7 @@ namespace IG_CalculateProjectRecordTotals
                         {
                             EntityReference projectRecord = (EntityReference)actualCost.Attributes["ig1_projectrecord"];
                             QuickBooksTotals(projectRecord);
-                            TimeTraxCostsTotals(projectRecord);
+                            //TimeTraxCostsTotals(projectRecord);
                         } 
                     }
                     if (entity.LogicalName== "ig1_projectrecordhours")
@@ -82,7 +82,7 @@ namespace IG_CalculateProjectRecordTotals
                         if (actulaHours.Attributes.Contains("ig1_projectrecord") && actulaHours.Attributes["ig1_projectrecord"] != null)
                         {
                             EntityReference projectRecord = (EntityReference)actulaHours.Attributes["ig1_projectrecord"];
-                            TimeTraxHoursTotls(projectRecord);
+                            //TimeTraxHoursTotls(projectRecord);
                         }
                     }
                 }

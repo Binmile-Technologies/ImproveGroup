@@ -143,16 +143,7 @@ namespace IG_CloneOpportunity
                 }
                 if (result.Contains("name") && result["name"] != null)
                 {
-                    name = "Cloned_" + projectNumber + "_" + result["name"];
-                    if (name.Length > 50)
-                    {
-                        name = name.Substring(0, 50);
-                        entity.Attributes["name"] = name;
-                    }
-                    else
-                    {
-                        entity.Attributes["name"] = name;
-                    }
+                    entity.Attributes["name"] = "Cloned_" + projectNumber;
                 }
                 if (result.Contains("contactid") && result["contactid"] != null)
                 {
