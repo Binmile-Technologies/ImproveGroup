@@ -75,7 +75,7 @@ namespace IG_UpdateDetailsFromAccountToOpportunity
             {
                 foreach (Entity entity in entityCollection.Entities)
                 {
-                    entity.Attributes["ig1_baselocation"] =new EntityReference(baseLocation.LogicalName, baseLocation.Id);
+                    entity.Attributes["ig1_baselocation"] = baseLocation;
                     service.Update(entity);
                 }
             }
