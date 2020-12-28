@@ -9,3 +9,11 @@ E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_Upda
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.pdb
+D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Debug\IG_UpdateFreightAndGPToOpp.dll
+D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Debug\IG_UpdateFreightAndGPToOpp.pdb
+D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.dll
+D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.pdb

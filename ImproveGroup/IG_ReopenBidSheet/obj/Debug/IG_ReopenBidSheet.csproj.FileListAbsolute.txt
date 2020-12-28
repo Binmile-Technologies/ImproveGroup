@@ -9,3 +9,11 @@ E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\obj\Debug\IG_ReopenBidShee
 E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\obj\Debug\IG_ReopenBidSheet.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\obj\Debug\IG_ReopenBidSheet.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_ReopenBidSheet\obj\Debug\IG_ReopenBidSheet.pdb
+D:\Github\ImproveGroup\IG_ReopenBidSheet\bin\Debug\IG_ReopenBidSheet.dll
+D:\Github\ImproveGroup\IG_ReopenBidSheet\bin\Debug\IG_ReopenBidSheet.pdb
+D:\Github\ImproveGroup\IG_ReopenBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_ReopenBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_ReopenBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_ReopenBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_ReopenBidSheet\obj\Debug\IG_ReopenBidSheet.dll
+D:\Github\ImproveGroup\IG_ReopenBidSheet\obj\Debug\IG_ReopenBidSheet.pdb

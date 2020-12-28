@@ -16,3 +16,11 @@ D:\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Crm.Sd
 D:\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
 D:\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\obj\Debug\IG_ReviseBidSheet.dll
 D:\Github\ImproveGroup\ImproveGroup\IG_ReviseBidSheet\obj\Debug\IG_ReviseBidSheet.pdb
+D:\Github\ImproveGroup\IG_ReviseBidSheet\bin\Debug\IG_ReviseBidSheet.dll
+D:\Github\ImproveGroup\IG_ReviseBidSheet\bin\Debug\IG_ReviseBidSheet.pdb
+D:\Github\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_ReviseBidSheet\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_ReviseBidSheet\obj\Debug\IG_ReviseBidSheet.dll
+D:\Github\ImproveGroup\IG_ReviseBidSheet\obj\Debug\IG_ReviseBidSheet.pdb

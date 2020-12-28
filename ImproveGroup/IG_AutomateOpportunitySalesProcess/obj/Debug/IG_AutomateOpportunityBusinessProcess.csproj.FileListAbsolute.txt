@@ -16,3 +16,11 @@ D:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug
 D:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\Microsoft.Xrm.Sdk.xml
 D:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\obj\Debug\IG_AutomateOpportunityBusinessProcess.dll
 D:\Github\ImproveGroup\ImproveGroup\IG_AutomateOpportunitySalesProcess\obj\Debug\IG_AutomateOpportunityBusinessProcess.pdb
+D:\Github\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\IG_AutomateOpportunityBusinessProcess.dll
+D:\Github\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\IG_AutomateOpportunityBusinessProcess.pdb
+D:\Github\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_AutomateOpportunitySalesProcess\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_AutomateOpportunitySalesProcess\obj\Debug\IG_AutomateOpportunityBusinessProcess.dll
+D:\Github\ImproveGroup\IG_AutomateOpportunitySalesProcess\obj\Debug\IG_AutomateOpportunityBusinessProcess.pdb

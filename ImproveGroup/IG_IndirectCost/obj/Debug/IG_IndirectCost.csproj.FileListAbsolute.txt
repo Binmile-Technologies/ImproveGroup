@@ -14,3 +14,10 @@ E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.cs
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.pdb
+D:\Github\ImproveGroup\IG_IndirectCost\bin\Debug\IG_IndirectCost.dll
+D:\Github\ImproveGroup\IG_IndirectCost\bin\Debug\IG_IndirectCost.pdb
+D:\Github\ImproveGroup\IG_IndirectCost\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_IndirectCost\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.dll
+D:\Github\ImproveGroup\IG_IndirectCost\obj\Debug\IG_IndirectCost.pdb

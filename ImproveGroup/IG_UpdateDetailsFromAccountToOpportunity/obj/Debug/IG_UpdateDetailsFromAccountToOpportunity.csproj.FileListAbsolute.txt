@@ -8,3 +8,11 @@ E:\Github\ImproveGroup\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\obj
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\obj\Debug\IG_UpdateDetailsFromAccountToOpportunity.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\obj\Debug\IG_UpdateDetailsFromAccountToOpportunity.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\obj\Debug\IG_UpdateDetailsFromAccountToOpportunity.pdb
+D:\Github\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\bin\Debug\IG_UpdateDetailsFromAccountToOpportunity.dll
+D:\Github\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\bin\Debug\IG_UpdateDetailsFromAccountToOpportunity.pdb
+D:\Github\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\obj\Debug\IG_UpdateDetailsFromAccountToOpportunity.dll
+D:\Github\ImproveGroup\IG_UpdateDetailsFromAccountToOpportunity\obj\Debug\IG_UpdateDetailsFromAccountToOpportunity.pdb

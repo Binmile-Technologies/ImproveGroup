@@ -49,3 +49,12 @@ E:\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_Up
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.pdb
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\IG_UpdateProjectRecordStatus.dll
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\IG_UpdateProjectRecordStatus.pdb
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.dll
+D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.pdb

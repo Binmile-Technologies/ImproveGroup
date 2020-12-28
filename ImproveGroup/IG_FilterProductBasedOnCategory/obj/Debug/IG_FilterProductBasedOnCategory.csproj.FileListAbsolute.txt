@@ -15,3 +15,12 @@ D:\Github\ImproveGroup\ImproveGroup\IG_FilterProductBasedOnCategory\bin\Debug\Mi
 D:\Github\ImproveGroup\ImproveGroup\IG_FilterProductBasedOnCategory\bin\Debug\Microsoft.Xrm.Sdk.xml
 D:\Github\ImproveGroup\ImproveGroup\IG_FilterProductBasedOnCategory\obj\Debug\IG_FilterProductBasedOnCategory.dll
 D:\Github\ImproveGroup\ImproveGroup\IG_FilterProductBasedOnCategory\obj\Debug\IG_FilterProductBasedOnCategory.pdb
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\bin\Debug\IG_FilterProductBasedOnCategory.dll
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\bin\Debug\IG_FilterProductBasedOnCategory.pdb
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\obj\Debug\IG_FilterProductBasedOnCategory.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\obj\Debug\IG_FilterProductBasedOnCategory.dll
+D:\Github\ImproveGroup\IG_FilterProductBasedOnCategory\obj\Debug\IG_FilterProductBasedOnCategory.pdb

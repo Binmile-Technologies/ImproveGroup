@@ -11,3 +11,9 @@ E:\Github\ImproveGroup\ImproveGroup\OpportunityPricelist_New\obj\Debug\Opportuni
 E:\Github\ImproveGroup\ImproveGroup\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.dll
 E:\Github\ImproveGroup\ImproveGroup\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.pdb
+D:\Github\ImproveGroup\OpportunityPricelist_New\bin\Debug\OpportunityPricelist_New.dll
+D:\Github\ImproveGroup\OpportunityPricelist_New\bin\Debug\OpportunityPricelist_New.pdb
+D:\Github\ImproveGroup\OpportunityPricelist_New\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.dll
+D:\Github\ImproveGroup\OpportunityPricelist_New\obj\Debug\OpportunityPricelist_New.pdb
