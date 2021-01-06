@@ -15,7 +15,7 @@ namespace IG_GetBidsheetDefault
             {
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                service = serviceFactory.CreateOrganizationService(context.InitiatingUserId);
+                service = serviceFactory.CreateOrganizationService(null);
                 if (context.MessageName == "Create" && context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
                     Entity entity = (Entity)context.InputParameters["Target"];

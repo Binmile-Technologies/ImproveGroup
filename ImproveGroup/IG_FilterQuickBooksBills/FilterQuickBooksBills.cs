@@ -47,11 +47,7 @@ namespace IG_FilterQuickBooksBills
             }
             catch (Exception ex)
             {
-                Entity errorLog = new Entity("ig1_pluginserrorlogs");
-                errorLog["ig1_name"] = "An error occurred in FilterQuickBooksBills Plug-in";
-                errorLog["ig1_errormessage"] = ex.Message;
-                errorLog["ig1_errordescription"] = ex.ToString();
-                service.Create(errorLog);
+                throw new InvalidPluginExecutionException("Error in FilterQuickBooksBills " + ex);
             }
         }
         protected void QuickBooksBiils(string entity)
@@ -69,7 +65,8 @@ namespace IG_FilterQuickBooksBills
                         "ig1_date",
                         "ig1_billdue",
                         "ig1_amount",
-                        "ig1_terms"
+                        "ig1_terms",
+                        "ig1_transactiontype"
                     ),
             };
             EntityCollection entityCollection = service.RetrieveMultiple(query);
@@ -222,6 +219,10 @@ namespace IG_FilterQuickBooksBills
                 {
                     entity["ig1_terms"] = record.Attributes["ig1_terms"].ToString();
                 }
+                if (record.Attributes.Contains("ig1_transactiontype") && !string.IsNullOrEmpty(record.Attributes["ig1_transactiontype"].ToString()))
+                {
+                    entity["ig1_transactiontype"] = record.Attributes["ig1_transactiontype"].ToString();
+                }
                 service.Update(entity);
                 if (entityName == "ig1_projectrecordcost")
                 {
@@ -285,6 +286,10 @@ namespace IG_FilterQuickBooksBills
                 if (record.Attributes.Contains("ig1_terms") && !string.IsNullOrEmpty(record.Attributes["ig1_terms"].ToString()))
                 {
                     entity["ig1_terms"] = record.Attributes["ig1_terms"].ToString();
+                }
+                if (record.Attributes.Contains("ig1_transactiontype") && !string.IsNullOrEmpty(record.Attributes["ig1_transactiontype"].ToString()))
+                {
+                    entity["ig1_transactiontype"] = record.Attributes["ig1_transactiontype"].ToString();
                 }
                 Guid id = service.Create(entity);
                 if (entityName == "ig1_projectrecordcost")
