@@ -19,7 +19,7 @@ namespace IG_DeleteOpportunityAndRelatedRecords
 
                 if (context.MessageName == "ig1_DeleteOpportunityAndRelatedRecords" && context.InputParameters.Contains("selectedOpportunity") && !string.IsNullOrEmpty(context.InputParameters["selectedOpportunity"].ToString()))
                 {
-                    Guid opportunityid = new Guid("d21b8536-5818-4682-baab-ac708095940f");//new Guid(context.InputParameters["selectedOpportunity"].ToString());
+                    Guid opportunityid = new Guid("26e0028c-6c62-ea11-a811-000d3a55dce2");//new Guid(context.InputParameters["selectedOpportunity"].ToString());
                     if (opportunityid != Guid.Empty)
                     {
                         DeleteRelatedInvoices(opportunityid);
