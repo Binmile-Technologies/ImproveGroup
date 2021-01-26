@@ -1,0 +1,10 @@
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\bin\Release\IG_UpdatePaymentTermsToPOBill.dll
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\bin\Release\IG_UpdatePaymentTermsToPOBill.pdb
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\obj\Release\IG_UpdatePaymentTermsToPOBill.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\obj\Release\IG_UpdatePaymentTermsToPOBill.csproj.CopyComplete
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\obj\Release\IG_UpdatePaymentTermsToPOBill.dll
+D:\Github\ImproveGroup\IG_UpdatePaymentTermsToPOBill\obj\Release\IG_UpdatePaymentTermsToPOBill.pdb
