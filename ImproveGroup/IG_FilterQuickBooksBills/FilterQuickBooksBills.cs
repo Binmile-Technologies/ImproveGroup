@@ -348,7 +348,7 @@ namespace IG_FilterQuickBooksBills
             if (string.IsNullOrEmpty(jobNumber) && record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
             {
                 string memo = record.Attributes["ig1_memo"].ToString().ToLower();
-                if (memo.Contains("job #"))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job #"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("job #") + 5);
                     if (submemo.Length >= 5)
@@ -356,7 +356,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("job #") + 5, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job# "))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job# "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("job# ") + 5);
                     if (submemo.Length >= 5)
@@ -364,7 +364,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("job# ") + 5, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job#"))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job#"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("job#") + 4);
                     if (submemo.Length >= 5)
@@ -372,7 +372,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("job#") + 4, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job "))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("job ") + 4);
                     if (submemo.Length >= 5)
@@ -380,7 +380,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("job ") + 4, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job"))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("job") + 3);
                     if (submemo.Length >= 5)
@@ -388,7 +388,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("job") + 3, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project #"))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project #"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project #") + 9);
                     if (submemo.Length >= 5)
@@ -396,7 +396,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project #") + 9, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project# "))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project# "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project# ") + 9);
                     if (submemo.Length >= 5)
@@ -404,7 +404,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project# ") + 9, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project#"))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project#"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project#") + 8);
                     if (submemo.Length >= 5)
@@ -412,7 +412,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project#") + 8, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project "))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project ") + 8);
                     if (submemo.Length >= 5)
@@ -420,7 +420,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project ") + 8, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project"))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project") + 7);
                     if (submemo.Length >= 5)
@@ -428,7 +428,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project") + 7, 5);
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Length>5 && (Convert.ToChar(memo.Substring(5, 1))=='_' || Convert.ToChar(memo.Substring(5, 1)) == ' '))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Length>5 && (Convert.ToChar(memo.Substring(5, 1))=='_' || Convert.ToChar(memo.Substring(5, 1)) == ' '))
                 {
                         int num;
                         string projectNumber = memo.Substring(0, 5).Trim();
@@ -437,7 +437,7 @@ namespace IG_FilterQuickBooksBills
                             jobNumber = num.ToString();
                         }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && string.IsNullOrEmpty(jobNumber) && memo.Contains("- "))
+                if (string.IsNullOrEmpty(jobNumber) && string.IsNullOrEmpty(jobNumber) && memo.Contains("- "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("- "));
                     if (submemo.Length > 5)
@@ -459,7 +459,7 @@ namespace IG_FilterQuickBooksBills
                         }
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("-"))
+                if (string.IsNullOrEmpty(jobNumber) && memo.Contains("-"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("-"));
                     if (submemo.Length > 5)
@@ -476,7 +476,7 @@ namespace IG_FilterQuickBooksBills
                         }
                     }
                 }
-                else if (string.IsNullOrEmpty(jobNumber) && memo.Length == 5)
+                if (string.IsNullOrEmpty(jobNumber) && memo.Length == 5)
                 {
                     int num;
                     if (int.TryParse(memo, out num))
