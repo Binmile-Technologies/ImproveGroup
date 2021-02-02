@@ -4,3 +4,9 @@ D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\bin\Debug\Microso
 D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.csprojResolveAssemblyReference.cache
 D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.dll
 D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.pdb
+D:\Github\ImproveGroup\UpdatePoTotalAmountInBill\bin\Debug\UpdatePoTotalAmountInBill.dll
+D:\Github\ImproveGroup\UpdatePoTotalAmountInBill\bin\Debug\UpdatePoTotalAmountInBill.pdb
+D:\Github\ImproveGroup\UpdatePoTotalAmountInBill\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.dll
+D:\Github\ImproveGroup\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.pdb
+D:\Github\ImproveGroup\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.csprojResolveAssemblyReference.cache

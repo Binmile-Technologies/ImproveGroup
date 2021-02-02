@@ -31,19 +31,38 @@ namespace UpdatePoTotalAmountInBill
                     if (entity.LogicalName == "msdyn_purchaseorderbill")
                     {
                         Entity poentity = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("msdyn_purchaseorder"));
-                        Guid poid = poentity.GetAttributeValue<EntityReference>("msdyn_purchaseorder").Id;
-                        Money amount   =  GetPOtotalamount(poid);
-                        entity["ig1_pototalamount"] = amount.Value;
-                        service.Update(entity);
+                        if(poentity.Attributes.Contains("msdyn_purchaseorder") && entity.Attributes["msdyn_purchaseorder"] != null)
+                        {
+                            Guid poid = poentity.GetAttributeValue<EntityReference>("msdyn_purchaseorder").Id;
+                            Money amount = GetPOtotalamount(poid);
+                            Money amountbilled = GetPObilledamount(poid);
+                            entity["ig1_pototalamount"] = amount.Value;
+                            entity["ig1_pototalamountbilled"] = amountbilled.Value;
+                            service.Update(entity);
+                        }
+                       
+                       
 
                     }
 
                     else if(entity.LogicalName == "msdyn_purchaseorder")
                     {
+                        Money money = new Money(0);
+                        Money billamount = new Money(0);
+                        Entity pobil=service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("msdyn_totalamount", "msdyn_amountbilled"));
+                        if(pobil.Attributes.Contains("msdyn_totalamount") && pobil.Attributes["msdyn_totalamount"] != null)
+                        {
+                            money = pobil.GetAttributeValue<Money>("msdyn_totalamount");
+                            
+                        }
 
-                        Entity pobil=service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("msdyn_totalamount"));
-                        Money money=pobil.GetAttributeValue<Money>("msdyn_totalamount");
-                        UpdatePOBillAmount(entity.Id, money);
+                        if(pobil.Attributes.Contains("msdyn_amountbilled") && pobil.Attributes["msdyn_amountbilled"] != null)
+                        {
+                            billamount = pobil.GetAttributeValue<Money>("msdyn_amountbilled");
+
+                        }
+                       
+                        UpdatePOBillAmount(entity.Id, money, billamount);
 
 
                     }
@@ -65,7 +84,7 @@ namespace UpdatePoTotalAmountInBill
             
         }
 
-        public void UpdatePOBillAmount(Guid poid, Money amount)
+        public void UpdatePOBillAmount(Guid poid, Money amount,Money billamounts)
         {
             var fetchData = new
             {
@@ -92,10 +111,17 @@ namespace UpdatePoTotalAmountInBill
 
                 for (int i = 0; i < result.Entities.Count; i++)
                 {
-                    Guid id = result.Entities[i].GetAttributeValue<Guid>("msdyn_purchaseorderbillid");
-                    Entity pobil = new Entity("msdyn_purchaseorderbill", id);
-                    pobil.Attributes["ig1_pototalamount"] = amount.Value;
-                    service.Update(pobil);
+                    if(result.Entities[i].Attributes.Contains("msdyn_purchaseorderbillid") && result.Entities[i].Attributes["msdyn_purchaseorderbillid"] != null)
+                    {
+
+                        Guid id = result.Entities[i].GetAttributeValue<Guid>("msdyn_purchaseorderbillid");
+                        Entity pobil = new Entity("msdyn_purchaseorderbill", id);
+                        pobil.Attributes["ig1_pototalamount"] = amount.Value;
+                       // pobil.Attributes["ig1_pototalamountbilled"] = billamounts.Value;
+                        service.Update(pobil);
+
+                    }
+                    
 
                 }
                                                 
@@ -131,6 +157,37 @@ namespace UpdatePoTotalAmountInBill
 
 
             return pototal;
+        }
+
+        public Money GetPObilledamount(Guid id)
+        {
+            Money poamountbill = new Money(0);
+
+            var fetchData = new
+            {
+                msdyn_purchaseorderid = id
+            };
+            var fetchXml = $@"
+                <fetch>
+                  <entity name='msdyn_purchaseorder'>
+                    <attribute name='msdyn_amountbilled' />
+                    <filter>
+                      <condition attribute='msdyn_purchaseorderid' operator='eq' value='{fetchData.msdyn_purchaseorderid/*f48d50db-1f6e-4397-8694-18fac4664b4b*/}'/>
+                    </filter>
+                  </entity>
+                </fetch>";
+            EntityCollection result = service.RetrieveMultiple(new FetchExpression(fetchXml));
+
+            if (result.Entities[0].Attributes.Contains("msdyn_amountbilled") && result.Entities[0].Attributes["msdyn_amountbilled"] != null)
+            {
+
+                poamountbill = result.Entities[0].GetAttributeValue<Money>("msdyn_amountbilled");
+
+            }
+
+
+
+            return poamountbill;
         }
 
 
