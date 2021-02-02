@@ -1,0 +1,6 @@
+D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\bin\Debug\UpdatePoTotalAmountInBill.dll
+D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\bin\Debug\UpdatePoTotalAmountInBill.pdb
+D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.csprojResolveAssemblyReference.cache
+D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.dll
+D:\Project\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill\obj\Debug\UpdatePoTotalAmountInBill.pdb
