@@ -56,25 +56,26 @@ namespace IG_FilterQuickBooksBills
             {
                 EntityName = entity,
                 ColumnSet = new ColumnSet
-                    (
-                        "ig1_txnid",
-                        "ig1_txnlineid",
-                        "ig1_refno",
-                        "ig1_name",
-                        "ig1_memo",
-                        "ig1_date",
-                        "ig1_billdue",
-                        "ig1_amount",
-                        "ig1_terms",
-                        "ig1_transactiontype"
-                    ),
+                (
+                    "ig1_txnid",
+                    "ig1_txnlineid",
+                    "ig1_refno",
+                    "ig1_name",
+                    "ig1_memo",
+                    "ig1_date",
+                    "ig1_billdue",
+                    "ig1_amount",
+                    "ig1_terms",
+                    "ig1_transactiontype",
+                    "ig1_projectnumber"
+                ),
             };
             EntityCollection entityCollection = service.RetrieveMultiple(query);
             foreach (var record in entityCollection.Entities)
             {
                 if (record.Attributes.Contains("ig1_name") && !string.IsNullOrEmpty(record.Attributes["ig1_name"].ToString()))
                 {
-                    if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
+                    if ((record.Attributes.Contains("ig1_projectnumber") && !string.IsNullOrEmpty(record.Attributes["ig1_projectnumber"].ToString())) || (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString())))
                     {
                         CategorizeRecords(record);
                     }
@@ -332,8 +333,19 @@ namespace IG_FilterQuickBooksBills
         protected string GetJobNumber(Entity record)
         {
             string jobNumber = string.Empty;
-
-            if (record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
+            if (record.Attributes.Contains("ig1_projectnumber") && !string.IsNullOrEmpty(record.Attributes["ig1_projectnumber"].ToString()))
+            {
+                string projectnumber = Convert.ToString(record.Attributes["ig1_projectnumber"]);
+                if (!string.IsNullOrEmpty(projectnumber) && projectnumber.Length == 5)
+                {
+                    int numeric = 0;
+                    if (int.TryParse(projectnumber, out numeric) || projectnumber.Trim().Length == 5)
+                    {
+                        jobNumber = projectnumber;
+                    }
+                }
+            }
+            if (string.IsNullOrEmpty(jobNumber) && record.Attributes.Contains("ig1_memo") && !string.IsNullOrEmpty(record.Attributes["ig1_memo"].ToString()))
             {
                 string memo = record.Attributes["ig1_memo"].ToString().ToLower();
                 if (memo.Contains("job #"))
@@ -344,7 +356,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("job #") + 5, 5);
                     }
                 }
-                else if (memo.Contains("job# "))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job# "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("job# ") + 5);
                     if (submemo.Length >= 5)
@@ -352,7 +364,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("job# ") + 5, 5);
                     }
                 }
-                else if (memo.Contains("job#"))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job#"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("job#") + 4);
                     if (submemo.Length >= 5)
@@ -360,7 +372,23 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("job#") + 4, 5);
                     }
                 }
-                else if (memo.Contains("project #"))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job "))
+                {
+                    string submemo = memo.Substring(memo.IndexOf("job ") + 4);
+                    if (submemo.Length >= 5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("job ") + 4, 5);
+                    }
+                }
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("job"))
+                {
+                    string submemo = memo.Substring(memo.IndexOf("job") + 3);
+                    if (submemo.Length >= 5)
+                    {
+                        jobNumber = memo.Substring(memo.IndexOf("job") + 3, 5);
+                    }
+                }
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project #"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project #") + 9);
                     if (submemo.Length >= 5)
@@ -368,7 +396,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project #") + 9, 5);
                     }
                 }
-                else if (memo.Contains("project# "))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project# "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project# ") + 9);
                     if (submemo.Length >= 5)
@@ -376,7 +404,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project# ") + 9, 5);
                     }
                 }
-                else if (memo.Contains("project#"))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project#"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project#") + 8);
                     if (submemo.Length >= 5)
@@ -384,7 +412,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project#") + 8, 5);
                     }
                 }
-                else if (memo.Contains("project "))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project ") + 8);
                     if (submemo.Length >= 5)
@@ -392,7 +420,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project ") + 8, 5);
                     }
                 }
-                else if (memo.Contains("project"))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("project"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("project") + 7);
                     if (submemo.Length >= 5)
@@ -400,7 +428,16 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = memo.Substring(memo.IndexOf("project") + 7, 5);
                     }
                 }
-                else if (memo.Contains("- "))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Length>5 && (Convert.ToChar(memo.Substring(5, 1))=='_' || Convert.ToChar(memo.Substring(5, 1)) == ' '))
+                {
+                        int num;
+                        string projectNumber = memo.Substring(0, 5).Trim();
+                        if (int.TryParse(projectNumber, out num) && projectNumber.Length == 5)
+                        {
+                            jobNumber = num.ToString();
+                        }
+                }
+                else if (string.IsNullOrEmpty(jobNumber) && string.IsNullOrEmpty(jobNumber) && memo.Contains("- "))
                 {
                     string submemo = memo.Substring(memo.IndexOf("- "));
                     if (submemo.Length > 5)
@@ -420,26 +457,9 @@ namespace IG_FilterQuickBooksBills
                             string str = Regex.Match(submemo, "(- \\d{5})_").Value;
                             jobNumber = str.Substring(2, 5);
                         }
-                        else if (!string.IsNullOrEmpty(Regex.Match(submemo, "( \\d{5}) ").Value.ToString()))
-                        {
-                            string str = Regex.Match(submemo, "( \\d{5}) ").Value;
-                            jobNumber = str.Substring(1, 5);
-                        }
-                        {
-                            char ch = Convert.ToChar(memo.Substring(5, 1));
-                            if (!Char.IsDigit(ch) && (ch == ' ' || ch == '-' || ch == '_'))
-                            {
-                                int num;
-                                string projectNumber = memo.Substring(0, 5).Trim();
-                                if (int.TryParse(projectNumber, out num) && projectNumber.Length == 5)
-                                {
-                                    jobNumber = num.ToString();
-                                }
-                            }
-                        }
                     }
                 }
-                else if (memo.Contains("-"))
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Contains("-"))
                 {
                     string submemo = memo.Substring(memo.IndexOf("-"));
                     if (submemo.Length > 5)
@@ -449,37 +469,14 @@ namespace IG_FilterQuickBooksBills
                             string str = Regex.Match(submemo, "(-\\d{5}) ").Value;
                             jobNumber = str.Substring(1, 5);
                         }
-                        else if (!string.IsNullOrEmpty(Regex.Match(submemo, "(-\\d{5})-").Value.ToString()))
-                        {
-                            string str = Regex.Match(submemo, "(-\\d{5})-").Value;
-                            jobNumber = str.Substring(1, 5);
-                        }
                         else if (!string.IsNullOrEmpty(Regex.Match(submemo, "(-\\d{5})_").Value.ToString()))
                         {
                             string str = Regex.Match(submemo, "(-\\d{5})_").Value;
                             jobNumber = str.Substring(1, 5);
                         }
-                        else if (!string.IsNullOrEmpty(Regex.Match(submemo, "( \\d{5}) ").Value.ToString()))
-                        {
-                            string str = Regex.Match(submemo, "( \\d{5}) ").Value;
-                            jobNumber = str.Substring(1, 5);
-                        }
-                        else
-                        {
-                            char ch = Convert.ToChar(memo.Substring(5, 1));
-                            if (!Char.IsDigit(ch) && (ch == ' ' || ch == '-' || ch == '_'))
-                            {
-                                int num;
-                                string projectNumber = memo.Substring(0, 5).Trim();
-                                if (int.TryParse(projectNumber, out num) && projectNumber.Length == 5)
-                                {
-                                    jobNumber = num.ToString();
-                                }
-                            }
-                        }
                     }
                 }
-                else if (memo.Length == 5)
+                else if (string.IsNullOrEmpty(jobNumber) && memo.Length == 5)
                 {
                     int num;
                     if (int.TryParse(memo, out num))
@@ -487,19 +484,7 @@ namespace IG_FilterQuickBooksBills
                         jobNumber = num.ToString();
                     }
                 }
-                else if (memo.Length>5)
-                {
-                    char ch = Convert.ToChar(memo.Substring(5, 1));
-                    if (!Char.IsDigit(ch) && (ch == ' ' || ch == '-' || ch == '_'))
-                    {
-                        int num;
-                        string projectNumber = memo.Substring(0, 5).Trim();
-                        if (int.TryParse(projectNumber, out num) && projectNumber.Length == 5)
-                        {
-                            jobNumber = num.ToString();
-                        }
-                    }
-                }
+                
                 int numeric = 0;
                 if (!int.TryParse(jobNumber, out numeric) || jobNumber.Trim().Length!=5)
                 {

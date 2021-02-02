@@ -21,3 +21,13 @@ E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Release\IG_Filt
 E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Release\IG_FilterQuickBooksBills.csproj.CopyComplete
 E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Release\IG_FilterQuickBooksBills.dll
 E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Release\IG_FilterQuickBooksBills.pdb
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Release\IG_FilterQuickBooksBills.dll
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Release\IG_FilterQuickBooksBills.pdb
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Release\IG_FilterQuickBooksBills.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Release\IG_FilterQuickBooksBills.csproj.CopyComplete
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Release\IG_FilterQuickBooksBills.dll
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Release\IG_FilterQuickBooksBills.pdb
