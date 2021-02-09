@@ -1,0 +1,10 @@
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\bin\Release\WF_CalculateCommissionsDistributed.dll
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\bin\Release\WF_CalculateCommissionsDistributed.pdb
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\bin\Release\Microsoft.Xrm.Sdk.Workflow.dll
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\obj\Release\WF_CalculateCommissionsDistributed.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\obj\Release\WF_CalculateCommissionsDistributed.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\obj\Release\WF_CalculateCommissionsDistributed.csproj.CopyComplete
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\obj\Release\WF_CalculateCommissionsDistributed.dll
+D:\Github\ImproveGroup\WF_CalculateCommissionsDistributed\obj\Release\WF_CalculateCommissionsDistributed.pdb

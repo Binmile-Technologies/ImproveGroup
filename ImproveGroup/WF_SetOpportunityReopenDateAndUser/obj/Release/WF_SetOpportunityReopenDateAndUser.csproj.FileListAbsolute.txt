@@ -1,0 +1,10 @@
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\bin\Release\WF_SetOpportunityReopenDateAndUser.dll
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\bin\Release\WF_SetOpportunityReopenDateAndUser.pdb
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\bin\Release\Microsoft.Xrm.Sdk.Workflow.dll
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\obj\Release\WF_SetOpportunityReopenDateAndUser.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\obj\Release\WF_SetOpportunityReopenDateAndUser.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\obj\Release\WF_SetOpportunityReopenDateAndUser.csproj.CopyComplete
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\obj\Release\WF_SetOpportunityReopenDateAndUser.dll
+D:\Github\ImproveGroup\WF_SetOpportunityReopenDateAndUser\obj\Release\WF_SetOpportunityReopenDateAndUser.pdb
