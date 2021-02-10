@@ -1,8 +1,0 @@
-D:\Github\ImproveGroup\IG_CloneOpportunity\bin\Debug\IG_CloneOpportunity.dll
-D:\Github\ImproveGroup\IG_CloneOpportunity\bin\Debug\IG_CloneOpportunity.pdb
-D:\Github\ImproveGroup\IG_CloneOpportunity\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
-D:\Github\ImproveGroup\IG_CloneOpportunity\bin\Debug\Microsoft.Xrm.Sdk.dll
-D:\Github\ImproveGroup\IG_CloneOpportunity\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
-D:\Github\ImproveGroup\IG_CloneOpportunity\bin\Debug\Microsoft.Xrm.Sdk.xml
-D:\Github\ImproveGroup\IG_CloneOpportunity\obj\Debug\IG_CloneOpportunity.dll
-D:\Github\ImproveGroup\IG_CloneOpportunity\obj\Debug\IG_CloneOpportunity.pdb

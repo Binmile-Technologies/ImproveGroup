@@ -1,0 +1,10 @@
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\bin\Debug\PopulateCustomerPOAmountAndDate.dll
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\bin\Debug\PopulateCustomerPOAmountAndDate.pdb
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\obj\Debug\PopulateCustomerPOAmountAndDate.dll
+D:\Project\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate\obj\Debug\PopulateCustomerPOAmountAndDate.pdb
+D:\Github\ImproveGroup\Plugins\PopulateCustomerPOAmountAndDate\bin\Debug\PopulateCustomerPOAmountAndDate.dll
+D:\Github\ImproveGroup\Plugins\PopulateCustomerPOAmountAndDate\bin\Debug\PopulateCustomerPOAmountAndDate.pdb
+D:\Github\ImproveGroup\Plugins\PopulateCustomerPOAmountAndDate\obj\Debug\PopulateCustomerPOAmountAndDate.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\PopulateCustomerPOAmountAndDate\obj\Debug\PopulateCustomerPOAmountAndDate.dll
+D:\Github\ImproveGroup\Plugins\PopulateCustomerPOAmountAndDate\obj\Debug\PopulateCustomerPOAmountAndDate.pdb

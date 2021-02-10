@@ -1,0 +1,141 @@
+<html><head><meta><meta><meta><meta>
+<script src="/webresources/ig1_XrmServiceToolkit.min.js"></script>
+<meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta></head><body onfocusout="parent.setEmailRange();" style="overflow-wrap: break-word;" dir="LTR" lang="en-US">
+  <button type="button" id="deleteCategory" onclick="deleteSelectedCategories()">Delete Selected Category</button>
+  <script>
+
+ window.onload = function() 
+  {
+     var status=parent.Xrm.Page.getAttribute("ig1_status").getValue();
+     if(status!="286150001")
+     {
+       document.getElementById("deleteCategory").style.visibility = "hidden";
+     }
+  }
+
+  function deleteSelectedCategories()
+{         debugger;
+		 var count=0;
+		 var flag=false;
+		 var isDeleted=false;
+		 var categoryId="";
+	     var bidSheetId=parent.Xrm.Page.data.entity.getId().replace("{", "").replace("}", "");
+		 var selectedCategory = new Array();
+		 var selectedRows = parent.Xrm.Page.getControl("IG_BidSheetCategory").getGrid().getSelectedRows();
+			selectedRows.forEach(function(selectedRow, i) {
+			entityGuid = selectedRow.getData().getEntity().getId();
+		    selectedCategory.push(entityGuid);
+		 });
+		 if(selectedCategory.length<=0)
+                  {
+                      alert("Please Select Category");
+                      return;
+                  }
+		 for(i=0; i< selectedCategory.length; i++)
+		 {
+					var fetchData = 
+					{
+						ig1_bidsheet: bidSheetId,
+						ig1_bscategoryvendorid: selectedCategory[i].replace("{", "").replace("}", "")
+					};
+			var fetchXmlCategory = [
+									"<fetch>",
+									"  <entity name='ig1_bidsheetcategory'>",
+									"    <attribute name='ig1_name' />",
+									"    <attribute name='ig1_bidsheetcategoryid' />",
+									"    <link-entity name='ig1_bscategoryvendor' from='ig1_category' to='ig1_bidsheetcategoryid'>",
+									"      <filter type='and'>",
+									"        <condition attribute='ig1_bidsheet' operator='eq' value='", fetchData.ig1_bidsheet, "'/>",
+									"        <condition attribute='ig1_bscategoryvendorid' operator='eq' value='", fetchData.ig1_bscategoryvendorid, "'/>",
+									"      </filter>",
+									"    </link-entity>",
+									"  </entity>",
+									"</fetch>",
+								  ].join("");
+			
+			var categoryData=XrmServiceToolkit.Soap.Fetch(fetchXmlCategory);
+			if(categoryData!="" && categoryData!=null && categoryData!=undefined && categoryData.length>0)
+			{
+				categoryId=categoryData[0].attributes.ig1_bidsheetcategoryid.value;
+			}
+			
+				var fetchProductData = 
+				{
+					ig1_bidsheet: bidSheetId,
+					ig1_isgrouped: "1",
+					statecode: "0",
+					ig1_bidsheetcategory: categoryId
+				};
+				var fetchXmlProduct = [
+										"<fetch>",
+										"  <entity name='ig1_bidsheetproduct'>",
+										"    <filter type='and'>",
+										"      <condition attribute='ig1_bidsheet' operator='eq' value='", fetchProductData.ig1_bidsheet/*A7EEB3B8-C891-E911-A95C-000D3A1D5D58*/, "'/>",
+										"      <condition attribute='ig1_isgrouped' operator='eq' value='", fetchProductData.ig1_isgrouped/*1*/, "'/>",
+										"      <condition attribute='statecode' operator='eq' value='", fetchProductData.statecode/*0*/, "'/>",
+										"    </filter>",
+										"    <link-entity name='product' from='productid' to='ig1_productgroup'>",
+										"      <attribute name='name' />",
+										"      <attribute name='ig1_bidsheetcategory' />",
+										"      <filter type='and'>",
+										"        <condition attribute='ig1_bidsheetcategory' operator='eq' value='", fetchProductData.ig1_bidsheetcategory/*ba61de7e-6662-e911-a959-000d3a1d52e7*/, "'/>",
+										"      </filter>",
+										"    </link-entity>",
+										"  </entity>",
+										"</fetch>",
+									  ].join("");
+			var productData=XrmServiceToolkit.Soap.Fetch(fetchXmlProduct);
+			if(productData!="" && productData!=null && productData!=undefined && productData.length>0)
+			{
+				flag=true;
+			}
+			
+				var fetchDataBidSheetLineItems = 
+				{
+					ig1_bidsheet: bidSheetId,
+					statecode: "0",
+					ig1_bidsheetcategory: categoryId
+				};
+			var fetchXmlBidSheetLineItems =[
+											"<fetch>",
+											"  <entity name='ig1_bidsheetpricelistitem'>",
+											"    <filter type='and'>",
+											"      <condition attribute='ig1_bidsheet' operator='eq' value='", fetchDataBidSheetLineItems.ig1_bidsheet/*A7EEB3B8-C891-E911-A95C-000D3A1D5D58*/, "'/>",
+											"      <condition attribute='ig1_category' operator='eq' value='", fetchDataBidSheetLineItems.ig1_bidsheetcategory/*A7EEB3B8-C891-E911-A95C-000D3A1D5D58*/, "'/>",
+                                            "      <condition attribute='statecode' operator='eq' value='", fetchDataBidSheetLineItems.statecode/*0*/, "'/>",
+											"    </filter>",
+											"  </entity>",
+											"</fetch>",
+										   ].join("");
+			var bidSheetLineItemsData=XrmServiceToolkit.Soap.Fetch(fetchXmlBidSheetLineItems);
+			if(bidSheetLineItemsData!="" && bidSheetLineItemsData!=null && bidSheetLineItemsData!=undefined && bidSheetLineItemsData.length>0)
+			{
+				flag=true;
+			}
+			if(flag)
+			{
+				count++;
+                                flag=false;
+			}
+			else
+			{
+				var id =selectedCategory[i].replace("{", "").replace("}", "");
+				parent.Xrm.WebApi.online.deleteRecord("ig1_bscategoryvendor", id).then(
+				function success(result) {
+                                 parent.Xrm.Page.getControl("IG_BidSheetCategory").refresh();
+				},
+				function(error) {
+					parent.Xrm.Utility.alertDialog(error.message);
+				}
+			  );
+			}
+		 }
+		 
+		 if(count>0)
+		 {
+		  alert(count+" Categories couldn't be deleted because of association");
+		 }
+}
+  </script>
+
+</body></html>

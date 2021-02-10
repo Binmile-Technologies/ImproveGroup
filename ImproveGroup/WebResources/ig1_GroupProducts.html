@@ -1,0 +1,140 @@
+<html><head>
+<script src="/webresources/ig1_jquery.min.js"></script>
+<script src="/webresources/ig1_jquery-1.11.3.min.js"></script>
+<script src="/webresources/ig1_XrmServiceToolkit.min.js"></script>
+
+<meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta>
+
+<meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta></head>
+<body style="overflow-wrap: break-word;" onfocusout="parent.setEmailRange();">
+
+     <select id="productGroup" name="Product Groups">
+     </select>
+	 <input id="addtoGroup" type="button" value="Add to Group" onclick="groupProducts()">
+        <input id="createNewGroup" type="button" value="Create Group">
+       <input id="deleteSelectedRecords" type="button" value="Delete Selected Records" onclick="deleteSelectedRecords()">
+<script>
+function listAllProductGroups()
+{   
+    var selectedCategory = new Array();
+    var str='';
+    var fetchData = {
+		 ig1_bidsheet: parent.Xrm.Page.data.entity.getId()
+	};
+	var categoriesFetcXml = [
+					"<fetch>",
+					"  <entity name='ig1_bscategoryvendor'>",
+					"    <attribute name='ig1_category' />",
+					"    <filter type='and'>",
+					"      <condition attribute='ig1_bidsheet' operator='eq' value='", fetchData.ig1_bidsheet, "'/>",
+					"    </filter>",
+					"  </entity>",
+					"</fetch>",
+				].join("");
+	 var fetchCategoryData = XrmServiceToolkit.Soap.Fetch(categoriesFetcXml);
+     if(fetchCategoryData!='' && fetchCategoryData!=null && fetchCategoryData!=undefined)	
+     {
+		 for(i=0; i<fetchCategoryData.length; i++)
+		 {
+			 var categoryId=fetchCategoryData[i].attributes.ig1_category.id;
+                          var categoryName=fetchCategoryData[i].attributes.ig1_category.name;
+			 for(j=0; j<fetchCategoryData.length; j++)
+			 {
+				 var result=fetchCategoryData[j].attributes;
+                                  var catName=result.ig1_category.name;
+				 if(!selectedCategory.includes(result.ig1_category.id) && categoryId==result.ig1_category.id)
+				 {
+					selectedCategory.push(result.ig1_category.id.replace('{','').replace('}',''));
+				 }
+			 }
+		 }
+	 }		 
+				
+	str+='<option value="">Select Group to Add Selected Products</option>';
+	var fetchXML= "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>"+
+					"  <entity name='product'>"+
+					"    <attribute name='name' />"+
+					"    <attribute name='productid' />"+
+					"    <attribute name='productnumber' />"+
+					"    <attribute name='description' />"+
+					"    <attribute name='ig1_bidsheetcategory' />"+
+					"    <order attribute='productnumber' descending='false' />"+
+					"    <filter type='and'>"+
+					"      <condition attribute='ig1_isproductgroup' operator='eq' value='1' />"+
+					"      <condition attribute='ig1_bidsheetcategory' operator='not-null' />"+
+					"    </filter>"+
+					"  </entity>"+
+					"</fetch>"
+	
+	var fetchData = XrmServiceToolkit.Soap.Fetch(fetchXML);
+	if(fetchData!=null && fetchData!=undefined && fetchData!='')
+	{
+		for(i=0; i< selectedCategory.length; i++)
+		{
+			for(j=0; j<fetchData.length; j++)
+			{
+			   var result=fetchData[j].attributes;
+			   if(selectedCategory[i]==result.ig1_bidsheetcategory.id)
+			   {
+				 str+='<option value='+result.productid.value+'>'+result.name.value+'</option>';
+				}
+			}
+		}
+		$("#productGroup").html(str);
+	}
+}
+
+function groupProducts()
+{       
+        parent.Xrm.Page.getSelectedRows(); 
+}
+
+$(document).ready(function(){
+parent.Xrm.Page.listAllProductGroups();
+});
+
+$("#createNewGroup").click(function(){
+parent.Xrm.Utility.openQuickCreate("product").then(successCallback, errorCallback);
+});
+function successCallback() {
+  location.reload();
+}
+
+function errorCallback(e) {
+  // *** No new contact created, which is an error we can ignore!
+  alert("Error: " + e.errorCode + " " + e.message);
+}
+
+function deleteSelectedRecords()
+{
+		var bidSheetId=parent.Xrm.Page.data.entity.getId().replace("{", "").replace("}", "");
+		var selectedRecords = new Array();
+		var selectedRows = parent.Xrm.Page.getControl("UngroupedProducts").getGrid().getSelectedRows();
+			selectedRows.forEach(function(selectedRow, i) {
+			entityGuid = selectedRow.getData().getEntity().getId();
+		    selectedRecords.push(entityGuid);
+		 });
+		 if(selectedRecords.length<=0)
+		 {
+			 alert("No record selected");
+			 return;
+		 }
+		 for(i=0; i<selectedRecords.length; i++)
+		 {
+			    var id=selectedRecords[i].replace("{", "").replace("}", "");
+				parent.Xrm.WebApi.online.deleteRecord("ig1_bidsheetproduct", id).then(
+				function success(result) 
+				{
+					//Success - No Return Data - Do Something
+					parent.Xrm.Page.getControl("UngroupedProducts").refresh();
+				},
+				function(error) 
+				{
+					parent.Xrm.Utility.alertDialog(error.message);
+				}
+			);
+		 }
+}        
+
+</script>
+</body></html>

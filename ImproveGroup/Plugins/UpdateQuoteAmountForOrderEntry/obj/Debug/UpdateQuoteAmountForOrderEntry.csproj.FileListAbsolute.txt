@@ -1,0 +1,10 @@
+D:\Project\UpdateQuoteAmountForOrderEntry\UpdateQuoteAmountForOrderEntry\bin\Debug\UpdateQuoteAmountForOrderEntry.dll
+D:\Project\UpdateQuoteAmountForOrderEntry\UpdateQuoteAmountForOrderEntry\bin\Debug\UpdateQuoteAmountForOrderEntry.pdb
+D:\Project\UpdateQuoteAmountForOrderEntry\UpdateQuoteAmountForOrderEntry\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Project\UpdateQuoteAmountForOrderEntry\UpdateQuoteAmountForOrderEntry\obj\Debug\UpdateQuoteAmountForOrderEntry.dll
+D:\Project\UpdateQuoteAmountForOrderEntry\UpdateQuoteAmountForOrderEntry\obj\Debug\UpdateQuoteAmountForOrderEntry.pdb
+D:\Github\ImproveGroup\Plugins\UpdateQuoteAmountForOrderEntry\bin\Debug\UpdateQuoteAmountForOrderEntry.dll
+D:\Github\ImproveGroup\Plugins\UpdateQuoteAmountForOrderEntry\bin\Debug\UpdateQuoteAmountForOrderEntry.pdb
+D:\Github\ImproveGroup\Plugins\UpdateQuoteAmountForOrderEntry\obj\Debug\UpdateQuoteAmountForOrderEntry.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\UpdateQuoteAmountForOrderEntry\obj\Debug\UpdateQuoteAmountForOrderEntry.dll
+D:\Github\ImproveGroup\Plugins\UpdateQuoteAmountForOrderEntry\obj\Debug\UpdateQuoteAmountForOrderEntry.pdb

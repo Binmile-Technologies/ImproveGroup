@@ -1,0 +1,255 @@
+<html><head>
+<script src="/webresources/ig1_jquery.min.js"></script>
+<script src="/webresources/ig1_jquery-1.11.3.min.js"></script>
+<script src="/webresources/ig1_tableCheckbox.min.js"></script>
+<script src="/webresources/ig1_tableCheckbox.js"></script>
+<script src="/webresources/mag_/js/process.js"></script>
+<script src="/webresources/ig1_XrmServiceToolkit.min.js"></script>
+<meta>
+<meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta>
+
+<style>
+#ungroupedGrid{
+  height: 75%;
+  width: 20%;
+  position:relative;
+}
+#groupedProduct{
+position:absolute;
+height: 75%;
+width: 20%;	
+right:20px;
+top:20px;
+}
+#controls{
+position:absolute;  
+left:500px;
+ top:20px;
+}
+
+#productGrid {
+  position:relative;
+}
+#productGrid {
+  height:100%;
+  overflow:auto;  
+  margin-top:20px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+table#productGrid tr:nth-child(even) {
+  background-color: #eee;
+}
+table#productGrid tr:nth-child(odd) {
+ background-color: #fff;
+}
+table#productGrid th {
+  background: #4CAF50;
+  color: white;
+}
+</style>
+<meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta><meta></head>
+     <body style="overflow-wrap: break-word;">
+	 <div id="productGroupList" hidden="hidden">
+     <select id="productGroup" name="Product Groups">
+     </select><br><br>
+	 <input id="addtoGroup" type="button" value="Add to Group">
+         <input id="createNewGroup" type="button" value="Create Group"><br>
+	 </div>
+	 <br>
+     <div id="ungroupedGrid" style="overflow-x:auto;"></div>  
+     <div id="controls">
+          <input id="getFile" type="file"><br><br>
+          <input id="addFileButton" type="button" value="Upload"><br><br>
+     </div>
+	 <div id="groupedProduct" style="overflow-x:auto;">  </div>
+<script>
+
+function ungroupedProducts()
+{
+  var str='';
+  str+='<table id="productGrid"><thead><th style="width:20px;"><input type="checkbox"></th><th>Uploaded Products</th></thead><tbody>';
+  var fetchXML =             "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>'"+
+					"  '<entity name='ig1_bidsheetproduct'>'+"+
+					"    <attribute name='ig1_bidsheetproductid' />"+
+					"    <attribute name='ig1_name' />"+
+					"    <attribute name='ig1_vendor'/>"+
+					"    <attribute name='createdon' />"+
+					"    <order attribute='ig1_vendor' descending='false' />"+
+					"    <filter type='and'>"+
+					"      <condition attribute='ig1_isgrouped' operator='ne' value='1' />"+
+					"    </filter>"+
+					"  </entity>"+
+					"</fetch>";
+			
+	var fetchData = XrmServiceToolkit.Soap.Fetch(fetchXML);
+	var vendorArray= new Array();
+	var vendorArray2=new Array();
+	var temp;
+	for (i = 0; i < fetchData.length; i++) 
+    {
+	  var vendors=fetchData[i].attributes;
+	  if(!(vendorArray.includes(vendors.ig1_vendor.formattedValue)))
+	  {
+	    str+='<tr class="breakrow"><td>'+vendors.ig1_vendor.formattedValue+'<td><tr>';
+		vendorArray.push(vendors.ig1_vendor.formattedValue);
+	  }
+	  for(j=i; j<fetchData.length; j++)
+	  {
+	    var result = fetchData[j].attributes;
+		if((vendors.ig1_vendor.formattedValue==result.ig1_vendor.formattedValue) && !(vendorArray2.includes(result.ig1_vendor.formattedValue)))
+		{
+		 str+= '<tr class="datarow"><td><input type="checkbox" value='+result.ig1_bidsheetproductid.value+'></td><td>'+result.ig1_name.value+'</td></tr>';
+		  temp=result.ig1_vendor.formattedValue;
+		}
+	  }
+	  vendorArray2.push(temp);
+    }
+	  str+='</table>'
+	 $("#ungroupedGrid").html(str);
+} 
+
+function listAllProductGroups()
+{   
+    var str='';
+	str+='<option value="">Select Group to Add Selected Products</option>';
+	var fetchXML= "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>"+
+					"  <entity name='product'>"+
+					"    <attribute name='name' />"+
+					"    <attribute name='productid' />"+
+					"    <attribute name='productnumber' />"+
+					"    <attribute name='description' />"+
+					"    <order attribute='productnumber' descending='false' />"+
+					"    <filter type='and'>"+
+					"      <condition attribute='ig1_isproductgroup' operator='eq' value='1' />"+
+					"    </filter>"+
+					"  </entity>"+
+					"</fetch>"
+	
+	var fetchData = XrmServiceToolkit.Soap.Fetch(fetchXML);
+	for(i=0; i<fetchData.length; i++)
+	{
+		var result=fetchData[i].attributes;
+		str+='<option value='+result.productid.value+'>'+result.name.value+'</option>';
+	}
+	$("#productGroup").html(str);
+}
+
+function groupedProducts()
+{
+      var str='';
+      str+='<table id="groupedProducts"><thead><th style="width:20px;"><input type="checkbox"></th><th>Grouped Products</th></thead><tbody>';
+	    var fetchXml =  "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >"+
+						"    <entity name='ig1_bidsheetproduct' >"+
+						"        <attribute name='ig1_productgroup' />"+
+						"        <attribute name='ig1_name' />"+
+						"        <attribute name='ig1_quantity' />"+
+						"        <attribute name='ig1_isgrouped' />"+
+						"        <attribute name='ig1_totalamount' />"+
+						"        <filter type='and' >"+
+						"            <condition attribute='ig1_productgroup' operator='not-null' />"+
+						"        </filter>"+
+						"        <link-entity name='product' from='productid' to='ig1_productgroup' link-type='inner' >"+
+						"            <attribute name='ig1_bidsheetcategory' alias='category' />"+
+						"        </link-entity>"+
+						"    </entity>"+
+						"</fetch>";
+						
+		var fetchData = XrmServiceToolkit.Soap.Fetch(fetchXml);	
+		var category = new Array();
+		var group = new Array();
+		var product = new Array();
+		var productTemp;
+        for(i=0; i<fetchData.length; i++) 
+        {
+	       var categories=fetchData[i].attributes;
+	       if(!(category.includes(categories.category.formattedValue)))
+	        {
+	          str+='<tr><td>'+categories.category.formattedValue+'<td><tr>';
+		      category.push(categories.category.formattedValue);
+	        }
+	        for(j = i; j < fetchData.length; j++)
+	        {
+	            var groups = fetchData[j].attributes;
+		        if((categories.category.formattedValue == groups.category.formattedValue) && !(group.includes(groups.ig1_productgroup.formattedValue)))
+		        {
+		         str+= '<tr class="datarow"><td><input type="checkbox"></td><td>'+groups.ig1_productgroup.formattedValue+'</td></tr>';
+		         group.push(groups.ig1_productgroup.formattedValue);
+		        }
+				for(k = j; k < fetchData.length; k++)
+				{
+					var products=fetchData[k].attributes;
+					if(groups.ig1_productgroup.formattedValue == products.ig1_productgroup.formattedValue && !(product.includes(products.ig1_name.value)))
+					{
+						str+= '<tr><td><input type="checkbox"></td><td>'+products.ig1_name.value+'</td></tr>';
+						product.push(products.ig1_name.value);
+					}
+				}
+	        } 
+        }
+	    str+='</table>'
+		$("#groupedProduct").html(str);		
+   }
+
+$("#addFileButton").click(function (){
+    var filePath = $("#getFile").val();
+	
+var parameters = {};
+parameters.filePath = filePath;
+var req = new XMLHttpRequest();
+	req.open("POST", parent.Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/ig1_ImportBillofMaterials", true);
+	req.setRequestHeader("OData-MaxVersion", "4.0");
+	req.setRequestHeader("OData-Version", "4.0");
+	req.setRequestHeader("Accept", "application/json");
+	req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	req.onreadystatechange = function () 
+	{
+		if (this.readyState === 4) 
+		{
+		  req.onreadystatechange = null;
+		  if (this.status === 204)
+		  {
+		   //Success - No Return Data - Do Something
+		   alert("Products Uploaded successfully");
+                   location. reload(true);
+		  }
+		  else 
+		  {
+		    parent.Xrm.Utility.alertDialog(this.statusText);
+		  }
+		}
+   };
+	req.send(JSON.stringify(parameters));
+});
+
+$( document ).ready(function() {
+       ungroupedProducts();
+       listAllProductGroups();
+       groupedProducts();
+
+       $('table').tablecheckbox({
+	   selectedRowClass: 'warning',
+       checkboxSelector: 'td:first-of-type input[type="checkbox"],th:first-of-type input[type="checkbox"]',
+       isChecked: function($checkbox) {
+       if($checkbox.is(':checked'))
+      $( "#productGroupList" ).show( "slow" );
+       else
+       $( "#productGroupList" ).hide( "slow" );
+       return $checkbox.is(':checked');
+      }
+	   
+	});
+	
+	$('.breakrow').click(function(){
+		$(this).nextUntil('tr.breakrow').slideToggle(200);
+	});
+});
+</script>
+
+	</body></html>

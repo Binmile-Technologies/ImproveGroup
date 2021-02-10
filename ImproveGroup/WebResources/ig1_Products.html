@@ -1,0 +1,60 @@
+function setTaxCode(executionContext)
+{
+  var formContext = executionContext.getFormContext();
+  var taxCodeInfo = formContext.getAttribute("ig1_selecttaxcode").getValue();
+  if(taxCodeInfo==undefined || taxCodeInfo==null || taxCodeInfo=="")
+  {
+	formContext.getAttribute("ig1_taxcode").setValue("");
+    return;
+  }
+  var taxCodeInfoId = taxCodeInfo[0].id.replace("{", "").replace("}", "");
+  var taxCode = getTaxCode(taxCodeInfoId);
+  formContext.getAttribute("ig1_taxcode").setValue(taxCode);
+}
+
+function getTaxCode(taxCodeInfoId)
+{
+		var fetchData = {
+		statecode: "0",
+		ig1_taxcodeinfoid: taxCodeInfoId
+	};
+	var fetchXml = [
+					"<fetch>",
+					"  <entity name='ig1_taxcodeinfo'>",
+					"    <attribute name='ig1_taxcode' />",
+					"    <filter type='and'>",
+					"      <condition attribute='statecode' operator='eq' value='", fetchData.statecode/*0*/, "'/>",
+					"      <condition attribute='ig1_taxcodeinfoid' operator='eq' value='", fetchData.ig1_taxcodeinfoid/*f40d22c9-9d96-ea11-a811-000d3a55da4f*/, "'/>",
+					"    </filter>",
+					"  </entity>",
+					"</fetch>",
+					].join("");
+				
+	var fetchData=XrmServiceToolkit.Soap.Fetch(fetchXml);
+	var taxCode  = "";
+	if(fetchData!=undefined && fetchData!=null && fetchData!="")
+	{
+		var result = fetchData[0].attributes;
+		if(result.ig1_taxcode!=undefined && result.ig1_taxcode!=null && result.ig1_taxcode!="")
+		{
+			taxCode = result.ig1_taxcode.value;
+		}
+	}
+	return taxCode;
+}
+
+
+function setCategory(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var category = formContext.getAttribute("ig1_bidsheetcategory").getValue();
+	if(category!=undefined && category!=null && category!="")
+	{
+                if(category[0].name=="Labor")
+               {
+		 alert("Labor category can not be selected please choose another category");
+		 formContext.getAttribute("ig1_bidsheetcategory").setValue(null);
+		 return;
+              }
+	}
+}

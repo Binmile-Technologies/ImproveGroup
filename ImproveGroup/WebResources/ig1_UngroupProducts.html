@@ -1,0 +1,131 @@
+<html><head>
+<script src="/webresources/ig1_jquery.min.js"></script>
+<script src="/webresources/ig1_jquery-1.11.3.min.js"></script>
+<script src="/webresources/ig1_XrmServiceToolkit.min.js"></script>
+<meta><meta><meta><meta><meta><meta><meta><meta><meta><meta></head>
+<body style="overflow-wrap: break-word;" onfocusout="parent.setEmailRange();">
+  <input id="ungroup" type="button" value="Ungroup Selected Product" onclick="ungroupProducts()">
+<script>
+
+function ungroupProducts()
+{     
+       var selectedrecords = '';
+	var count=0;
+	var isAssociated=false;
+	var productGroupId="";
+	var selectedProductGroup = new Array();
+	var bidSheetId=parent.Xrm.Page.data.entity.getId().replace("{", "").replace("}", "");
+	var selectedRows = parent.Xrm.Page.getControl("GroupedProduct").getGrid().getSelectedRows();
+	selectedRows.forEach(function(selectedRow, i) 
+	{
+		entityGuid = selectedRow.getData().getEntity().getId();
+		selectedProductGroup.push(entityGuid);
+	});
+	
+	if(selectedProductGroup.length<=0)
+	{
+		alert("Please Select Product Group(s) from grid");
+		return;
+	}
+	for(i=0; i<selectedProductGroup.length; i++)
+	{
+			var fetchGroupData = {
+			ig1_bidsheet: bidSheetId,
+			ig1_bidsheetproductid: selectedProductGroup[i].replace("{", "").replace("}", "")
+		};
+		var fetchXmlProductGroup = [
+									"<fetch>",
+									"  <entity name='product'>",
+									"    <attribute name='productid' />",
+									"    <attribute name='name' />",
+									"    <link-entity name='ig1_bidsheetproduct' from='ig1_productgroup' to='productid'>",
+									"      <filter type='and'>",
+									"        <condition attribute='ig1_bidsheet' operator='eq' value='", fetchGroupData.ig1_bidsheet, "'/>",
+									"        <condition attribute='ig1_bidsheetproductid' operator='eq' value='", fetchGroupData.ig1_bidsheetproductid, "'/>",
+									"      </filter>",
+									"    </link-entity>",
+									"  </entity>",
+									"</fetch>",
+								   ].join("");
+					   
+		var ProductGroupData=XrmServiceToolkit.Soap.Fetch(fetchXmlProductGroup);
+		if(ProductGroupData!="" && ProductGroupData!=null && ProductGroupData!=undefined && ProductGroupData.length>0)
+		{
+			productGroupId=ProductGroupData[0].attributes.productid.value;
+		}
+		
+			var fetchLineItemsData = 
+			{
+				ig1_bidsheet: bidSheetId,
+				ig1_product: productGroupId,
+				statecode: "0"
+			};
+		var fetchXmlBidSheetLineItems =[
+										"<fetch>",
+										"  <entity name='ig1_bidsheetpricelistitem'>",
+										"    <attribute name='ig1_product' />",
+										"    <attribute name='ig1_name' />",
+										"    <filter type='and'>",
+										"      <condition attribute='ig1_bidsheet' operator='eq' value='", fetchLineItemsData.ig1_bidsheet, "'/>",
+										"      <condition attribute='ig1_product' operator='eq' value='", fetchLineItemsData.ig1_product, "'/>",
+										"      <condition attribute='statecode' operator='eq' value='", fetchLineItemsData.statecode, "'/>",
+										"    </filter>",
+										"  </entity>",
+										"</fetch>",
+									   ].join("");
+		var bidSheetLineItemsData=XrmServiceToolkit.Soap.Fetch(fetchXmlBidSheetLineItems);
+		if(bidSheetLineItemsData!="" && bidSheetLineItemsData!=null && bidSheetLineItemsData!=undefined && bidSheetLineItemsData.length>0)
+		{
+			isAssociated=true;
+		}
+		if(isAssociated)
+		{
+			count++;
+                        isAssociated=false;
+		}
+		else
+		{
+			 if(selectedrecords=="")
+			 {
+				 selectedrecords=selectedProductGroup[i];
+			 }
+			 else
+			 {
+				 selectedrecords+=','+selectedProductGroup[i];
+			 }
+		}
+    }	
+		if(selectedrecords !='' && selectedrecords !=null && selectedrecords !=undefined)
+		{
+                var parameters = {};
+	        parameters.SelectedRecords = selectedrecords;
+		var req = new XMLHttpRequest();
+		req.open("POST", parent.Xrm.Page.context.getClientUrl() + "/api/data/v9.1/ig1_UngroupProducts", true);
+		req.setRequestHeader("OData-MaxVersion", "4.0");
+		req.setRequestHeader("OData-Version", "4.0");
+		req.setRequestHeader("Accept", "application/json");
+		req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+		req.onreadystatechange = function() {
+			if (this.readyState === 4) {
+				req.onreadystatechange = null;
+				if (this.status === 204) 
+				{
+					//Success - No Return Data - Do Something
+					alert("Record(s) has been Ungrouped");
+                                        parent.Xrm.Page.data.refresh();
+				} else 
+				{
+					alert(parent.Xrm.Utility.alertDialog(this.statusText));
+				}
+			}
+		};
+		req.send(JSON.stringify(parameters));
+	}
+	if(count>0)
+	{
+		alert(count+" Records couldn't be ungroup because of association");
+	}  
+       // parent.Xrm.Page.getUngroupSelectedRows();
+}
+</script>
+</body></html>

@@ -1,0 +1,55 @@
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.pdb
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Tooling.Connector.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.Deployment.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CopyComplete
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
+E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.pdb
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csprojAssemblyReference.cache
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CoreCompileInputs.cache
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CopyComplete
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
+D:\OneDrive - Binmile Technologies Pvt Ltd\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.pdb
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
+D:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.pdb
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.xml
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CoreCompileInputs.cache
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CopyComplete
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
+E:\Github\ImproveGroup\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.dll
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.pdb
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.csproj.CopyComplete
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
+D:\Github\ImproveGroup\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb
+D:\Github\ImproveGroup\Plugins\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.dll
+D:\Github\ImproveGroup\Plugins\IG_FilterQuickBooksBills\bin\Debug\IG_FilterQuickBooksBills.pdb
+D:\Github\ImproveGroup\Plugins\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.dll
+D:\Github\ImproveGroup\Plugins\IG_FilterQuickBooksBills\obj\Debug\IG_FilterQuickBooksBills.pdb

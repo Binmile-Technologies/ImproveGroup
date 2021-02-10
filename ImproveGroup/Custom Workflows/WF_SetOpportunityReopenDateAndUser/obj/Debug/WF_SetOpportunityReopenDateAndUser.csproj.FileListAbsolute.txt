@@ -1,0 +1,8 @@
+D:\Github\ImproveGroup\Custom Workflows\WF_SetOpportunityReopenDateAndUser\bin\Debug\WF_SetOpportunityReopenDateAndUser.dll
+D:\Github\ImproveGroup\Custom Workflows\WF_SetOpportunityReopenDateAndUser\bin\Debug\WF_SetOpportunityReopenDateAndUser.pdb
+D:\Github\ImproveGroup\Custom Workflows\WF_SetOpportunityReopenDateAndUser\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\Custom Workflows\WF_SetOpportunityReopenDateAndUser\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+D:\Github\ImproveGroup\Custom Workflows\WF_SetOpportunityReopenDateAndUser\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\Custom Workflows\WF_SetOpportunityReopenDateAndUser\obj\Debug\WF_SetOpportunityReopenDateAndUser.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\Custom Workflows\WF_SetOpportunityReopenDateAndUser\obj\Debug\WF_SetOpportunityReopenDateAndUser.dll
+D:\Github\ImproveGroup\Custom Workflows\WF_SetOpportunityReopenDateAndUser\obj\Debug\WF_SetOpportunityReopenDateAndUser.pdb

@@ -1,0 +1,78 @@
+<html><head><meta><meta><meta><meta><meta><meta><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta><meta><meta charset="utf-8"><meta><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta><meta><meta><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"><meta><meta><meta><meta><meta charset="utf-8"><meta charset="utf-8"><meta charset="utf-8"></head><body style="overflow-wrap: break-word;" onfocusout="parent.setEmailRange();">
+<input name="selecteFile" id="selectedFile" type="file">
+<button onclick="uploadFile()" type="button">Upload Selected BOM</button>
+
+<a href="https://improvegroup.sharepoint.com/ig1_bidsheet/Bid%20Sheet%20Product%20-%20Template.xlsx" download="">Download Template</a>
+<!--<button onclick="exportTemplate()" id="eport">Download Template</button>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">'use strict';  
+
+    
+// Upload the file.  
+// You can upload files up to 2 GB with the REST API.  
+function uploadFile() 
+{  
+var bidSheetId=parent.Xrm.Page.data.entity.getId();
+
+   var fileInput = $('#selectedFile');  
+
+if (fileInput.length > 0)
+ {
+var filename  = "";
+var fullPath = document.getElementById('selectedFile').value;
+
+if (fullPath != '') {
+    var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+    filename = fullPath.substring(startIndex);
+    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+        filename = filename.substring(1);
+    }
+
+else
+{alert("Please select a file to upload!");
+return;}
+
+   }
+
+
+var file = fileInput[0].files[0];
+
+     if (window.FormData != undefined) {
+            var data = new FormData();
+
+            data.append("file", file);
+    parent.Xrm.Utility.showProgressIndicator("Uploading File and Parsing Products ...");
+            $.ajax({
+                type: "POST",
+             //   url: "https://improvegroupwebapi.azurewebsites.net/UploadFile?bidsheetid="+bidSheetId + "&documentName=" + filename,
+		url: "https://testigapi.azurewebsites.net/UploadFile?bidsheetid="+bidSheetId + "&documentName=" + filename,
+                contentType: false,
+                processData: false,
+
+                data: data,
+                success: function (result) {
+                    alert(result);
+parent.Xrm.Utility.closeProgressIndicator();
+                },
+              error: function (xhr, status, error)
+ {
+  var err =  xhr.responseText;
+  alert(err.Message);
+ parent.Xrm.Utility.closeProgressIndicator();
+} 
+           });
+        }
+}
+}
+
+
+function exportTemplate()
+{
+var url="https://improvegroup.sharepoint.com/ig1_bidsheet/Bid%20Sheet%20Product%20-%20Template.xlsx" ;
+window.open(url);
+}
+</script>
+
+</body></html>
