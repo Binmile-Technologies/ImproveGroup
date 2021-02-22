@@ -412,11 +412,108 @@ function manageCommissionsOnload(executionContext)
 		var salesRep2 = formContext.getAttribute("ig1_salesrep2").getValue();
 		var primaryDesigner = formContext.getAttribute("ig1_primarydesigner").getValue();
 		var projectManager = formContext.getAttribute("ig1_woowner").getValue();
+		var equipmentProjectManager = formContext.getAttribute("ig1_equipmentprojectmanager").getValue();
+		var techProjectManager = formContext.getAttribute("ig1_techprojectmanager").getValue();
+		var euSiteProjectManager = formContext.getAttribute("ig1_eusiteprojectmanager").getValue();
+		var salesEngineer = formContext.getAttribute("ig1_salesengineer").getValue();
+		var usSalesManager = formContext.getAttribute("ig1_ussalesmanager").getValue();
+		var srProjectManager = formContext.getAttribute("ig1_srprojectmanager").getValue();
+		var dirttProjectManager = formContext.getAttribute("ig1_dirttprojectmanager").getValue();
+		var euSalesManager = formContext.getAttribute("ig1_eusalesmanager").getValue();
+		var pmManager = formContext.getAttribute("ig1_pmmanager").getValue();
+		var designManager = formContext.getAttribute("ig1_designmanager").getValue();
+		var srDesigner = formContext.getAttribute("ig1_srdesigner").getValue();
+		var dirttDesigner = formContext.getAttribute("ig1_dirttdesigner").getValue();
+		var techDesigner = formContext.getAttribute("ig1_techdesigner").getValue();
+		var equipmentDesigner = formContext.getAttribute("ig1_equipmentdesigner").getValue();
+		var businessDevelopment = formContext.getAttribute("ig1_businessdevelopment").getValue();
+		var operationsManager = formContext.getAttribute("ig1_operationsmanager").getValue();
 		
 		var salesRepPercent = formContext.getAttribute("ig1_salesrepcommissionpercent").getValue();
 		var salesRep2Percent = formContext.getAttribute("ig1_salesrep2commissionpercent").getValue();
 		var primaryDesignerPercent = formContext.getAttribute("ig1_primarydesignercommissionpercent").getValue();
 		var projectManagerPercent = formContext.getAttribute("ig1_projectmanagercommissionpercent").getValue();
+
+		if(salesRep == undefined || salesRep == null || salesRep == ""){
+			formContext.getControl("ig1_salesrepcommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_salesrepcommissionpercent").setValue(null);
+		}
+		if (salesRep2 == undefined || salesRep2 == null || salesRep2 == "") {
+			formContext.getControl("ig1_salesrep2commissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_salesrep2commissionpercent").setValue(null);
+		}
+		if (primaryDesigner == undefined || primaryDesigner == null || primaryDesigner == "") {
+			formContext.getControl("ig1_primarydesignercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_primarydesignercommissionpercent").setValue(null);
+		}
+		if (projectManager == undefined || projectManager == null || projectManager == "") {
+			formContext.getControl("ig1_projectmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_projectmanagercommissionpercent").setValue(null);
+		}
+		if (equipmentProjectManager == undefined || equipmentProjectManager == null || equipmentProjectManager == "") {
+			formContext.getControl("ig1_equipmentprojectmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_equipmentprojectmanagercommissionpercent").setValue(null);
+		}
+		if (techProjectManager == undefined || techProjectManager == null || techProjectManager == "") {
+			formContext.getControl("ig1_techprojectmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_techprojectmanagercommissionpercent").setValue(null);
+		}
+		if (euSiteProjectManager == undefined || euSiteProjectManager == null || euSiteProjectManager == "") {
+			formContext.getControl("ig1_eusiteprojectmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_eusiteprojectmanagercommissionpercent").setValue(null);
+		}
+		if(salesEngineer == undefined || salesEngineer == null || salesEngineer == "") {
+			formContext.getControl("ig1_salesengineercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_salesengineercommissionpercent").setValue(null);
+		}
+		if(usSalesManager == undefined || usSalesManager == null || usSalesManager == "") {
+			formContext.getControl("ig1_ussalesmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_ussalesmanagercommissionpercent").setValue(null);
+		}
+		if(srProjectManager == undefined || srProjectManager == null || srProjectManager == ""){
+			formContext.getControl("ig1_srprojectmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_srprojectmanagercommissionpercent").setValue(null);
+		}
+		if(dirttProjectManager == undefined || dirttProjectManager == null || dirttProjectManager == "") {
+			formContext.getControl("ig1_dirttprojectmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_dirttprojectmanagercommissionpercent").setValue(null);
+		}
+		if(euSalesManager == undefined || euSalesManager == null || euSalesManager == ""){
+			formContext.getControl("ig1_eusalesmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_eusalesmanagercommissionpercent").setValue(null);
+		}
+		if(pmManager == undefined || pmManager == null || pmManager == ""){
+			formContext.getControl("ig1_pmmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_pmmanagercommissionpercent").setValue(null);
+		}
+		if(designManager == undefined || designManager == null || designManager == "") {
+			formContext.getControl("ig1_designmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_designmanagercommissionpercent").setValue(null);
+		}
+		if(srDesigner == undefined || srDesigner == null || srDesigner == ""){
+			formContext.getControl("ig1_srdesignercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_srdesignercommissionpercent").setValue(null);
+		}
+		if(dirttDesigner == undefined || dirttDesigner == null || dirttDesigner == "") {
+			formContext.getControl("ig1_dirttdesignercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_dirttdesignercommissionpercent").setValue(null);
+		}
+		if(techDesigner == undefined || techDesigner == null || techDesigner == "") {
+			formContext.getControl("ig1_techdesignercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_techdesignercommissionpercent").setValue(null);
+		}
+		if(equipmentDesigner == undefined || equipmentDesigner == null || equipmentDesigner == ""){
+			formContext.getControl("ig1_equipmentdesignercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_equipmentdesignercommissionpercent").setValue(null);
+		}
+		if(businessDevelopment == undefined || businessDevelopment == null || businessDevelopment == ""){
+			formContext.getControl("ig1_businessdevelopmentcommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_businessdevelopmentcommissionpercent").setValue(null);
+		}
+		if(operationsManager == undefined || operationsManager == null || operationsManager == ""){
+			formContext.getControl("ig1_operationsmanagercommissionpercent").setDisabled(true);
+			formContext.getAttribute("ig1_operationsmanagercommissionpercent").setValue(null);
+		}
 		
 		var req = new XMLHttpRequest();
 			req.open("GET", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/ig1_financeandadminroles?$select=ig1_primarydesignercommissionpercent,ig1_projectmanagercommissionpercent,ig1_salesrep2commissionpercent,ig1_salesrepcommissionpercent&$orderby=createdon desc", true);

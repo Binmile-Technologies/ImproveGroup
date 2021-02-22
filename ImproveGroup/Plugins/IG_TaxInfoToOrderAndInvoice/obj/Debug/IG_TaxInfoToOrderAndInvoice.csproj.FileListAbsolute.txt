@@ -1,0 +1,17 @@
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\bin\Debug\IG_TaxInfoToOrderAndInvoice.dll
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\bin\Debug\IG_TaxInfoToOrderAndInvoice.pdb
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.csproj.CopyComplete
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.dll
+D:\Github\ImproveGroup\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.pdb
+D:\Github\ImproveGroup\Plugins\IG_TaxInfoToOrderAndInvoice\bin\Debug\IG_TaxInfoToOrderAndInvoice.dll
+D:\Github\ImproveGroup\Plugins\IG_TaxInfoToOrderAndInvoice\bin\Debug\IG_TaxInfoToOrderAndInvoice.pdb
+D:\Github\ImproveGroup\Plugins\IG_TaxInfoToOrderAndInvoice\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\Plugins\IG_TaxInfoToOrderAndInvoice\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\Plugins\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.csproj.CopyComplete
+D:\Github\ImproveGroup\Plugins\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.dll
+D:\Github\ImproveGroup\Plugins\IG_TaxInfoToOrderAndInvoice\obj\Debug\IG_TaxInfoToOrderAndInvoice.pdb

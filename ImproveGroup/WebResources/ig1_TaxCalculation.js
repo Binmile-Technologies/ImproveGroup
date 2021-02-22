@@ -1,19 +1,17 @@
-var hold_request="";
-function calculateQuoteTax()
+function calculateQuoteTax(formContext)
 {
 	debugger;
 	Xrm.Utility.showProgressIndicator("Processing...");
-	var recordData=getRecordDetails();
+	var recordData = getRecordDetails(formContext);
 	var recordDetails=recordData.recordDetails;
 	var lines=recordData.lines;
-	var data=requestBody(lines);
-	hold_request=data;
+	var data = requestBody(formContext, lines);
 	if(!data)
     {
        Xrm.Utility.closeProgressIndicator();
 	   return;
     }
-	var config = avalaraConfig();
+	var config = avalaraConfig(formContext);
 	
 	$.ajax({
         type: "POST",
@@ -27,25 +25,14 @@ function calculateQuoteTax()
 		  var responseData=result;
 		  for(i=0; i<recordDetails.length; i++)
 		  {
-			var line=responseData["lines"][i];
-			var entity = {};
-				entity.tax = parseFloat(line.tax);
-				Xrm.WebApi.online.updateRecord("quotedetail", recordDetails[i], entity).then(
-					function success(result) 
-					{
-						var updatedEntityId = result.id;
-					},
-					function(error) 
-					{
-						Xrm.Utility.alertDialog(error.message);
-					});
+			  var line = responseData["lines"][i];
+			  updateLineTaxAndRate("quotedetails", recordDetails[i], line, formContext);
 		  }
-		  var freightIndex=responseData["lines"].length-1;
-		  var freightTax=parseFloat(responseData["lines"][freightIndex].tax);
-		  Xrm.Page.getAttribute("ig1_freighttax").setValue(freightTax);
-          Xrm.Page.data.save().then(function() {Xrm.Page.data.refresh();});
-		  //createTaxInformation(hold_request, this.responseText);
-		  Xrm.Utility.closeProgressIndicator();
+			var freightLineIndex = responseData["lines"].length - 1;
+			var freightLine = responseData["lines"][freightLineIndex];
+			var quoteid = formContext.data.entity.getId().replace("{", "").replace("}", "");
+			updateLineTaxAndRate("quotes", quoteid, freightLine, formContext);
+			Xrm.Utility.closeProgressIndicator();
         },
         error: function (xhr, status, error)
 		{
@@ -57,21 +44,20 @@ function calculateQuoteTax()
 	
 }
 
-function calculateInvoiceTax()
+function calculateInvoiceTax(formContext)
 {
 	debugger;
     Xrm.Utility.showProgressIndicator("Processing...");
-	var recordData=getRecordDetails();
+	var recordData = getRecordDetails(formContext);
 	var recordDetails=recordData.recordDetails;
 	var lines=recordData.lines;
-	var data=requestBody(lines);
-        hold_request=data;
+	var data = requestBody(formContext, lines);
 	if(!data)
     {
       Xrm.Utility.closeProgressIndicator();
 	  return;
     }
-       var config = avalaraConfig();
+	var config = avalaraConfig(formContext);
 	$.ajax({
         type: "POST",
 		url: "https://igimprovegroupwebapi.azurewebsites.net/api/CalculateTax?url="+config.apiUrl+"&auth="+config.authorization,
@@ -83,25 +69,14 @@ function calculateInvoiceTax()
 		  var responseData=result;
 		  for(i=0; i<recordDetails.length; i++)
 		  {
-			var line=responseData["lines"][i];
-			var entity = {};
-				entity.tax = parseFloat(line.tax);
-				Xrm.WebApi.online.updateRecord("invoicedetail", recordDetails[i], entity).then(
-					function success(result) 
-					{
-						var updatedEntityId = result.id;
-					},
-					function(error) 
-					{
-						Xrm.Utility.alertDialog(error.message);
-					});
+			  var line = responseData["lines"][i];
+			  updateLineTaxAndRate("invoicedetails", recordDetails[i], line, formContext);
 		  }
-		  var freightIndex=responseData["lines"].length-1;
-		  var freightTax=parseFloat(responseData["lines"][freightIndex].tax);
-		  Xrm.Page.getAttribute("ig1_freighttax").setValue(freightTax);
-          Xrm.Page.data.save().then(function() {Xrm.Page.data.refresh();});
-          //createTaxInformation(hold_request, this.responseText);
-	      Xrm.Utility.closeProgressIndicator();
+			var freightLineIndex = responseData["lines"].length - 1;
+			var freightLine = responseData["lines"][freightLineIndex];
+			var invoiceid = formContext.data.entity.getId().replace("{", "").replace("}", "");
+			updateLineTaxAndRate("invoices", invoiceid, freightLine, formContext);
+			Xrm.Utility.closeProgressIndicator();
         },
         error: function (xhr, status, error)
 		{
@@ -112,13 +87,91 @@ function calculateInvoiceTax()
     });
 }
 
-function getRecordDetails()
+function updateLineTaxAndRate(entityName, lineid, line, formContext) {
+
+	try
+	{
+		debugger;
+		var taxDetails = line.details;
+
+		var entity = {};
+
+		if (entityName == "quotedetails" || entityName == "invoicedetails") {
+			entity.ig1_statetaxrate = parseFloat(0);
+			entity.ig1_countytaxrate = parseFloat(0);
+			entity.ig1_citytaxrate = parseFloat(0);
+			entity.tax = parseFloat(0);
+
+			for (j = 0; j < taxDetails.length; j++) {
+				if (taxDetails[j].jurisdictionType == "State") {
+					entity.ig1_statetaxrate = parseFloat(taxDetails[j].rate);
+				}
+				else if (taxDetails[j].jurisdictionType == "County") {
+					entity.ig1_countytaxrate = parseFloat(taxDetails[j].rate);
+				}
+				else if (taxDetails[j].jurisdictionType == "City") {
+					entity.ig1_citytaxrate = parseFloat(taxDetails[j].rate);
+				}
+			}
+			if (parseFloat(line.tax) != undefined && parseFloat(line.tax) != null && parseFloat(line.tax) != "") {
+				entity.tax = parseFloat(line.tax);
+			}
+		}
+		else if (entityName == "quotes" || entityName == "invoices"){
+			entity.ig1_statefreighttaxrate = parseFloat(0);
+			entity.ig1_countyfreighttaxrate = parseFloat(0);
+			entity.ig1_cityfreighttaxrate = parseFloat(0);
+			entity.ig1_freighttax = parseFloat(0);
+
+			for (k = 0; k < taxDetails.length; k++) {
+				if (taxDetails[k].jurisdictionType == "State") {
+					entity.ig1_statefreighttaxrate = parseFloat(taxDetails[k].rate);
+				}
+				else if (taxDetails[k].jurisdictionType == "County") {
+					entity.ig1_countyfreighttaxrate = parseFloat(taxDetails[k].rate);
+				}
+				else if (taxDetails[k].jurisdictionType == "City") {
+					entity.ig1_cityfreighttaxrate = parseFloat(taxDetails[k].rate);
+				}
+			}
+			if (parseFloat(line.tax) != undefined && parseFloat(line.tax) != null && parseFloat(line.tax) != "") {
+				entity.ig1_freighttax = parseFloat(line.tax);
+			}
+		}
+		var req = new XMLHttpRequest();
+		req.open("PATCH", formContext.context.getClientUrl() + "/api/data/v9.1/" + entityName + "(" + lineid + ")", false);
+		req.setRequestHeader("OData-MaxVersion", "4.0");
+		req.setRequestHeader("OData-Version", "4.0");
+		req.setRequestHeader("Accept", "application/json");
+		req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+		req.onreadystatechange = function () {
+			if (this.readyState === 4) {
+				req.onreadystatechange = null;
+				if (this.status === 204) {
+					//Success - No Return Data - Do Something
+					if (entityName == "quotes" || entityName == "invoices") {
+						formContext.data.refresh();
+					}
+				} else {
+					Xrm.Utility.alertDialog(this.statusText);
+				}
+			}
+		};
+		req.send(JSON.stringify(entity));
+
+	}
+	catch (err) {
+		alert(err.message);
+	}
+}
+
+function getRecordDetails(formContext)
 {
 	var lines=[];
 	var recordDetails=[];
 	var number=0;
-	var entityName = Xrm.Page.data.entity.getEntityName();
-	var currentRecordid=Xrm.Page.data.entity.getId().replace("{", "").replace("}", "");
+	var entityName = formContext.data.entity.getEntityName();
+	var currentRecordid = formContext.data.entity.getId().replace("{", "").replace("}", "");
 	var fetchData = {msdyn_taxable: "1", currentRecordid: currentRecordid};
 	var fetchXml="";
 	 if(entityName=="quote")
@@ -200,12 +253,12 @@ function getRecordDetails()
 		  
 		  lines.push(lineItem);
 	  }
-	  if(Xrm.Page.getAttribute("ig1_freightamount")!=undefined && Xrm.Page.getAttribute("ig1_freightamount")!=null && Xrm.Page.getAttribute("ig1_freightamount")!="")
+		if (formContext.getAttribute("ig1_freightamount") != undefined && formContext.getAttribute("ig1_freightamount") != null && formContext.getAttribute("ig1_freightamount")!="")
 	  {
 		  var freightAmount = 0;
-		  if(parseFloat(Xrm.Page.getAttribute("ig1_freightamount").getValue())>0)
+			if (parseFloat(formContext.getAttribute("ig1_freightamount").getValue())>0)
 		  {
-			freightAmount = Xrm.Page.getAttribute("ig1_freightamount").getValue();
+				freightAmount = formContext.getAttribute("ig1_freightamount").getValue();
 		  }
           var freightLineItem={};
 		  freightLineItem["number"]=number+1;
@@ -220,11 +273,11 @@ function getRecordDetails()
 }
 
 
-function requestBody(lines)
+function requestBody(formContext, lines)
 {
 	var type="";
 	var install_ship="";
-	var entityName=Xrm.Page.data.entity.getEntityName();
+	var entityName = formContext.data.entity.getEntityName();
 	if(entityName=="quote")
 	{
 		type="SalesOrder";
@@ -237,7 +290,7 @@ function requestBody(lines)
 	}
 	
 	//Fetching the shipFrom Address...
-	var config = avalaraConfig();
+	var config = avalaraConfig(formContext);
 	var shipFrom={
 		  "line1": config.shipFromLine1,
 		  "city": config.shipFromCity,
@@ -252,40 +305,40 @@ function requestBody(lines)
 	var shipToCountry="";
 	var shipToPostalCode="";
 	
-	if(Xrm.Page.getAttribute("shipto_line1").getValue()!=undefined && Xrm.Page.getAttribute("shipto_line1").getValue()!=null && Xrm.Page.getAttribute("shipto_line1").getValue()!="")
+	if (formContext.getAttribute("shipto_line1").getValue() != undefined && formContext.getAttribute("shipto_line1").getValue() != null && formContext.getAttribute("shipto_line1").getValue()!="")
 	{
-		shipToLine1=Xrm.Page.getAttribute("shipto_line1").getValue();
+		shipToLine1 = formContext.getAttribute("shipto_line1").getValue();
 	}
-	if(Xrm.Page.getAttribute("shipto_city").getValue()!=undefined && Xrm.Page.getAttribute("shipto_city").getValue()!=null && Xrm.Page.getAttribute("shipto_city").getValue()!="")
+	if (formContext.getAttribute("shipto_city").getValue() != undefined && formContext.getAttribute("shipto_city").getValue() != null && formContext.getAttribute("shipto_city").getValue()!="")
 	{
-		shipToCity=Xrm.Page.getAttribute("shipto_city").getValue();
+		shipToCity = formContext.getAttribute("shipto_city").getValue();
 	}
 	else
 	{
 		alert("Please Enter "+install_ship+" City");
 		return false;
 	}
-	if(Xrm.Page.getAttribute("shipto_stateorprovince").getValue()!=undefined && Xrm.Page.getAttribute("shipto_stateorprovince").getValue()!=null && Xrm.Page.getAttribute("shipto_stateorprovince").getValue()!="")
+	if (formContext.getAttribute("shipto_stateorprovince").getValue() != undefined && formContext.getAttribute("shipto_stateorprovince").getValue()!=null && formContext.getAttribute("shipto_stateorprovince").getValue()!="")
 	{
-		shipToRegion=Xrm.Page.getAttribute("shipto_stateorprovince").getValue();
+		shipToRegion=formContext.getAttribute("shipto_stateorprovince").getValue();
 	}
 	else
 	{
 		alert("Please Enter "+install_ship+" State/Province");
 		return false;
 	}
-	if(Xrm.Page.getAttribute("shipto_country").getValue()!=undefined && Xrm.Page.getAttribute("shipto_country").getValue()!=null && Xrm.Page.getAttribute("shipto_country").getValue()!="")
+	if(formContext.getAttribute("shipto_country").getValue()!=undefined && formContext.getAttribute("shipto_country").getValue()!=null && formContext.getAttribute("shipto_country").getValue()!="")
 	{
-		shipToCountry=Xrm.Page.getAttribute("shipto_country").getValue();
+		shipToCountry=formContext.getAttribute("shipto_country").getValue();
 	}
 	else
 	{
 		alert("Please Enter "+install_ship+" Country");
 		return false;
 	}
-	if(Xrm.Page.getAttribute("shipto_postalcode").getValue()!=undefined && Xrm.Page.getAttribute("shipto_postalcode").getValue()!=null && Xrm.Page.getAttribute("shipto_postalcode").getValue()!="")
+	if(formContext.getAttribute("shipto_postalcode").getValue()!=undefined && formContext.getAttribute("shipto_postalcode").getValue()!=null && formContext.getAttribute("shipto_postalcode").getValue()!="")
 	{
-		shipToPostalCode=Xrm.Page.getAttribute("shipto_postalcode").getValue();
+		shipToPostalCode=formContext.getAttribute("shipto_postalcode").getValue();
 	}
 	else
 	{
@@ -301,7 +354,7 @@ function requestBody(lines)
 				"postalCode": shipToPostalCode
 			   }
 			   
-	var opportunitydetails=getOpportunityDetails();
+	var opportunitydetails = getOpportunityDetails(formContext);
 	var date=new Date();
 	var data = JSON.stringify({
 	  "lines": lines,
@@ -329,14 +382,14 @@ function requestBody(lines)
 	return data;
 }
 
-function getOpportunityDetails()
+function getOpportunityDetails(formContext)
 {
 	var fetchXml="";
 	var account="";
 	var useCode="";
 	var description="";
-	var entityName=Xrm.Page.data.entity.getEntityName();
-	var currentRecordid=Xrm.Page.data.entity.getId().replace("{", "").replace("}", ""); 
+	var entityName=formContext.data.entity.getEntityName();
+	var currentRecordid=formContext.data.entity.getId().replace("{", "").replace("}", ""); 
 		var fetchData = {
 		currentRecordid: currentRecordid
 	};
@@ -375,8 +428,6 @@ function getOpportunityDetails()
 					"</fetch>",
 				   ].join("");
 	 }
-	 
-     //var opportunityData=XrmServiceToolkit.Soap.Fetch(fetchXml);
 	 var opportunityData=executeFetchXml(entityName+"s", fetchXml);
 	 if(opportunityData.value!=undefined && opportunityData.value!=null && opportunityData.value!="" && opportunityData.value.length>0)
 	 {
@@ -398,50 +449,7 @@ function getOpportunityDetails()
 	return{customerCode:account, entityUseCode:useCode, description:description};
 }
 
-function createTaxInformation(request, response)
-{
-
-	var entityName=Xrm.Page.data.entity.getEntityName();
-	var currentRecordid=Xrm.Page.data.entity.getId().replace("{", "").replace("}", "");
-	var entity = {};
-	if(entityName=="invoice")
-	{
-		var entity = {};
-		entity.ig1_name = entityName;
-		entity["ig1_Invoice@odata.bind"] = "/invoices("+currentRecordid+")";
-		entity.ig1_request = request;
-		entity.ig1_response = response;
-
-		Xrm.WebApi.online.createRecord("ig1_taxinformation", entity).then(
-			function success(result) {
-				var newEntityId = result.id;
-			},
-			function(error) {
-				Xrm.Utility.alertDialog(error.message);
-			}
-		);
-	}
-	else if(entityName=="quote")
-	{
-		var entity = {};
-		entity.ig1_name = entityName;
-		entity["ig1_quote@odata.bind"] = "/quotes("+currentRecordid+")";
-		entity.ig1_request = request;
-		entity.ig1_response = response;
-
-		Xrm.WebApi.online.createRecord("ig1_taxinformation", entity).then(
-			function success(result) {
-				var newEntityId = result.id;
-			},
-			function(error) {
-				Xrm.Utility.alertDialog(error.message);
-			}
-		);
-	}
-}
-
-
-function avalaraConfig()
+function avalaraConfig(formContext)
 {
 	var apiUrl="";
 	var authorization="";
@@ -454,7 +462,7 @@ function avalaraConfig()
 	var shipFromPostalCode="";
 	
 	var req = new XMLHttpRequest();
-		req.open("POST", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/ig1_AvalaraConfiguration", false);
+		req.open("POST", formContext.context.getClientUrl() + "/api/data/v9.1/ig1_AvalaraConfiguration", false);
 		req.setRequestHeader("OData-MaxVersion", "4.0");
 		req.setRequestHeader("OData-Version", "4.0");
 		req.setRequestHeader("Accept", "application/json");

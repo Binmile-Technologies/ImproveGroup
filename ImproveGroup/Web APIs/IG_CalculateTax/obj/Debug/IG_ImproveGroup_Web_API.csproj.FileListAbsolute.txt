@@ -364,9 +364,10 @@ D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\bin\System.Web.Razor.xml
 D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\bin\System.Web.WebPages.xml
 D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\bin\System.Web.WebPages.Deployment.xml
 D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\bin\System.Web.WebPages.Razor.xml
-D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\bin\Antlr3.Runtime.pdb
 D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\bin\xunit.abstractions.xml
 D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\obj\Debug\IG_ImproveGroup_Web_API.csprojResolveAssemblyReference.cache
 D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\obj\Debug\IG_ImproveGroup_Web_API.dll
 D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\obj\Debug\IG_ImproveGroup_Web_API.pdb
+D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\obj\Debug\IG_ImproveGroup_Web_API.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\obj\Debug\IG_ImproveGroup_Web_API.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Web APIs\IG_CalculateTax\obj\Debug\IG_ImproveGroup_Web_API.csproj.CopyComplete
