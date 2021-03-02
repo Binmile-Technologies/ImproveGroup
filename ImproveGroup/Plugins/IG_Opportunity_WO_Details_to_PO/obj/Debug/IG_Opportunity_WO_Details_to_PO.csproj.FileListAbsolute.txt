@@ -1,0 +1,8 @@
+D:\Github\ImproveGroup\Plugins\IG_Opportunity_WO_Details_to_PO\bin\Debug\IG_Opportunity_WO_Details_to_PO.dll
+D:\Github\ImproveGroup\Plugins\IG_Opportunity_WO_Details_to_PO\bin\Debug\IG_Opportunity_WO_Details_to_PO.pdb
+D:\Github\ImproveGroup\Plugins\IG_Opportunity_WO_Details_to_PO\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\Plugins\IG_Opportunity_WO_Details_to_PO\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\Plugins\IG_Opportunity_WO_Details_to_PO\obj\Debug\IG_Opportunity_WO_Details_to_PO.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_Opportunity_WO_Details_to_PO\obj\Debug\IG_Opportunity_WO_Details_to_PO.csproj.CopyComplete
+D:\Github\ImproveGroup\Plugins\IG_Opportunity_WO_Details_to_PO\obj\Debug\IG_Opportunity_WO_Details_to_PO.dll
+D:\Github\ImproveGroup\Plugins\IG_Opportunity_WO_Details_to_PO\obj\Debug\IG_Opportunity_WO_Details_to_PO.pdb

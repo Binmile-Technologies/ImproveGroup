@@ -63,7 +63,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Resources", "Web Resour
 		WebResources\ig1_Products.html = WebResources\ig1_Products.html
 		WebResources\ig1_ProjectFinanceProjection.js = WebResources\ig1_ProjectFinanceProjection.js
 		WebResources\ig1_ProjectRecord.js = WebResources\ig1_ProjectRecord.js
-		WebResources\ig1_PurchaseOrder.js = WebResources\ig1_PurchaseOrder.js
+		WebResources\ig1_PurchaseOrderBill.js = WebResources\ig1_PurchaseOrderBill.js
 		WebResources\ig1_ReopenBidSheet.js = WebResources\ig1_ReopenBidSheet.js
 		WebResources\ig1_RunReport.js = WebResources\ig1_RunReport.js
 		WebResources\ig1_SampleHTML.html = WebResources\ig1_SampleHTML.html
@@ -143,8 +143,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateFinanceTabValues",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateFreightAndGPToOpp", "Plugins\IG_UpdateFreightAndGPToOpp\IG_UpdateFreightAndGPToOpp.csproj", "{07F7B5D0-4D97-4C75-BD16-9973EA2EBE4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdatePaymentTermsToPOBill", "Plugins\IG_UpdatePaymentTermsToPOBill\IG_UpdatePaymentTermsToPOBill.csproj", "{F5EB8509-D926-4834-B75E-8F2C6AD316C6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateProjectRecordStatus", "Plugins\IG_UpdateProjectRecordStatus\IG_UpdateProjectRecordStatus.csproj", "{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_UpdateQuickbookIdWOPOInvoice", "Plugins\IG_UpdateQuickbookIdWOPOInvoice\IG_UpdateQuickbookIdWOPOInvoice.csproj", "{33D3EF75-62CE-4DD3-852B-6F51792CCC88}"
@@ -155,8 +153,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpportunityPricelist_New", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopulateCustomerPOAmountAndDate", "Plugins\PopulateCustomerPOAmountAndDate\PopulateCustomerPOAmountAndDate.csproj", "{248C01C3-4AE6-4651-A071-F67AF98F3623}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdatePoTotalAmountInBill", "Plugins\UpdatePoTotalAmountInBill\UpdatePoTotalAmountInBill.csproj", "{9D317AD3-39D0-45E0-B9D0-93A58605F848}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateProjectManagerInAAR", "Plugins\UpdateProjectManagerInAAR\UpdateProjectManagerInAAR.csproj", "{171BA10D-C824-4C5F-9B72-691A3E77C81D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateQuoteAmountForOrderEntry", "Plugins\UpdateQuoteAmountForOrderEntry\UpdateQuoteAmountForOrderEntry.csproj", "{39F644AC-0599-4E02-99F1-68C878B5779C}"
@@ -166,6 +162,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_ImproveGroup_Web_API", "Web APIs\IG_CalculateTax\IG_ImproveGroup_Web_API.csproj", "{102B5501-5501-403F-9044-F09DDE5644DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_TaxInfoToOrderAndInvoice", "Plugins\IG_TaxInfoToOrderAndInvoice\IG_TaxInfoToOrderAndInvoice.csproj", "{8D731FE6-9408-4118-A3FD-4AF551B16C1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_PODetailsToPOBill", "Plugins\IG_PODetailsToPOBill\IG_PODetailsToPOBill.csproj", "{25FBB772-2B33-4D11-878E-4F4754023DF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_Opportunity_WO_Details_to_PO", "Plugins\IG_Opportunity_WO_Details_to_PO\IG_Opportunity_WO_Details_to_PO.csproj", "{E0C07B4D-3F87-4160-9E87-691E7C203794}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -324,12 +324,6 @@ Global
 		{07F7B5D0-4D97-4C75-BD16-9973EA2EBE4C}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{07F7B5D0-4D97-4C75-BD16-9973EA2EBE4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07F7B5D0-4D97-4C75-BD16-9973EA2EBE4C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5EB8509-D926-4834-B75E-8F2C6AD316C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5EB8509-D926-4834-B75E-8F2C6AD316C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5EB8509-D926-4834-B75E-8F2C6AD316C6}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5EB8509-D926-4834-B75E-8F2C6AD316C6}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
-		{F5EB8509-D926-4834-B75E-8F2C6AD316C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5EB8509-D926-4834-B75E-8F2C6AD316C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
@@ -360,12 +354,6 @@ Global
 		{248C01C3-4AE6-4651-A071-F67AF98F3623}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{248C01C3-4AE6-4651-A071-F67AF98F3623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{248C01C3-4AE6-4651-A071-F67AF98F3623}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D317AD3-39D0-45E0-B9D0-93A58605F848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D317AD3-39D0-45E0-B9D0-93A58605F848}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D317AD3-39D0-45E0-B9D0-93A58605F848}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D317AD3-39D0-45E0-B9D0-93A58605F848}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
-		{9D317AD3-39D0-45E0-B9D0-93A58605F848}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D317AD3-39D0-45E0-B9D0-93A58605F848}.Release|Any CPU.Build.0 = Release|Any CPU
 		{171BA10D-C824-4C5F-9B72-691A3E77C81D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{171BA10D-C824-4C5F-9B72-691A3E77C81D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{171BA10D-C824-4C5F-9B72-691A3E77C81D}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
@@ -399,6 +387,18 @@ Global
 		{8D731FE6-9408-4118-A3FD-4AF551B16C1A}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{8D731FE6-9408-4118-A3FD-4AF551B16C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D731FE6-9408-4118-A3FD-4AF551B16C1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FBB772-2B33-4D11-878E-4F4754023DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25FBB772-2B33-4D11-878E-4F4754023DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25FBB772-2B33-4D11-878E-4F4754023DF3}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{25FBB772-2B33-4D11-878E-4F4754023DF3}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{25FBB772-2B33-4D11-878E-4F4754023DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25FBB772-2B33-4D11-878E-4F4754023DF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0C07B4D-3F87-4160-9E87-691E7C203794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0C07B4D-3F87-4160-9E87-691E7C203794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0C07B4D-3F87-4160-9E87-691E7C203794}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0C07B4D-3F87-4160-9E87-691E7C203794}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{E0C07B4D-3F87-4160-9E87-691E7C203794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0C07B4D-3F87-4160-9E87-691E7C203794}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -429,18 +429,18 @@ Global
 		{8F25D8B4-F513-473E-8B5E-22E2B01B23D1} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{8C5111B7-AC6C-4203-A3F3-381FAD6BAB4D} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{07F7B5D0-4D97-4C75-BD16-9973EA2EBE4C} = {731D96B1-B069-40D2-A481-0160EE5818F8}
-		{F5EB8509-D926-4834-B75E-8F2C6AD316C6} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{A5D6F4DB-4F25-471A-93D9-560BD3C5F055} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{33D3EF75-62CE-4DD3-852B-6F51792CCC88} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{BA93A25F-2DC6-4AC0-A1B3-2BBB67DF15F3} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{1818896D-6D58-4262-87C8-DB3E6FCA5EB3} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{248C01C3-4AE6-4651-A071-F67AF98F3623} = {731D96B1-B069-40D2-A481-0160EE5818F8}
-		{9D317AD3-39D0-45E0-B9D0-93A58605F848} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{171BA10D-C824-4C5F-9B72-691A3E77C81D} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{39F644AC-0599-4E02-99F1-68C878B5779C} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{2FCF5417-BC6D-4EBA-B05E-7E13CF6A282F} = {7884F6D7-C6AF-4CB1-8904-2DDCA1E0173D}
 		{102B5501-5501-403F-9044-F09DDE5644DF} = {C2535D64-0EAE-4B0C-8746-AB323E0A97FD}
 		{8D731FE6-9408-4118-A3FD-4AF551B16C1A} = {731D96B1-B069-40D2-A481-0160EE5818F8}
+		{25FBB772-2B33-4D11-878E-4F4754023DF3} = {731D96B1-B069-40D2-A481-0160EE5818F8}
+		{E0C07B4D-3F87-4160-9E87-691E7C203794} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90E8652E-79B2-43A5-9EE9-8DA24B8D8D4A}

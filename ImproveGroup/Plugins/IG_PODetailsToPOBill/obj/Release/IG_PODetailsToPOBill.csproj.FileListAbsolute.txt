@@ -1,0 +1,9 @@
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\bin\Release\IG_PODetailsToPOBill.dll
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\bin\Release\IG_PODetailsToPOBill.pdb
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\obj\Release\IG_PODetailsToPOBill.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\obj\Release\IG_PODetailsToPOBill.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\obj\Release\IG_PODetailsToPOBill.csproj.CopyComplete
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\obj\Release\IG_PODetailsToPOBill.dll
+D:\Github\ImproveGroup\Plugins\IG_PODetailsToPOBill\obj\Release\IG_PODetailsToPOBill.pdb
