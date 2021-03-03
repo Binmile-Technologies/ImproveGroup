@@ -1,0 +1,9 @@
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\bin\Release\IG_CreateProjectRecord.dll
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\bin\Release\IG_CreateProjectRecord.pdb
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\obj\Release\IG_CreateProjectRecord.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\obj\Release\IG_CreateProjectRecord.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\obj\Release\IG_CreateProjectRecord.csproj.CopyComplete
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\obj\Release\IG_CreateProjectRecord.dll
+D:\Github\ImproveGroup\Plugins\IG_CreateProjectRecord\obj\Release\IG_CreateProjectRecord.pdb

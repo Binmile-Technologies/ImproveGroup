@@ -167,6 +167,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_PODetailsToPOBill", "Plu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_Opportunity_WO_Details_to_PO", "Plugins\IG_Opportunity_WO_Details_to_PO\IG_Opportunity_WO_Details_to_PO.csproj", "{E0C07B4D-3F87-4160-9E87-691E7C203794}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_CreateProjectRecord", "Plugins\IG_CreateProjectRecord\IG_CreateProjectRecord.csproj", "{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -399,6 +401,12 @@ Global
 		{E0C07B4D-3F87-4160-9E87-691E7C203794}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{E0C07B4D-3F87-4160-9E87-691E7C203794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0C07B4D-3F87-4160-9E87-691E7C203794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -441,6 +449,7 @@ Global
 		{8D731FE6-9408-4118-A3FD-4AF551B16C1A} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{25FBB772-2B33-4D11-878E-4F4754023DF3} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{E0C07B4D-3F87-4160-9E87-691E7C203794} = {731D96B1-B069-40D2-A481-0160EE5818F8}
+		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90E8652E-79B2-43A5-9EE9-8DA24B8D8D4A}
