@@ -347,9 +347,21 @@ namespace IG_UpdateProjectRecordStatus
             // Get ProjectRecordID row by providing opportunity id
             Guid ProRecId = GetProjectRecordId(service);
             // Get ProjectRecord row by providing ProjectRecord ID
+
             if (ProRecId != Guid.Empty)
             {
-                Entity ProjectRecord = service.Retrieve("ig1_projectrecord", ProRecId, new ColumnSet("ig1_projectstatus"));
+                Entity ProjectRecord = service.Retrieve("ig1_projectrecord", ProRecId, new ColumnSet("ig1_projectstatus", "ig1_holdpreviousstatus"));
+                if (ProjectRecord.Attributes.Contains("ig1_holdpreviousstatus") && ProjectRecord.Attributes["ig1_holdpreviousstatus"] != null)
+                {
+                    string getmanualstaus = ProjectRecord.GetAttributeValue<string>("ig1_holdpreviousstatus");
+
+                    if (getmanualstaus == "286150007" || getmanualstaus == "286150008" || getmanualstaus == "286150009")
+                    {
+
+                        StatusCode = Convert.ToInt32(getmanualstaus);
+                    }
+
+                }
                 ProjectRecord["ig1_projectstatus"] = new OptionSetValue(StatusCode);
                 service.Update(ProjectRecord);
             }
