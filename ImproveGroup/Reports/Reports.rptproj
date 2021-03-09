@@ -9,6 +9,10 @@
       <FullPath>AAR.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>BidSheetSummaryDetailsReport.rdl</Name>
+      <FullPath>BidSheetSummaryDetailsReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>BidSheetSummary.rdl</Name>
       <FullPath>BidSheetSummary.rdl</FullPath>
     </ProjectItem>

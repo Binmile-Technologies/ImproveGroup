@@ -18,7 +18,7 @@
       <Query>
         <DataSourceName>FetchDataSource</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@bidSheetId">
+          <QueryParameter Name="@bidsheetid">
             <Value>=Parameters!bidSheetId.Value</Value>
           </QueryParameter>
         </QueryParameters>
@@ -35,7 +35,7 @@
     &lt;attribute name="ig1_laborrate" /&gt;
      &lt;attribute name="ig1_bidsheetcategory" /&gt;
     &lt;filter type="and" &gt;
-      &lt;condition attribute="ig1_bidsheet" operator="eq" value="@bidSheetId" /&gt;
+      &lt;condition attribute="ig1_bidsheet" operator="eq" value="@bidsheetid" /&gt;
       &lt;condition attribute="statecode" operator="eq" value="0" /&gt;
     &lt;/filter&gt;
   &lt;/entity&gt;
