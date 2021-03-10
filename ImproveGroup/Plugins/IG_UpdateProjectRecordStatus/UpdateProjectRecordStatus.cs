@@ -317,6 +317,8 @@ namespace IG_UpdateProjectRecordStatus
                 //Set Status of project record to Completed(286150003)
                 StatusCode = 286150003;
             }
+
+            
             else
             {
                 //Work order doesn't exists for given opportunity, So check Status of Opportunity whether it is Closed won or Open
@@ -330,12 +332,12 @@ namespace IG_UpdateProjectRecordStatus
                 {
                     if (inResultOpportunity == 1 && inResultBidsheet == 0)      // Opportunity Status is Won and Associated Bidsheet doesn't exists
                     {
-                        //Status of project record to Booked(286150001)
+                        //Status of project record to Won(286150001)
                         StatusCode = 286150001;
                     }
                     else if (inResultOpportunity == 0 && inResultBidsheet == 0)     // Opportunity Status is Open and Associated Bidsheet doesn't exists
                     {
-                        //Status of project record to Estimated(286150000)
+                        //Status of project record to Open(286150000)
                         StatusCode = 286150000;
                     }
                     else
@@ -351,14 +353,14 @@ namespace IG_UpdateProjectRecordStatus
             if (ProRecId != Guid.Empty)
             {
                 Entity ProjectRecord = service.Retrieve("ig1_projectrecord", ProRecId, new ColumnSet("ig1_projectstatus", "ig1_holdpreviousstatus"));
-                if (ProjectRecord.Attributes.Contains("ig1_holdpreviousstatus") && ProjectRecord.Attributes["ig1_holdpreviousstatus"] != null)
+                if (ProjectRecord.Attributes.Contains("ig1_projectstatus") && ProjectRecord.Attributes["ig1_projectstatus"] != null)
                 {
-                    string getmanualstaus = ProjectRecord.GetAttributeValue<string>("ig1_holdpreviousstatus");
+                    Int32 getmanualstaus = ProjectRecord.GetAttributeValue<OptionSetValue>("ig1_projectstatus").Value;
 
-                    if (getmanualstaus == "286150007" || getmanualstaus == "286150008" || getmanualstaus == "286150009")
+                    if (getmanualstaus == 286150007 || getmanualstaus == 286150008 || getmanualstaus == 286150009)
                     {
 
-                        StatusCode = Convert.ToInt32(getmanualstaus);
+                        return;
                     }
 
                 }

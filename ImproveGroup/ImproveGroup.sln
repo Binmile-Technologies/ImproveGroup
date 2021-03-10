@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30225.117
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Custom Workflows", "Custom Workflows", "{C6B66EEC-6591-4084-8F79-F2080CFD4430}"
 EndProject
@@ -168,6 +168,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_Opportunity_WO_Details_to_PO", "Plugins\IG_Opportunity_WO_Details_to_PO\IG_Opportunity_WO_Details_to_PO.csproj", "{E0C07B4D-3F87-4160-9E87-691E7C203794}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_CreateProjectRecord", "Plugins\IG_CreateProjectRecord\IG_CreateProjectRecord.csproj", "{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG_GetPreviousProjectStatus", "Plugins\IG_GetPreviousProjectStatus\IG_GetPreviousProjectStatus.csproj", "{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -407,6 +409,12 @@ Global
 		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -450,6 +458,7 @@ Global
 		{25FBB772-2B33-4D11-878E-4F4754023DF3} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{E0C07B4D-3F87-4160-9E87-691E7C203794} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 		{4A5BC2E5-27AA-4926-8C2B-B6E9C4EFF839} = {731D96B1-B069-40D2-A481-0160EE5818F8}
+		{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4} = {731D96B1-B069-40D2-A481-0160EE5818F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90E8652E-79B2-43A5-9EE9-8DA24B8D8D4A}

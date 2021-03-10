@@ -256,7 +256,7 @@ function SetAArstatus(formContext) {
     if (status != undefined && status != null && status != "") {
         if (status == 286150003 || status == 286150008 || status == 286150009) {
             formContext.getAttribute("ig1_projectstatus").setValue(286150007);
-            formContext.getAttribute("ig1_holdpreviousstatus").setValue("286150007");
+           // formContext.getAttribute("ig1_holdpreviousstatus").setValue("286150007");
             formContext.data.entity.save();
             formContext.ui.refreshRibbon();
         }
@@ -308,7 +308,7 @@ function SetCommissioningstatus(formContext) {
     var status = formContext.getAttribute("ig1_projectstatus").getValue();
     if (status == 286150003 || status == 286150007 || status == 286150009) {
         formContext.getAttribute("ig1_projectstatus").setValue(286150008);
-        formContext.getAttribute("ig1_holdpreviousstatus").setValue("286150008");
+       // formContext.getAttribute("ig1_holdpreviousstatus").setValue("286150008");
         formContext.data.entity.save();
         formContext.ui.refreshRibbon();
     }
@@ -319,7 +319,7 @@ function holdingForFinancials(formContext) {
     if (Isconfirm == false)
         return false;
     formContext.getAttribute("ig1_projectstatus").setValue(286150009);
-    formContext.getAttribute("ig1_holdpreviousstatus").setValue("286150009");
+    //formContext.getAttribute("ig1_holdpreviousstatus").setValue("286150009");
     formContext.data.entity.save();
     formContext.ui.refreshRibbon();
 }
