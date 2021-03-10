@@ -1,0 +1,5 @@
+D:\Github\ImproveGroup\Plugins\IG_GetPreviousProjectStatus\bin\Debug\IG_GetPreviousProjectStatus.dll
+D:\Github\ImproveGroup\Plugins\IG_GetPreviousProjectStatus\bin\Debug\IG_GetPreviousProjectStatus.pdb
+D:\Github\ImproveGroup\Plugins\IG_GetPreviousProjectStatus\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\Plugins\IG_GetPreviousProjectStatus\obj\Debug\IG_GetPreviousProjectStatus.dll
+D:\Github\ImproveGroup\Plugins\IG_GetPreviousProjectStatus\obj\Debug\IG_GetPreviousProjectStatus.pdb

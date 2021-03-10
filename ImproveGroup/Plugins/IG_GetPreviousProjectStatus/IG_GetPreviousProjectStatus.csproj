@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8C5111B7-AC6C-4203-A3F3-381FAD6BAB4D}</ProjectGuid>
+    <ProjectGuid>{2D5760A8-D07B-4FD7-B78F-AD54FDF14BF4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IG_UpdateFinanceTabValues</RootNamespace>
-    <AssemblyName>IG_UpdateFinanceTabValues</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>IG_GetPreviousProjectStatus</RootNamespace>
+    <AssemblyName>IG_GetPreviousProjectStatus</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -34,14 +34,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <DelaySign>false</DelaySign>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>sneh.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xrm.Sdk">
-      <HintPath>..\..\..\SDK_V.9\Tools\CoreTools\Microsoft.Xrm.Sdk.dll</HintPath>
+      <HintPath>..\..\..\..\SDK_V.9\Tools\CoreTools\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Updatefinancetab.cs" />
+    <Compile Include="PreviousProjectStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
