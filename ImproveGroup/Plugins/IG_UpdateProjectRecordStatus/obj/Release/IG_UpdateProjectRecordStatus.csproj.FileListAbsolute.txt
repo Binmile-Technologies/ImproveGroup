@@ -19,3 +19,12 @@ E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\ob
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csproj.CopyComplete
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.dll
 E:\ImproveGroup\Github\ImproveGroup\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.pdb
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\bin\Release\IG_UpdateProjectRecordStatus.dll
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\bin\Release\IG_UpdateProjectRecordStatus.pdb
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.csproj.CopyComplete
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.dll
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Release\IG_UpdateProjectRecordStatus.pdb

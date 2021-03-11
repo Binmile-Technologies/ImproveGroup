@@ -60,6 +60,8 @@ D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRe
 D:\Github\ImproveGroup\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.pdb
 D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\bin\Debug\IG_UpdateProjectRecordStatus.dll
 D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\bin\Debug\IG_UpdateProjectRecordStatus.pdb
-D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.csproj.CopyComplete
 D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.dll
 D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordStatus\obj\Debug\IG_UpdateProjectRecordStatus.pdb

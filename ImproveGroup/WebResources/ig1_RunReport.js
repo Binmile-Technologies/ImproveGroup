@@ -1,33 +1,32 @@
-function runReport()
+function runDirectVsLaborReport(formContext)
 {
         var hight=800;
         var width=900;
         var left = (window.screen.width / 2) - ((width/ 2) + 10);
         var top = (window.screen.height / 2) - ((hight/ 2) + 50);
 
-        var bidSheetId=Xrm.Page.data.entity.getId().replace("{", "").replace("}", "");
-		var rdlName = "MaterialVsLabor.rdl";
+        var bidSheetId=formContext.data.entity.getId().replace("{", "").replace("}", "");
+		var rdlName = "DirectVsLabor.rdl";
 		//var reportGuid = "929203fc-fea6-e911-a95d-000d3a1d58e9";
-		var reportGuid = getReportId("Direct Vs Labor");
+		var reportGuid = getReportId("DirectVsLabor");
 		if(reportGuid=="")
 		{
 			alert("Sorry, report does not exists");
 			return;
 		}
         var parameter = encodeURIComponent(bidSheetId);
-        var url = Xrm.Page.context.getClientUrl() + "/crmreports/viewer/viewer.aspx?action=filter&helpID=" + rdlName + "&id={" + reportGuid + "}&p:bidSheetId=" + parameter;
+        var url = formContext.context.getClientUrl() + "/crmreports/viewer/viewer.aspx?action=filter&helpID=" + rdlName + "&id={" + reportGuid + "}&p:bidSheetId=" + parameter;
     window.open(url, null, "width="+width+ ", height="+hight+", top ="+top+", left="+left);
 }
 
-function runSummaryReport()
+function runSummaryReport(formContext)
 {
         var hight=800;
       var width=900;
       var left = (window.screen.width / 2) - ((width/ 2) + 10);
       var top = (window.screen.height / 2) - ((hight/ 2) + 50);
-       var bidSheetId=Xrm.Page.data.entity.getId().replace("{", "").replace("}", "");
+       var bidSheetId=formContext.data.entity.getId().replace("{", "").replace("}", "");
        var rdlName = "BidSheetSummary.rdl";
-       //var reportGuid = "d5640ad4-6012-ea11-a811-000d3a55d2c3";
 	   var reportGuid = getReportId("BidSheetSummary");
 		if(reportGuid=="")
 		{
@@ -35,17 +34,17 @@ function runSummaryReport()
 			return;
 		}
         var parameter = encodeURIComponent(bidSheetId);
-       var url = Xrm.Page.context.getClientUrl() + "/crmreports/viewer/viewer.aspx?action=filter&helpID=" + rdlName + "&id={" + reportGuid + "}&p:bidsheetid=" + parameter + "&p:bidSheet="+ parameter;
+       var url = formContext.context.getClientUrl() + "/crmreports/viewer/viewer.aspx?action=filter&helpID=" + rdlName + "&id={" + reportGuid + "}&p:bidsheetid=" + parameter + "&p:bidSheet="+ parameter;
        window.open(url, null, "width="+width+ ", height="+hight+", top ="+top+", left="+left);
 }
 
-function runProjectBudgetReport()
+function runProjectBudgetReport(formContext)
 {
   var hight=800;
       var width=900;
       var left = (window.screen.width / 2) - ((width/ 2) + 10);
       var top = (window.screen.height / 2) - ((hight/ 2) + 50);
-       var bidsheetid=Xrm.Page.data.entity.getId().replace("{", "").replace("}", "");
+       var bidsheetid=formContext.data.entity.getId().replace("{", "").replace("}", "");
        var rdlName = "ProjectBudgetReport.rdl";
        //var reportGuid = "f772fd8d-548f-ea11-a811-000d3a98d1ad";
 	   var reportGuid = getReportId("ProjectBudgetReport");
@@ -55,7 +54,7 @@ function runProjectBudgetReport()
 			return;
 		}
         var parameter = encodeURIComponent(bidsheetid);
-       var url = Xrm.Page.context.getClientUrl() + "/crmreports/viewer/viewer.aspx?action=filter&helpID=" + rdlName + "&id={" +  reportGuid + "}&p:bidsheetid=" + parameter;
+       var url = formContext.context.getClientUrl() + "/crmreports/viewer/viewer.aspx?action=filter&helpID=" + rdlName + "&id={" +  reportGuid + "}&p:bidsheetid=" + parameter;
        window.open(url, null, "width="+width+ ", height="+hight+", top ="+top+", left="+left);
 }
 
@@ -80,6 +79,33 @@ function  runAARReport()
        var parameter = encodeURIComponent(projectrecordid);
        var url = Xrm.Page.context.getClientUrl() + "/crmreports/viewer/viewer.aspx?action=filter&helpID=" + rdlName + "&id={" +  reportGuid + "}&p:projectrecordid=" + parameter;
        window.open(url, null, "width="+width+ ", height="+hight+", top ="+top+", left="+left);
+}
+
+function runBidSheetSummaryDetailsReport(formContext)
+{
+       try
+     {
+       debugger;
+       var hight=800;
+       var width=1160;
+       var left = (window.screen.width/2) - ((width/2) + 10);
+       var top = (window.screen.height / 2) - ((hight/ 2) + 50);
+       var bidsheetid=formContext.data.entity.getId().replace("{", "").replace("}", "");
+       var rdlName = "BidSheetSummaryDetailsReport.rdl";
+	   var reportGuid = getReportId("BidSheetSummaryDetailsReport");
+		if(reportGuid=="")
+		{
+			alert("Sorry, report does not exists");
+			return;
+		}
+       var parameter = encodeURIComponent(bidsheetid);
+      var url = formContext.context.getClientUrl() + "/crmreports/viewer/viewer.aspx?action=filter&helpID=" + rdlName + "&id={" + reportGuid + "}&p:bidsheetid=" + parameter;
+       window.open(url, null, "width="+width+ ", height="+hight+", top ="+top+", left="+left);
+   }
+   catch(err)
+  {
+   alert(err.message);
+  }
 }
 
 function getReportId(reportName)
