@@ -1,0 +1,9 @@
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\bin\Release\IG_UpdateProjectRecordToEntities.dll
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\bin\Release\IG_UpdateProjectRecordToEntities.pdb
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\bin\Release\Microsoft.Xrm.Sdk.dll
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\bin\Release\Microsoft.Xrm.Sdk.xml
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\obj\Release\IG_UpdateProjectRecordToEntities.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\obj\Release\IG_UpdateProjectRecordToEntities.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\obj\Release\IG_UpdateProjectRecordToEntities.csproj.CopyComplete
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\obj\Release\IG_UpdateProjectRecordToEntities.dll
+D:\Github\ImproveGroup\Plugins\IG_UpdateProjectRecordToEntities\obj\Release\IG_UpdateProjectRecordToEntities.pdb
