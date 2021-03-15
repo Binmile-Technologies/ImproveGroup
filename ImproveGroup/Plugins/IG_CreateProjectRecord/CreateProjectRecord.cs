@@ -22,7 +22,7 @@ namespace IG_CreateProjectRecord
                     if (context.MessageName == "Create" && entity.LogicalName == "opportunity")
                     {
                         opportunityid = entity.Id;
-                        Entity opportunity = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("parentaccountid", "ig1_projectnumber", "ownerid", "ig1_istestproject", "name", "statecode", "ig1_forecaststatus"));
+                        Entity opportunity = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("parentaccountid", "ig1_projectnumber", "ownerid", "ig1_istestproject", "name", "statecode", "ig1_forecaststatus", "estimatedvalue"));
                         
                         Entity projectRecord = new Entity("ig1_projectrecord");
 
@@ -84,6 +84,10 @@ namespace IG_CreateProjectRecord
                             {
                                 projectRecord.Attributes["ig1_opportunityforecaststatus"] = new OptionSetValue(286150003);
                             }
+                        }
+                        if (opportunity.Attributes.Contains("estimatedvalue") && opportunity.Attributes["estimatedvalue"] != null)
+                        {
+                            projectRecord.Attributes["ig1_bestsalesestimate"] = (Money)opportunity.Attributes["estimatedvalue"];
                         }
                         Guid projectRecordid = service.Create(projectRecord);
 

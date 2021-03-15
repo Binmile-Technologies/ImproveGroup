@@ -66,6 +66,21 @@ namespace IG_CalculateProjectRecordTotals
                             CalculateBidsheetTotals(projectRecord);
                         }
                     }
+                    if (entity.LogicalName == "opportunity")
+                    {
+                        EntityReference projectRecord = null;
+                        decimal bidsheettotal = Convert.ToDecimal(0);
+
+                        Entity opportunity = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_projectrecord", "ig1_bidsheettotal"));
+                        if (opportunity.Attributes.Contains("ig1_projectrecord") && opportunity.Attributes["ig1_projectrecord"] != null)
+                        {
+                           projectRecord  = (EntityReference)opportunity.Attributes["ig1_projectrecord"];
+                        }
+                        if (opportunity.Attributes.Contains("ig1_bidsheettotal") && opportunity.Attributes["ig1_bidsheettotal"] != null)
+                        {
+                            bidsheettotal = Convert.ToDecimal(opportunity.Attributes["ig1_bidsheettotal"]);
+                        }
+                    }
                     if (entity.LogicalName == "ig1_projectrecordcost")
                     {
                         Entity actualCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_projectrecord", "ig1_name"));
@@ -334,6 +349,7 @@ namespace IG_CalculateProjectRecordTotals
             Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
             entity.Attributes["ig1_totalnumberofassociatedbidsheets"] = count;
             entity.Attributes["ig1_totalamountofassociatedbidsheets"] = new Money(totalAmount);
+            entity.Attributes["ig1_bestsalesestimate"] = new Money(totalAmount);
             service.Update(entity);
         }
         protected void QuickBooksTotals(EntityReference project)
