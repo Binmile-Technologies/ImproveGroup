@@ -27,6 +27,7 @@ namespace IG_Opportunity_WO_Details_to_PO
                         {
                             EntityReference opportunityOwner = (EntityReference)opp.Attributes["ownerid"];
                             UpdateOpportunityOwner(entity.Id, opportunityOwner);
+                            UpdateOpportunityOwnerInPObill(entity.Id, opportunityOwner);
                         }
                     }
                     else if (entity.LogicalName == "msdyn_workorder")
@@ -37,6 +38,7 @@ namespace IG_Opportunity_WO_Details_to_PO
 
                             EntityReference workOrderOwner = (EntityReference)wo.Attributes["ownerid"];
                             UpdateWorkOrderOwner(entity.Id, workOrderOwner);
+                            UpdateWorkOrderOwnerInPoBill(entity.Id, workOrderOwner);
                         }
                     }
                     else if (entity.LogicalName == "msdyn_purchaseorder")
@@ -47,6 +49,16 @@ namespace IG_Opportunity_WO_Details_to_PO
                         po.Attributes["ig1_opportunityowner"] = opportunityOwner;
                         po.Attributes["ig1_workorderowner"] = workOrderOwner;
                         service.Update(po);
+                    }
+
+                    else if (entity.LogicalName == "msdyn_purchaseorderbill")
+                    {
+                        Entity pobill = new Entity(entity.LogicalName, entity.Id);
+                        EntityReference opportunityOwner = GetOpportunityOwnerforPobill(entity.Id);
+                        EntityReference workOrderOwner = GetWorkOwderOwnerforPobill(entity.Id);
+                        pobill.Attributes["ig1_opportunityowner"] = opportunityOwner;
+                        pobill.Attributes["ig1_workorderowner"] = workOrderOwner;
+                        service.Update(pobill);
                     }
                 }
             }
@@ -178,6 +190,155 @@ namespace IG_Opportunity_WO_Details_to_PO
                 }
             }
             return owner;
+        }
+        protected void UpdateOpportunityOwnerInPObill(Guid opportunityid, EntityReference opportunityOwner)
+        {
+
+            var fetchData = new
+            {
+                opportunityid = opportunityid
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='msdyn_purchaseorderbill'>
+                                <attribute name='msdyn_purchaseorderbillid' />
+                                <attribute name='ownerid' />
+                                <attribute name='msdyn_name' />
+                                <link-entity name='msdyn_purchaseorder' from='msdyn_purchaseorderid' to='msdyn_purchaseorder'>
+                                  <link-entity name='msdyn_workorder' from='msdyn_workorderid' to='msdyn_workorder'>
+                                    <link-entity name='opportunity' from='opportunityid' to='msdyn_opportunityid'>
+                                      <filter>
+                                        <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*20df5ea4-6244-47b5-9be2-8220d7c749fb*/}'/>
+                                      </filter>
+                                    </link-entity>
+                                  </link-entity>
+                                </link-entity>
+                              </entity>
+                            </fetch>";
+
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                foreach(Entity entitypobill in entityCollection.Entities)
+                {
+
+                    if(opportunityOwner != null)
+                    {
+                        entitypobill.Attributes["ig1_opportunityowner"] = opportunityOwner;
+                        service.Update(entitypobill);
+                    }
+                }
+
+            }
+
+        }
+        protected void UpdateWorkOrderOwnerInPoBill(Guid workorderid, EntityReference workOrderOwner)
+        {
+
+            var fetchData = new
+            {
+                msdyn_workorderid = workorderid
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='msdyn_purchaseorderbill'>
+                                <attribute name='msdyn_purchaseorderbillid' />
+                                <attribute name='ownerid' />
+                                <attribute name='msdyn_name' />
+                                <link-entity name='msdyn_purchaseorder' from='msdyn_purchaseorderid' to='msdyn_purchaseorder'>
+                                  <link-entity name='msdyn_workorder' from='msdyn_workorderid' to='msdyn_workorder'>
+                                    <filter>
+                                      <condition attribute='msdyn_workorderid' operator='eq' value='{fetchData.msdyn_workorderid/*47c0161d-f682-eb11-a812-000d3a4fe50b*/}'/>
+                                    </filter>
+                                  </link-entity>
+                                </link-entity>
+                              </entity>
+                            </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                foreach(Entity entitypo in entityCollection.Entities)
+                {
+
+                    if(workOrderOwner != null)
+                    {
+                        entitypo.Attributes["ig1_workorderowner"] = workOrderOwner;
+                        service.Update(entitypo);
+                    }
+                }
+            }
+
+        }
+        protected EntityReference GetOpportunityOwnerforPobill(Guid pobillid)
+        {
+            EntityReference oppowner=null;
+            var fetchData = new
+            {
+                msdyn_purchaseorderbillid = pobillid
+            };
+            var fetchXml = $@"
+                    <fetch>
+                      <entity name='opportunity'>
+                        <attribute name='ownerid' />
+                        <attribute name='owneridname' />
+                        <link-entity name='msdyn_workorder' from='msdyn_opportunityid' to='opportunityid'>
+                          <link-entity name='msdyn_purchaseorder' from='msdyn_workorder' to='msdyn_workorderid'>
+                            <link-entity name='msdyn_purchaseorderbill' from='msdyn_purchaseorder' to='msdyn_purchaseorderid'>
+                              <filter>
+                                <condition attribute='msdyn_purchaseorderbillid' operator='eq' value='{fetchData.msdyn_purchaseorderbillid/*7f415be4-1a83-eb11-a812-000d3a4fe50b*/}'/>
+                              </filter>
+                            </link-entity>
+                          </link-entity>
+                        </link-entity>
+                      </entity>
+                    </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+
+                Entity poentity = entityCollection.Entities[0];
+                if(poentity.Attributes.Contains("ownerid") && poentity.Attributes["ownerid"] != null)
+                {
+
+                    oppowner = (EntityReference)poentity.Attributes["ownerid"];
+
+                }
+            }
+            return oppowner;
+        }
+        protected EntityReference GetWorkOwderOwnerforPobill(Guid Pobillid)
+        {
+            EntityReference Woowner = null;
+            var fetchData = new
+            {
+                msdyn_purchaseorderbillid = Pobillid
+            };
+            var fetchXml = $@"
+                            <fetch>
+                              <entity name='msdyn_workorder'>
+                                <attribute name='ownerid' />
+                                <link-entity name='msdyn_purchaseorder' from='msdyn_workorder' to='msdyn_workorderid'>
+                                  <link-entity name='msdyn_purchaseorderbill' from='msdyn_purchaseorder' to='msdyn_purchaseorderid'>
+                                    <filter>
+                                      <condition attribute='msdyn_purchaseorderbillid' operator='eq' value='{fetchData.msdyn_purchaseorderbillid/*7f415be4-1a83-eb11-a812-000d3a4fe50b*/}'/>
+                                    </filter>
+                                  </link-entity>
+                                </link-entity>
+                              </entity>
+                            </fetch>";
+
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+
+                Entity pobillentity = entityCollection.Entities[0];
+                if(pobillentity.Attributes.Contains("ownerid") && pobillentity.Attributes["ownerid"] != null)
+                {
+                    Woowner = (EntityReference)pobillentity.Attributes["ownerid"];
+                }
+            };
+
+             return Woowner;
         }
     }
 

@@ -473,6 +473,28 @@ function unlockFieldsForFinance(executionContext)
 	}
 }
 
+function EnableTestProjectField(executionContext)
+{
+    try
+    {
+        debugger;
+        var formContext = executionContext.getFormContext();
+        var currentUserRoles = formContext.context.getUserRoles();
+
+        if (currentUserRoles.includes("118f1326-be17-e911-a970-000d3a1d7f08"))
+        {
+            formContext.ui.controls.get("ig1_istestproject").setDisabled(false);
+        }
+    }
+
+    catch (err)
+    {
+        alert(err.message);
+
+    }
+
+}
+
 function saveOnQBDetailsChange(executionContext)
 {
 	try
