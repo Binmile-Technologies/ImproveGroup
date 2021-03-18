@@ -278,41 +278,6 @@
     <ReportSection>
       <Body>
         <ReportItems>
-          <Textbox Name="ReportName">
-            <CanGrow>true</CanGrow>
-            <CanShrink>true</CanShrink>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Bid Sheet Summary Details Report</Value>
-                    <Style>
-                      <FontStyle>Italic</FontStyle>
-                      <FontSize>16pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>ReportName</rd:DefaultName>
-            <Height>0.80849cm</Height>
-            <Width>29.95083cm</Width>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BackgroundColor>Wheat</BackgroundColor>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Tablix Name="Tablix10">
             <TablixBody>
               <TablixColumns>
@@ -1411,7 +1376,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1566,7 +1530,6 @@
             <Top>0.9496cm</Top>
             <Height>3.28138cm</Height>
             <Width>29.95084cm</Width>
-            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2156,7 +2119,7 @@
             <Top>5.94995cm</Top>
             <Height>6.27314cm</Height>
             <Width>13.91266cm</Width>
-            <ZIndex>2</ZIndex>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2187,7 +2150,7 @@
             <Top>1.87861in</Top>
             <Height>0.46389in</Height>
             <Width>5.47742in</Width>
-            <ZIndex>3</ZIndex>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2224,7 +2187,7 @@
             <Left>6.46168in</Left>
             <Height>0.46389in</Height>
             <Width>5.32999in</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>3</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2660,7 +2623,7 @@
             <Left>16.41266cm</Left>
             <Height>6.27312cm</Height>
             <Width>13.5977cm</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>4</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>

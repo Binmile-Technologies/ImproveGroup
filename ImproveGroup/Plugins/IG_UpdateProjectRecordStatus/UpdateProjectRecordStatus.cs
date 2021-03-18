@@ -84,10 +84,25 @@ namespace IG_UpdateProjectRecordStatus
                             else if (bidsheetStatus == "Designing")
                             {
                                 UpdateProjectRecord(opportunityid, 286150010, woStatus);
+
+                                if (opportunityid != Guid.Empty)
+                                {
+                                    Entity opportunity = new Entity("opportunity", opportunityid);
+                                    opportunity.Attributes["ig1_bidsheetcreated"] = true;
+                                    service.Update(opportunity);
+                                }
+                                
                             }
                             else
                             {
                                 UpdateProjectRecord(opportunityid, 286150000, woStatus);
+
+                                if (opportunityid != Guid.Empty)
+                                {
+                                    Entity opportunity = new Entity("opportunity", opportunityid);
+                                    opportunity.Attributes["ig1_bidsheetcreated"] = false;
+                                    service.Update(opportunity);
+                                }
                             }
                         }
                     }
