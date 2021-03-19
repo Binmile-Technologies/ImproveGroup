@@ -20,6 +20,7 @@ namespace IG_UpdateProjectRecordStatus
                 service = serviceFactory.CreateOrganizationService(null);
 
                 Guid opportunityid = Guid.Empty;
+                string entityName = string.Empty;
                 if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
                     Entity entity = (Entity)context.InputParameters["Target"];
@@ -37,6 +38,7 @@ namespace IG_UpdateProjectRecordStatus
                     }
                     else if (entity.LogicalName == "ig1_bidsheet")
                     {
+                        entityName = entity.LogicalName;
                         Entity bidsheet = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_opportunitytitle"));
                         if (bidsheet.Attributes.Contains("ig1_opportunitytitle") && bidsheet.Attributes["ig1_opportunitytitle"] != null)
                         {
@@ -47,9 +49,13 @@ namespace IG_UpdateProjectRecordStatus
                 else if (context.MessageName == "Delete" && context.PreEntityImages.Contains("Image") && context.PreEntityImages["Image"] is Entity)
                 {
                     Entity bidsheet = (Entity)context.PreEntityImages["Image"];
-                    if (bidsheet.Attributes.Contains("ig1_opportunitytitle") && bidsheet.Attributes["ig1_opportunitytitle"] != null)
+                    if (bidsheet.LogicalName == "ig1_bidsheet")
                     {
-                        opportunityid = bidsheet.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
+                        entityName = bidsheet.LogicalName;
+                        if (bidsheet.Attributes.Contains("ig1_opportunitytitle") && bidsheet.Attributes["ig1_opportunitytitle"] != null)
+                        {
+                            opportunityid = bidsheet.GetAttributeValue<EntityReference>("ig1_opportunitytitle").Id;
+                        }
                     }
                 }
                 if (opportunityid != Guid.Empty)
@@ -104,6 +110,26 @@ namespace IG_UpdateProjectRecordStatus
                                     service.Update(opportunity);
                                 }
                             }
+                        }
+                    }
+                    if (opportunityid != Guid.Empty && entityName == "ig1_bidsheet")
+                    {
+                        QueryExpression queryExpression = new QueryExpression();
+                        queryExpression.EntityName = "ig1_bidsheet";
+                        queryExpression.ColumnSet.AddColumn("ig1_projectnumber");
+                        queryExpression.Criteria.AddCondition("ig1_opportunitytitle", ConditionOperator.Equal, opportunityid);
+                        EntityCollection entityCollection = service.RetrieveMultiple(queryExpression);
+
+                        Entity opportunity = new Entity("opportunity", opportunityid);
+                        if (entityCollection.Entities.Count > 0)
+                        {
+                            opportunity.Attributes["ig1_bidsheetcreated"] = true;
+                            service.Update(opportunity);
+                        }
+                        else
+                        {
+                            opportunity.Attributes["ig1_bidsheetcreated"] = false;
+                            service.Update(opportunity);
                         }
                     }
                 }
