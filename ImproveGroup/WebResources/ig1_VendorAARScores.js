@@ -46,3 +46,27 @@ function getProjectNumber(projectid, formContext) {
 		alert(err.message);
 	}
 }
+
+function setGridColumnReadOnly(executionContext)
+{
+	try
+	{
+		debugger;
+		var formContext = executionContext.getFormContext();
+		var attributes = formContext.getData().getEntity().attributes;
+		attributes.forEach(function (attr)
+		{
+			if (attr.getName() === "ig1_name" || attr.getName() == "ig1_projectrecord")
+			{
+				attr.controls.forEach(function (control)
+				{
+					control.setDisabled(true);
+				})
+			}
+		});
+	}
+	catch (err)
+	{
+		alert(err.message);
+	}
+}

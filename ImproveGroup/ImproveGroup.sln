@@ -81,6 +81,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Resources", "Web Resour
 		WebResources\ig1_uploadbanair.js = WebResources\ig1_uploadbanair.js
 		WebResources\ig1_uploadBOMs.html = WebResources\ig1_uploadBOMs.html
 		WebResources\ig1_UploadDocument.js = WebResources\ig1_UploadDocument.js
+		WebResources\ig1_VendorAARScores.js = WebResources\ig1_VendorAARScores.js
 		WebResources\ig1_Vendors.js = WebResources\ig1_Vendors.js
 		WebResources\ig1_Workorder_AnticipatedCompletionDate.js = WebResources\ig1_Workorder_AnticipatedCompletionDate.js
 		WebResources\ig1_Workorder_Mandaory.js = WebResources\ig1_Workorder_Mandaory.js
