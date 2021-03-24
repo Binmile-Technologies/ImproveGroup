@@ -484,6 +484,7 @@ function EnableTestProjectField(executionContext)
         if (currentUserRoles.includes("118f1326-be17-e911-a970-000d3a1d7f08"))
         {
             formContext.ui.controls.get("ig1_istestproject").setDisabled(false);
+            formContext.data.save();
         }
     }
 
