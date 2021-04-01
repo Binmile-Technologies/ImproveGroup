@@ -161,6 +161,11 @@
     &lt;attribute name="ig1_anticipatedgpinpercent" /&gt;
     &lt;attribute name="ig1_designhours" /&gt;
     &lt;attribute name="ig1_sellprice" /&gt;
+   &lt;attribute name="ig1_totalcost" alias="totalCost" /&gt;
+    &lt;attribute name="ig1_designcost" alias="designCost" /&gt;
+    &lt;attribute name="ig1_pmcost" alias="laborCost" /&gt;
+    &lt;attribute name="ig1_salescost" alias="salesCost" /&gt;
+    &lt;attribute name="ig1_indirectcost" alias="indirectCost" /&gt;
     &lt;filter type="and" &gt;
       &lt;condition attribute="ig1_bidsheetid" operator="eq" value="@bidsheetid" /&gt;
     &lt;/filter&gt;
@@ -287,6 +292,46 @@
         </Field>
         <Field Name="ig1_sellpriceValue">
           <DataField>ig1_sellpriceValue</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="totalCost">
+          <DataField>totalCost</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="totalCostValue">
+          <DataField>totalCostValue</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="designCost">
+          <DataField>designCost</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="designCostValue">
+          <DataField>designCostValue</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="laborCost">
+          <DataField>laborCost</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="laborCostValue">
+          <DataField>laborCostValue</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="salesCost">
+          <DataField>salesCost</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="salesCostValue">
+          <DataField>salesCostValue</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="indirectCost">
+          <DataField>indirectCost</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="indirectCostValue">
+          <DataField>indirectCostValue</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
@@ -420,7 +465,8 @@
                                         <rd:DefaultName>Textbox109</rd:DefaultName>
                                         <Style>
                                           <Border>
-                                            <Style>None</Style>
+                                            <Style>Solid</Style>
+                                            <Width>2pt</Width>
                                           </Border>
                                           <BackgroundColor>Tan</BackgroundColor>
                                           <VerticalAlign>Middle</VerticalAlign>
@@ -463,7 +509,8 @@
                                         <rd:DefaultName>Textbox111</rd:DefaultName>
                                         <Style>
                                           <Border>
-                                            <Style>None</Style>
+                                            <Style>Solid</Style>
+                                            <Width>2pt</Width>
                                           </Border>
                                           <BackgroundColor>Tan</BackgroundColor>
                                           <VerticalAlign>Middle</VerticalAlign>
@@ -514,7 +561,8 @@
                                       <rd:DefaultName>Textbox108</rd:DefaultName>
                                       <Style>
                                         <Border>
-                                          <Style>None</Style>
+                                          <Style>Solid</Style>
+                                          <Width>2pt</Width>
                                         </Border>
                                         <BackgroundColor>Tan</BackgroundColor>
                                         <VerticalAlign>Middle</VerticalAlign>
@@ -555,7 +603,8 @@
                                       <rd:DefaultName>Textbox110</rd:DefaultName>
                                       <Style>
                                         <Border>
-                                          <Style>None</Style>
+                                          <Style>Solid</Style>
+                                          <Width>2pt</Width>
                                         </Border>
                                         <BackgroundColor>Tan</BackgroundColor>
                                         <VerticalAlign>Middle</VerticalAlign>
@@ -2707,7 +2756,10 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>6.80878cm</Width>
+                  <Width>4.30877cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.5cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2748,8 +2800,10 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
@@ -2787,6 +2841,44 @@
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=IIF(isNothing(First(Fields!laborCostValue.Value, "Bidsheet")), 0, First(Fields!laborCostValue.Value, "Bidsheet"))</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Arial</FontFamily>
+                                    <Format>'$'0.00;('$'0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -2832,6 +2924,44 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox3">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=IIF(isNothing(First(Fields!designCostValue.Value, "Bidsheet")), 0, First(Fields!designCostValue.Value, "Bidsheet"))</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Arial</FontFamily>
+                                    <Format>'$'0.00;('$'0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
@@ -2869,6 +2999,44 @@
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=IIF(isNothing(First(Fields!salesCostValue.Value, "Bidsheet")), 0, First(Fields!salesCostValue.Value, "Bidsheet"))</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Arial</FontFamily>
+                                    <Format>'$'0.00;('$'0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -2914,12 +3082,51 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox5">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=IIF(isNothing(First(Fields!indirectCostValue.Value, "Bidsheet")), 0, First(Fields!indirectCostValue.Value, "Bidsheet"))</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Arial</FontFamily>
+                                    <Format>'$'0.00;('$'0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox5</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
@@ -2975,7 +3182,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>PM Labor Hours</Value>
+                                <Value>PM Labor Hours / $</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
@@ -3014,7 +3221,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Design Hours</Value>
+                                <Value>Design Hours / $</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
@@ -3053,7 +3260,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Sales Hours</Value>
+                                <Value>Sales Hours / $</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
@@ -3092,7 +3299,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Total Hours</Value>
+                                <Value>Total Hours / $</Value>
                                 <Style>
                                   <FontStyle>Italic</FontStyle>
                                   <FontFamily>Arial</FontFamily>
@@ -3126,7 +3333,7 @@
             <Top>8.12921cm</Top>
             <Left>16.49204cm</Left>
             <Height>6.23782cm</Height>
-            <Width>13.53818cm</Width>
+            <Width>13.53817cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -3258,6 +3465,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -3288,7 +3496,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>5.89254in</Height>
+        <Height>5.75365in</Height>
         <Style>
           <Border>
             <Style>Solid</Style>
