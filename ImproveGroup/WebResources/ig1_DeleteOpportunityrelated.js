@@ -51,7 +51,7 @@ function DeleteOpportunity(selecteditemreference, formContext) {
                 }
                 else {
 
-                    alert("Record deleted Successfulley.");
+                    alert("Record Deleted successfully.");
                       Xrm.Utility.closeProgressIndicator();
                 }
 

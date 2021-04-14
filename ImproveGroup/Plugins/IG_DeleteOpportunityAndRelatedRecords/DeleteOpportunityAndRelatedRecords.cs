@@ -700,7 +700,7 @@ namespace IG_DeleteOpportunityAndRelatedRecords
                     {
 
                         int status = entity.GetAttributeValue<OptionSetValue>("statecode").Value;
-                        if (status == 2 || status == 1)
+                        if (status == 2)
                         {
                             outparameterflag = true;
                             entityname = "Cannot Delete Opportunity due to the Associated Quote being in a Won Status.";
@@ -804,7 +804,7 @@ namespace IG_DeleteOpportunityAndRelatedRecords
                         {
                             outparameterflag = true;
                             context.OutputParameters["Checkstatus"] = outparameterflag;
-                            entityname = "Purchase Order Cannot be Deleted when an Associated Purchase Order Bill Exists.";
+                            entityname = "Opportunity cannot be deleted When an Associated Purchase Order Bill Exists.";
                             context.OutputParameters["EntityName"] = entityname;
                             return true;
                         }
@@ -865,18 +865,14 @@ namespace IG_DeleteOpportunityAndRelatedRecords
                 {
                     if (entity.Attributes.Contains("statecode") && entity.Attributes["statecode"] != null)
                     {
-                        int pobillstatus = entity.GetAttributeValue<OptionSetValue>("statecode").Value;
-
-                        if (pobillstatus == 0)
-                        {
+                        int pobillstatus = entity.GetAttributeValue<OptionSetValue>("statecode").Value;                      
+                        
                             outparameterflag = true;
                             context.OutputParameters["Checkstatus"] = outparameterflag;
                             entityname = "Cannot Delete Opportunity due to the Associated Purchase Order Bill(s) Being in an Active Status.";
                             context.OutputParameters["EntityName"] = entityname;
                             return true;
-                        }
-
-
+                        
 
                     }
                 }
