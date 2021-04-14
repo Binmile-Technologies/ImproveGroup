@@ -1037,3 +1037,41 @@ function setDefaultCommission(roleCommissionPercent, fieldName, executionContext
         alert(err.message);
     }
 }
+
+function calculatetotals(formContext) {
+    try {
+        Xrm.Utility.showProgressIndicator("Calculating...");
+        debugger;
+        var projectid = formContext.data.entity.getId().replace("{", "").replace("}", "");
+        if (projectid == undefined || projectid == null || projectid == "") {
+            return;
+        }
+        var parameters = {};
+        parameters.projectid = projectid;
+
+        var req = new XMLHttpRequest();
+        req.open("POST", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/ig1_calculateProjectTotals", false);
+        req.setRequestHeader("OData-MaxVersion", "4.0");
+        req.setRequestHeader("OData-Version", "4.0");
+        req.setRequestHeader("Accept", "application/json");
+        req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        req.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                req.onreadystatechange = null;
+                if (this.status === 204) {
+                    //Success - No Return Data - Do Something
+                    formContext.data.refresh();
+                    setTimeout(function () { Xrm.Utility.closeProgressIndicator();}, 2000);
+                } else {
+                    alert(this.statusText);
+                    setTimeout(function () { Xrm.Utility.closeProgressIndicator(); }, 2000);
+                }
+            }
+        };
+        req.send(JSON.stringify(parameters));
+    }
+    catch (err) {
+        alert(err.message);
+        setTimeout(function () { Xrm.Utility.closeProgressIndicator(); }, 2000);
+    }
+}
