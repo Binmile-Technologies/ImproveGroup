@@ -19,6 +19,7 @@ D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndG
 D:\Github\ImproveGroup\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.pdb
 D:\Github\ImproveGroup\Plugins\IG_UpdateFreightAndGPToOpp\bin\Debug\IG_UpdateFreightAndGPToOpp.dll
 D:\Github\ImproveGroup\Plugins\IG_UpdateFreightAndGPToOpp\bin\Debug\IG_UpdateFreightAndGPToOpp.pdb
-D:\Github\ImproveGroup\Plugins\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.csproj.CopyComplete
 D:\Github\ImproveGroup\Plugins\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.dll
 D:\Github\ImproveGroup\Plugins\IG_UpdateFreightAndGPToOpp\obj\Debug\IG_UpdateFreightAndGPToOpp.pdb

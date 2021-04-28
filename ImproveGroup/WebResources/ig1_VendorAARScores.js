@@ -1,12 +1,16 @@
-function setProjectNumber(executionContext) {
-	try {
+function setProjectNumber(executionContext)
+{
+	try
+	{
 		debugger;
 		var formContext = executionContext.getFormContext();
-		var projectNumber = "";
+		var projectNumber = null;
 		var projectRecord = formContext.getAttribute("ig1_projectrecord").getValue();
-		if (projectRecord != undefined && projectRecord != null && projectRecord != "") {
+		if (projectRecord != undefined && projectRecord != null && projectRecord != "")
+		{
 			var projectid = projectRecord[0].id.replace("{", "").replace("}", "");
-			if (projectid != undefined && projectid != null && projectid != "") {
+			if (projectid != undefined && projectid != null && projectid != "")
+			{
 				projectNumber = getProjectNumber(projectid, formContext);
 			}
 		}
@@ -47,26 +51,20 @@ function getProjectNumber(projectid, formContext) {
 	}
 }
 
-function setGridColumnReadOnly(executionContext)
-{
-	try
-	{
+function setGridColumnReadOnly(executionContext) {
+	try {
 		debugger;
 		var formContext = executionContext.getFormContext();
-		var attributes = formContext.getData().getEntity().attributes;
-		attributes.forEach(function (attr)
-		{
-			if (attr.getName() === "ig1_name" || attr.getName() == "ig1_projectrecord")
-			{
-				attr.controls.forEach(function (control)
-				{
+		var attributes = formContext.data.entity.attributes;
+		attributes.forEach(function (attr) {
+			if (attr.getName() === "ig1_name" || attr.getName() === "ig1_projectrecord" || attr.getName() === "ig1_vendorname") {
+				attr.controls.forEach(function (control) {
 					control.setDisabled(true);
 				})
 			}
 		});
 	}
-	catch (err)
-	{
+	catch (err) {
 		alert(err.message);
 	}
 }

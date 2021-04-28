@@ -18,6 +18,8 @@ D:\Github\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculatePro
 D:\Github\ImproveGroup\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.pdb
 D:\Github\ImproveGroup\Plugins\IG_CalculateProjectRecordTotals\bin\Debug\IG_CalculateProjectRecordTotals.dll
 D:\Github\ImproveGroup\Plugins\IG_CalculateProjectRecordTotals\bin\Debug\IG_CalculateProjectRecordTotals.pdb
-D:\Github\ImproveGroup\Plugins\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.csprojResolveAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.csprojAssemblyReference.cache
+D:\Github\ImproveGroup\Plugins\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.csproj.CoreCompileInputs.cache
+D:\Github\ImproveGroup\Plugins\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.csproj.CopyComplete
 D:\Github\ImproveGroup\Plugins\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.dll
 D:\Github\ImproveGroup\Plugins\IG_CalculateProjectRecordTotals\obj\Debug\IG_CalculateProjectRecordTotals.pdb

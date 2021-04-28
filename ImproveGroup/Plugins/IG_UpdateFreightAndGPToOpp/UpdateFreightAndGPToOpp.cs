@@ -16,7 +16,7 @@ namespace IG_UpdateFreightAndGPToOpp
                 context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 service = serviceFactory.CreateOrganizationService(context.UserId);
-                if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+                if (context.MessageName == "Update" && context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
                     Entity entity = (Entity)context.InputParameters["Target"];
                     if (entity.LogicalName != "ig1_bidsheet")
@@ -29,62 +29,63 @@ namespace IG_UpdateFreightAndGPToOpp
                         EntityReference oppRef = (EntityReference)bs.Attributes["ig1_opportunitytitle"];
                         if (oppRef.Id != Guid.Empty)
                         {
-                            Entity opportunity = service.Retrieve(oppRef.LogicalName, oppRef.Id, new ColumnSet("ig1_totalgrossprofit"));
-                            FreightTotal(entity.Id, opportunity);
-                            TotalGP(opportunity);
-                            BidSheetTotal(opportunity);
+                            UpdateBidSheetDetailsToOpportunity(entity, oppRef);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                var trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-                trace.Trace("UpdateFreightAndGPToOpp lugin Exception");
                 throw new InvalidPluginExecutionException("Error " + ex);
             }
         }
-        protected void TotalGP(Entity opportunity)
+
+        protected void UpdateBidSheetDetailsToOpportunity(Entity bidsheet, EntityReference oppRef)
         {
+            decimal freightTotal = FreightTotal(bidsheet.Id);
+            decimal totalGP = Convert.ToDecimal(0);
+            decimal bidsheetTotal = Convert.ToDecimal(0);
+
             var fetchData = new
             {
-                ig1_opportunitytitle = opportunity.Id,
+                ig1_opportunitytitle = oppRef.Id,
                 ig1_associated = "1"
             };
             var fetchXml = $@"
                             <fetch>
                               <entity name='ig1_bidsheet'>
                                 <attribute name='ig1_anticipatedgp' />
+                                <attribute name='ig1_sellprice' />
                                 <filter type='and'>
-                                  <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*76e041d1-fad2-e911-a967-000d3a1d57cf*/}'/>
-                                  <condition attribute='ig1_associated' operator='eq' value='{fetchData.ig1_associated/*1*/}'/>
+                                  <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle}'/>
+                                  <condition attribute='ig1_associated' operator='eq' value='{fetchData.ig1_associated}'/>
                                 </filter>
                               </entity>
                             </fetch>";
             EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (entityCollection.Entities.Count > 0)
             {
-                decimal totalGP = Convert.ToDecimal(0);
-                foreach (var entity in entityCollection.Entities)
+                foreach (Entity entity in entityCollection.Entities)
                 {
-                    var result = entity.Attributes;
-                    if (result.Contains("ig1_anticipatedgp") && result["ig1_anticipatedgp"] != null)
+                    if (entity.Attributes.Contains("ig1_anticipatedgp") && entity.Attributes["ig1_anticipatedgp"] != null)
                     {
-                        Money gp = (Money)result["ig1_anticipatedgp"];
-                        totalGP += Convert.ToDecimal(gp.Value);
+                        totalGP += Convert.ToDecimal(entity.GetAttributeValue<Money>("ig1_anticipatedgp").Value);
+                    }
+                    if (entity.Attributes.Contains("ig1_sellprice") && entity.Attributes["ig1_sellprice"] != null)
+                    {
+                        bidsheetTotal += Convert.ToDecimal(entity.GetAttributeValue<Money>("ig1_sellprice").Value);
                     }
                 }
-                opportunity.Attributes["ig1_totalgrossprofit"] = new Money(totalGP);
-                service.Update(opportunity);
             }
-            else
-            {
-                opportunity.Attributes["ig1_totalgrossprofit"] = new Money(0);
-                service.Update(opportunity);
-            }
+            Entity opportunity = new Entity(oppRef.LogicalName, oppRef.Id);
+            opportunity.Attributes["freightamount"] = new Money(freightTotal);
+            opportunity.Attributes["ig1_totalgrossprofit"] = new Money(totalGP);
+            opportunity.Attributes["ig1_totalsellprice"] = new Money(bidsheetTotal);
+            service.Update(opportunity);
         }
-        protected void FreightTotal(Guid bidSheetId, Entity opportunity)
+        protected decimal FreightTotal(Guid bidSheetId)
         {
+            decimal freightTotal = Convert.ToDecimal(0);
             var fetchData = new
             {
                 ig1_categoryname = "Labor",
@@ -112,7 +113,6 @@ namespace IG_UpdateFreightAndGPToOpp
             EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (entityCollection.Entities.Count > 0)
             {
-                decimal freightTotal = Convert.ToDecimal(0);
                 foreach (var entity in entityCollection.Entities)
                 {
                     var result = entity.Attributes;
@@ -122,49 +122,8 @@ namespace IG_UpdateFreightAndGPToOpp
                         freightTotal += Convert.ToDecimal(money.Value);
                     }
                 }
-                opportunity.Attributes["freightamount"] = new Money(freightTotal);
-                service.Update(opportunity);
             }
-        }
-        protected void BidSheetTotal(Entity opportunity)
-        {
-            var fetchData = new
-            {
-                ig1_opportunitytitle = opportunity.Id,
-                ig1_associated = "1"
-            };
-            var fetchXml = $@"
-                            <fetch>
-                              <entity name='ig1_bidsheet'>
-                                <attribute name='ig1_sellprice' />
-                                <attribute name='ig1_associated' />
-                                <filter type='and'>
-                                  <condition attribute='ig1_opportunitytitle' operator='eq' value='{fetchData.ig1_opportunitytitle/*a50869b6-e606-ea11-a811-000d3a55d2c3*/}'/>
-                                  <condition attribute='ig1_associated' operator='eq' value='{fetchData.ig1_associated/*1*/}'/>
-                                </filter>
-                              </entity>
-                            </fetch>";
-            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
-            if (entityCollection.Entities.Count > 0)
-            {
-                decimal bidsheetTotal = Convert.ToDecimal(0);
-                foreach (var entity in entityCollection.Entities)
-                {
-                    var result = entity.Attributes;
-                    if (result.Contains("ig1_sellprice") && result["ig1_sellprice"] != null)
-                    {
-                        Money money = (Money)result["ig1_sellprice"];
-                        bidsheetTotal += Convert.ToDecimal(money.Value);
-                    }
-                }
-                opportunity.Attributes["ig1_bidsheettotal"] = bidsheetTotal;
-                service.Update(opportunity);
-            }
-            else
-            {
-                opportunity.Attributes["ig1_bidsheettotal"] = Convert.ToDecimal(0);
-                service.Update(opportunity);
-            }
+            return freightTotal;
         }
     }
 }

@@ -74,7 +74,7 @@ namespace IG_CalculateProjectRecordTotals
                         Entity opportunity = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_projectrecord", "ig1_bidsheettotal"));
                         if (opportunity.Attributes.Contains("ig1_projectrecord") && opportunity.Attributes["ig1_projectrecord"] != null)
                         {
-                           projectRecord  = (EntityReference)opportunity.Attributes["ig1_projectrecord"];
+                            projectRecord = (EntityReference)opportunity.Attributes["ig1_projectrecord"];
                         }
                         if (opportunity.Attributes.Contains("ig1_bidsheettotal") && opportunity.Attributes["ig1_bidsheettotal"] != null)
                         {
@@ -84,20 +84,10 @@ namespace IG_CalculateProjectRecordTotals
                     if (entity.LogicalName == "ig1_projectrecordcost")
                     {
                         Entity actualCost = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_projectrecord", "ig1_name"));
-                        if (actualCost.Attributes.Contains("ig1_projectrecord") && actualCost.Attributes["ig1_projectrecord"] !=null)
+                        if (actualCost.Attributes.Contains("ig1_projectrecord") && actualCost.Attributes["ig1_projectrecord"] != null)
                         {
                             EntityReference projectRecord = (EntityReference)actualCost.Attributes["ig1_projectrecord"];
                             QuickBooksTotals(projectRecord);
-                            //TimeTraxCostsTotals(projectRecord);
-                        } 
-                    }
-                    if (entity.LogicalName== "ig1_projectrecordhours")
-                    {
-                        Entity actulaHours = service.Retrieve(entity.LogicalName, entity.Id, new ColumnSet("ig1_projectrecord"));
-                        if (actulaHours.Attributes.Contains("ig1_projectrecord") && actulaHours.Attributes["ig1_projectrecord"] != null)
-                        {
-                            EntityReference projectRecord = (EntityReference)actulaHours.Attributes["ig1_projectrecord"];
-                            //TimeTraxHoursTotls(projectRecord);
                         }
                     }
                 }
@@ -145,6 +135,17 @@ namespace IG_CalculateProjectRecordTotals
                             CalculateBidsheetTotals(projectRecord);
                         }
                     }
+                }
+                else if (context.MessageName == "ig1_calculateProjectTotals" && context.InputParameters.Contains("projectid") && !string.IsNullOrEmpty(context.InputParameters.Contains("projectid").ToString()))
+                {
+                    Guid projectid = new Guid(context.InputParameters["projectid"].ToString());
+                    EntityReference projectRecord = new EntityReference("ig1_projectrecord", projectid);
+                    CalculatePOTotals(projectRecord);
+                    CalculateInvoiceTotals(projectRecord);
+                    CalculateQuotesTotals(projectRecord);
+                    CalculateOrderTotals(projectRecord);
+                    CalculateBidsheetTotals(projectRecord);
+                    QuickBooksTotals(projectRecord);
                 }
             }
             catch (Exception ex)
@@ -194,7 +195,7 @@ namespace IG_CalculateProjectRecordTotals
                     }
                 }
             }
-            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            Entity entity = new Entity(project.LogicalName, project.Id);
             entity.Attributes["ig1_totalnumberofpos"] = Convert.ToInt32(count);
             entity.Attributes["ig1_totalamountofpos"] = new Money(total);
             entity.Attributes["ig1_totalamountbilled"] = new Money(billedTotal);
@@ -232,7 +233,7 @@ namespace IG_CalculateProjectRecordTotals
                     }
                 }
             }
-            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            Entity entity = new Entity(project.LogicalName, project.Id);
             entity.Attributes["ig1_totalnumberofinvoices"] = count;
             entity.Attributes["ig1_totalamountofinvoices"] = new Money(totalAmount);
             service.Update(entity);
@@ -269,7 +270,7 @@ namespace IG_CalculateProjectRecordTotals
                     }
                 }
             }
-            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            Entity entity = new Entity(project.LogicalName, project.Id);
             entity.Attributes["ig1_totalnumberofwonquotes"] = count;
             entity.Attributes["ig1_totalamountofwonquotes"] = new Money(totalAmount);
             service.Update(entity);
@@ -306,7 +307,7 @@ namespace IG_CalculateProjectRecordTotals
                     }
                 }
             }
-            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            Entity entity = new Entity(project.LogicalName, project.Id);
             entity.Attributes["ig1_totalnumberoforders"] = count;
             entity.Attributes["ig1_totalamountoforders"] = new Money(totalAmount);
             service.Update(entity);
@@ -346,7 +347,7 @@ namespace IG_CalculateProjectRecordTotals
                     }
                 }
             }
-            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            Entity entity = new Entity(project.LogicalName, project.Id);
             entity.Attributes["ig1_totalnumberofassociatedbidsheets"] = count;
             entity.Attributes["ig1_totalamountofassociatedbidsheets"] = new Money(totalAmount);
             entity.Attributes["ig1_bestsalesestimate"] = new Money(totalAmount);
@@ -408,7 +409,7 @@ namespace IG_CalculateProjectRecordTotals
                     }
                 }
             }
-            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            Entity entity = new Entity(project.LogicalName, project.Id);
             entity.Attributes["ig1_pobills"] = new Money(PO_Bills);
             entity.Attributes["ig1_iginstallpobill"] = new Money(IG_Install_Po_Bills);
             entity.Attributes["ig1_travel"] = new Money(Travel);
@@ -471,7 +472,7 @@ namespace IG_CalculateProjectRecordTotals
                     }
                 }
             }
-            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            Entity entity = new Entity(project.LogicalName, project.Id);
             entity.Attributes["ig1_actualsalescost"] = new Money(salesCost);
             entity.Attributes["ig1_actualdesigncost"] = new Money(designCost);
             entity.Attributes["ig1_actualpmcost"] = new Money(pmCost);
@@ -534,7 +535,7 @@ namespace IG_CalculateProjectRecordTotals
                     }
                 }
             }
-            Entity entity = service.Retrieve(project.LogicalName, project.Id, new ColumnSet("ig1_projectrecordid"));
+            Entity entity = new Entity(project.LogicalName, project.Id);
             entity.Attributes["ig1_saleshours"] = salesHours;
             entity.Attributes["ig1_actualdesignhours"] = designHours;
             entity.Attributes["ig1_actualpmhours"] = pmHours;
