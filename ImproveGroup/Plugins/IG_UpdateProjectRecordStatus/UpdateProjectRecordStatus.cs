@@ -60,76 +60,88 @@ namespace IG_UpdateProjectRecordStatus
                 }
                 if (opportunityid != Guid.Empty)
                 {
-                    string woStatus = GetWOStatus(opportunityid);
-                    string opportunityStatus = GetOpportunityStatus(opportunityid);
-                    if (woStatus == "Installing" && opportunityStatus!="Lost")
+                    bool Daterfqprompurchasing = GetDateRfqfromopportunity(opportunityid);
+                    string woStatus1 = GetWOStatus(opportunityid);
+                    if (Daterfqprompurchasing== true && String.IsNullOrEmpty(woStatus1))
                     {
-                        UpdateProjectRecord(opportunityid, 286150002, woStatus);
+                        UpdateProjectRecord(opportunityid, 286150011, woStatus1);
                     }
-                    else if (woStatus == "Completed" && opportunityStatus != "Lost")
-                    {
-                        UpdateProjectRecord(opportunityid, 286150003, woStatus);
-                    }
+
                     else
                     {
-                        if (opportunityStatus == "Lost")
+                        string woStatus = GetWOStatus(opportunityid);
+                        string opportunityStatus = GetOpportunityStatus(opportunityid);
+                        if (woStatus == "Installing" && opportunityStatus != "Lost")
                         {
-                            UpdateProjectRecord(opportunityid, 286150006, woStatus);
+                            UpdateProjectRecord(opportunityid, 286150002, woStatus);
                         }
-                        else if (opportunityStatus == "Won")
+                        else if (woStatus == "Completed" && opportunityStatus != "Lost")
                         {
-                            UpdateProjectRecord(opportunityid, 286150001, woStatus);
+                            UpdateProjectRecord(opportunityid, 286150003, woStatus);
                         }
-                        else if (opportunityStatus == "Open")
-                        {
-                            string bidsheetStatus = GetBidSheetStatus(opportunityid);
-                            if (bidsheetStatus == "Priced")
-                            {
-                                UpdateProjectRecord(opportunityid, 286150005, woStatus);
-                            }
-                            else if (bidsheetStatus == "Designing")
-                            {
-                                UpdateProjectRecord(opportunityid, 286150010, woStatus);
 
-                                if (opportunityid != Guid.Empty)
+
+                        else
+                        {
+                            if (opportunityStatus == "Lost")
+                            {
+                                UpdateProjectRecord(opportunityid, 286150006, woStatus);
+                            }
+                            else if (opportunityStatus == "Won")
+                            {
+                                UpdateProjectRecord(opportunityid, 286150001, woStatus);
+                            }
+                            else if (opportunityStatus == "Open")
+                            {
+                                string bidsheetStatus = GetBidSheetStatus(opportunityid);
+                                if (bidsheetStatus == "Priced")
                                 {
-                                    Entity opportunity = new Entity("opportunity", opportunityid);
-                                    opportunity.Attributes["ig1_bidsheetcreated"] = true;
-                                    service.Update(opportunity);
+                                    UpdateProjectRecord(opportunityid, 286150005, woStatus);
                                 }
-                                
+                                else if (bidsheetStatus == "Designing")
+                                {
+                                    UpdateProjectRecord(opportunityid, 286150010, woStatus);
+
+                                    if (opportunityid != Guid.Empty)
+                                    {
+                                        Entity opportunity = new Entity("opportunity", opportunityid);
+                                        opportunity.Attributes["ig1_bidsheetcreated"] = true;
+                                        service.Update(opportunity);
+                                    }
+
+                                }
+                                else
+                                {
+                                    UpdateProjectRecord(opportunityid, 286150000, woStatus);
+
+                                    if (opportunityid != Guid.Empty)
+                                    {
+                                        Entity opportunity = new Entity("opportunity", opportunityid);
+                                        opportunity.Attributes["ig1_bidsheetcreated"] = false;
+                                        service.Update(opportunity);
+                                    }
+                                }
+                            }
+                        }
+                        if (opportunityid != Guid.Empty && entityName == "ig1_bidsheet")
+                        {
+                            QueryExpression queryExpression = new QueryExpression();
+                            queryExpression.EntityName = "ig1_bidsheet";
+                            queryExpression.ColumnSet.AddColumn("ig1_projectnumber");
+                            queryExpression.Criteria.AddCondition("ig1_opportunitytitle", ConditionOperator.Equal, opportunityid);
+                            EntityCollection entityCollection = service.RetrieveMultiple(queryExpression);
+
+                            Entity opportunity = new Entity("opportunity", opportunityid);
+                            if (entityCollection.Entities.Count > 0)
+                            {
+                                opportunity.Attributes["ig1_bidsheetcreated"] = true;
+                                service.Update(opportunity);
                             }
                             else
                             {
-                                UpdateProjectRecord(opportunityid, 286150000, woStatus);
-
-                                if (opportunityid != Guid.Empty)
-                                {
-                                    Entity opportunity = new Entity("opportunity", opportunityid);
-                                    opportunity.Attributes["ig1_bidsheetcreated"] = false;
-                                    service.Update(opportunity);
-                                }
+                                opportunity.Attributes["ig1_bidsheetcreated"] = false;
+                                service.Update(opportunity);
                             }
-                        }
-                    }
-                    if (opportunityid != Guid.Empty && entityName == "ig1_bidsheet")
-                    {
-                        QueryExpression queryExpression = new QueryExpression();
-                        queryExpression.EntityName = "ig1_bidsheet";
-                        queryExpression.ColumnSet.AddColumn("ig1_projectnumber");
-                        queryExpression.Criteria.AddCondition("ig1_opportunitytitle", ConditionOperator.Equal, opportunityid);
-                        EntityCollection entityCollection = service.RetrieveMultiple(queryExpression);
-
-                        Entity opportunity = new Entity("opportunity", opportunityid);
-                        if (entityCollection.Entities.Count > 0)
-                        {
-                            opportunity.Attributes["ig1_bidsheetcreated"] = true;
-                            service.Update(opportunity);
-                        }
-                        else
-                        {
-                            opportunity.Attributes["ig1_bidsheetcreated"] = false;
-                            service.Update(opportunity);
                         }
                     }
                 }
@@ -255,8 +267,42 @@ namespace IG_UpdateProjectRecordStatus
             }
             return status;
         }
+        protected bool GetDateRfqfromopportunity(Guid opportunityid)
+        {
+            string oppstate = GetOpportunityStatus(opportunityid);
+            var fetchData = new
+            {
+                opportunityid = opportunityid
+            };
+            var fetchXml = $@"
+                        <fetch>
+                          <entity name='opportunity'>
+                            <attribute name='ig1_daterfqfrompurchasing' />
+                            <filter>
+                              <condition attribute='opportunityid' operator='eq' value='{fetchData.opportunityid/*9e7ba460-da55-4a01-a94d-a05d74d0d6c7*/}'/>
+                            </filter>
+                          </entity>
+                        </fetch>";
+            EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
+            if (entityCollection.Entities.Count > 0)
+            {
+                foreach (Entity entity in entityCollection.Entities)
+                {
+                    if (entity.Attributes.Contains("ig1_daterfqfrompurchasing") && entity.Attributes["ig1_daterfqfrompurchasing"] != null && oppstate== "Open")
+                    {                                                                     
+                            return true;
+                                                
+                    }
+                    return false;
+                }
+
+
+            }
+            return false;
+        }
         protected void UpdateProjectRecord(Guid opportunityid, int status, string woStatus)
         {
+            string oppst = GetOpportunityStatus(opportunityid);
             var fetchData = new
             {
                 ig1_opportunity = opportunityid,
@@ -265,7 +311,7 @@ namespace IG_UpdateProjectRecordStatus
             var fetchXml = $@"
                             <fetch>
                               <entity name='ig1_projectrecord'>
-                                <attribute name='ig1_projectnumber' />
+                               <attribute name='ig1_holdpreviousstatus1' />
                                 <attribute name='ig1_projectstatus' />
                                 <filter type='and'>
                                   <condition attribute='ig1_opportunity' operator='eq' value='{fetchData.ig1_opportunity/*00000000-0000-0000-0000-000000000000*/}'/>
@@ -275,15 +321,31 @@ namespace IG_UpdateProjectRecordStatus
                             </fetch>";
             EntityCollection entityCollection = service.RetrieveMultiple(new FetchExpression(fetchXml));
             if (entityCollection.Entities.Count > 0)
-            {
+            { 
                 Entity entity = entityCollection.Entities[0];
+                int preprojectStatus=0;
+               
+                if(entity.Attributes.Contains("ig1_holdpreviousstatus1") && entity.Attributes["ig1_holdpreviousstatus1"] != null)
+                {
+                     preprojectStatus = entity.GetAttributeValue<OptionSetValue>("ig1_holdpreviousstatus1").Value;
+                }
+               
                 if (entity.Attributes.Contains("ig1_projectstatus") && entity.Attributes["ig1_projectstatus"] != null)
                 {
                     int projectStatus = entity.GetAttributeValue<OptionSetValue>("ig1_projectstatus").Value;
-                    if ((projectStatus == 286150007 || projectStatus == 286150008 || projectStatus == 286150009) && woStatus == "Completed")
+                    
+                    if (oppst != "Lost")
                     {
-                        return;
-                    }
+                        if ((preprojectStatus == 286150007 || preprojectStatus == 286150008 || preprojectStatus == 286150009) && woStatus == "Completed")
+                        {
+                            status = preprojectStatus;
+                        }
+
+                       else if ((projectStatus == 286150007 || projectStatus == 286150008 || projectStatus == 286150009) && woStatus == "Completed")
+                        {
+                            return;
+                        }
+                    }                 
                 }
                 Entity projectRecord = new Entity(entity.LogicalName, entity.Id);
                 projectRecord.Attributes["ig1_projectstatus"] = new OptionSetValue(status);
