@@ -76,16 +76,16 @@ function Isbidsheetexist(id) {
         ig1_opportunitytitle: id
     };
     var fetchXml = [
-              "<fetch>",
-              "  <entity name='ig1_bidsheet'>",
-              "    <attribute name='ig1_bidsheetid' />",
-              "    <attribute name='ig1_name' />",
-              "    <attribute name='ig1_status' />",
-              "    <filter type='and'>",
-              "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle/*809dda40-911b-457c-9068-975c3607c3f4*/, "'/>",
-              "    </filter>",
-               "  </entity>",
-              "</fetch>",
+        "<fetch>",
+        "  <entity name='ig1_bidsheet'>",
+        "    <attribute name='ig1_bidsheetid' />",
+        "    <attribute name='ig1_name' />",
+        "    <attribute name='ig1_status' />",
+        "    <filter type='and'>",
+        "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle/*809dda40-911b-457c-9068-975c3607c3f4*/, "'/>",
+        "    </filter>",
+        "  </entity>",
+        "</fetch>",
     ].join("");
 
     var bidsheetstatus = XrmServiceToolkit.Soap.Fetch(fetchXml);
@@ -108,14 +108,14 @@ function UpperVersion(id) {
         ig1_opportunitytitle: id
     };
     var fetchXml = [
-"<fetch>",
-"  <entity name='ig1_bidsheet'>",
-"    <attribute name='ig1_version' />",
-"    <filter>",
-"      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle/*5c25fccc-1c31-4c8a-a999-a0dfe5433efb*/, "'/>",
-"    </filter>",
-"  </entity>",
-"</fetch>",
+        "<fetch>",
+        "  <entity name='ig1_bidsheet'>",
+        "    <attribute name='ig1_version' />",
+        "    <filter>",
+        "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle/*5c25fccc-1c31-4c8a-a999-a0dfe5433efb*/, "'/>",
+        "    </filter>",
+        "  </entity>",
+        "</fetch>",
     ].join("");
 
     var version = XrmServiceToolkit.Soap.Fetch(fetchXml);
@@ -162,15 +162,15 @@ function isOpportunityOpenforrevision(id) {
             opportunityid: id
         };
         var fetchXml = [
-                        "<fetch mapping='logical' version='1.0'>",
-                        "  <entity name='opportunity'>",
-                        "    <attribute name='name' />",
-                        "    <filter type='and'>",
-                        "      <condition attribute='statecode' operator='eq' value='", fetchData.statecode/*0*/, "'/>",
-                        "      <condition attribute='opportunityid' operator='eq' value='", fetchData.opportunityid/*b5af3c1f-4b43-ea11-a812-000d3a55d933*/, "'/>",
-                        "    </filter>",
-                        "  </entity>",
-                        "</fetch>",
+            "<fetch mapping='logical' version='1.0'>",
+            "  <entity name='opportunity'>",
+            "    <attribute name='name' />",
+            "    <filter type='and'>",
+            "      <condition attribute='statecode' operator='eq' value='", fetchData.statecode/*0*/, "'/>",
+            "      <condition attribute='opportunityid' operator='eq' value='", fetchData.opportunityid/*b5af3c1f-4b43-ea11-a812-000d3a55d933*/, "'/>",
+            "    </filter>",
+            "  </entity>",
+            "</fetch>",
         ].join("");
 
         var oppStatusData = XrmServiceToolkit.Soap.Fetch(fetchXml);
@@ -192,14 +192,14 @@ function HideNewButton() {
         ig1_opportunitytitle: opprtunityId
     };
     var fetchXml = [
-                    "<fetch>",
-                    "  <entity name='ig1_bidsheet'>",
-                    "    <attribute name='ig1_name' />",
-                    "    <filter type='and'>",
-                    "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle, "'/>",
-                    "    </filter>",
-                    "  </entity>",
-                    "</fetch>",
+        "<fetch>",
+        "  <entity name='ig1_bidsheet'>",
+        "    <attribute name='ig1_name' />",
+        "    <filter type='and'>",
+        "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle, "'/>",
+        "    </filter>",
+        "  </entity>",
+        "</fetch>",
     ].join("");
     var fetchData = XrmServiceToolkit.Soap.Fetch(fetchXml);
     var IsActiveBSExist = IsAnyActivatedBSExists(opprtunityId);
@@ -228,20 +228,20 @@ function permanentHideSubGridRibbon() {
 function IsAnyActivatedBSExists(opprtunityId) {
     var Flag = false;
     var fetchData =
-		{
-		    ig1_opportunitytitle: opprtunityId,
-		    ig1_status: '286150000'
-		};
+    {
+        ig1_opportunitytitle: opprtunityId,
+        ig1_status: '286150000'
+    };
     var fetchXml = [
-                    "<fetch>",
-                    "  <entity name='ig1_bidsheet'>",
-                    "    <attribute name='ig1_name' />",
-                    "    <filter type='and'>",
-                    "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle, "'/>",
-                    "      <condition attribute='ig1_status' operator='eq' value='", fetchData.ig1_status/*286150000*/, "'/>",
-                    "    </filter>",
-                    "  </entity>",
-                    "</fetch>",
+        "<fetch>",
+        "  <entity name='ig1_bidsheet'>",
+        "    <attribute name='ig1_name' />",
+        "    <filter type='and'>",
+        "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle, "'/>",
+        "      <condition attribute='ig1_status' operator='eq' value='", fetchData.ig1_status/*286150000*/, "'/>",
+        "    </filter>",
+        "  </entity>",
+        "</fetch>",
     ].join("");
     var fetchData = XrmServiceToolkit.Soap.Fetch(fetchXml);
     if (fetchData != "" && fetchData != null && fetchData != undefined && fetchData.length > 0) {
@@ -253,20 +253,20 @@ function IsAnyActivatedBSExists(opprtunityId) {
 function IsAnyDraftBSExists(opprtunityId) {
     var Flag = false;
     var fetchData =
-		{
-		    ig1_opportunitytitle: opprtunityId,
-		    ig1_status: '286150001'
-		};
+    {
+        ig1_opportunitytitle: opprtunityId,
+        ig1_status: '286150001'
+    };
     var fetchXml = [
-                    "<fetch>",
-                    "  <entity name='ig1_bidsheet'>",
-                    "    <attribute name='ig1_name' />",
-                    "    <filter type='and'>",
-                    "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle, "'/>",
-                    "      <condition attribute='ig1_status' operator='eq' value='", fetchData.ig1_status/*286150001*/, "'/>",
-                    "    </filter>",
-                    "  </entity>",
-                    "</fetch>",
+        "<fetch>",
+        "  <entity name='ig1_bidsheet'>",
+        "    <attribute name='ig1_name' />",
+        "    <filter type='and'>",
+        "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle, "'/>",
+        "      <condition attribute='ig1_status' operator='eq' value='", fetchData.ig1_status/*286150001*/, "'/>",
+        "    </filter>",
+        "  </entity>",
+        "</fetch>",
     ].join("");
     var fetchData = XrmServiceToolkit.Soap.Fetch(fetchXml);
     if (fetchData != "" && fetchData != null && fetchData != undefined && fetchData.length > 0) {
@@ -282,15 +282,15 @@ function OppStatus(opprtunityId) {
         opportunityid: opprtunityId
     };
     var fetchXml = [
-		"<fetch>",
-		"  <entity name='opportunity'>",
-		"    <attribute name='name' />",
-		"    <filter type='and'>",
-		"      <condition attribute='statuscode' operator='eq' value='", fetchData.statuscode/*1*/, "'/>",
-		"      <condition attribute='opportunityid' operator='eq' value='", fetchData.opportunityid/*827bdfbc-84f6-495d-bb28-82c88606b6f7*/, "'/>",
-		"    </filter>",
-		"  </entity>",
-		"</fetch>",
+        "<fetch>",
+        "  <entity name='opportunity'>",
+        "    <attribute name='name' />",
+        "    <filter type='and'>",
+        "      <condition attribute='statuscode' operator='eq' value='", fetchData.statuscode/*1*/, "'/>",
+        "      <condition attribute='opportunityid' operator='eq' value='", fetchData.opportunityid/*827bdfbc-84f6-495d-bb28-82c88606b6f7*/, "'/>",
+        "    </filter>",
+        "  </entity>",
+        "</fetch>",
     ].join("");
     var fetchData = XrmServiceToolkit.Soap.Fetch(fetchXml);
     if (fetchData != "" && fetchData != null && fetchData != undefined && fetchData.length > 0) {
@@ -311,15 +311,15 @@ function disableProjectedGP(executionContext) {
         ig1_status: "286150000"
     };
     var fetchXml = [
-					"<fetch>",
-					"  <entity name='ig1_bidsheet'>",
-					"    <filter type='and'>",
-					"      <condition attribute='statecode' operator='eq' value='", fetchData.statecode/*0*/, "'/>",
-					"      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle/*opportunity*/, "'/>",
-					"      <condition attribute='ig1_status' operator='eq' value='", fetchData.ig1_status/*286150000*/, "'/>",
-					"    </filter>",
-					"  </entity>",
-					"</fetch>",
+        "<fetch>",
+        "  <entity name='ig1_bidsheet'>",
+        "    <filter type='and'>",
+        "      <condition attribute='statecode' operator='eq' value='", fetchData.statecode/*0*/, "'/>",
+        "      <condition attribute='ig1_opportunitytitle' operator='eq' value='", fetchData.ig1_opportunitytitle/*opportunity*/, "'/>",
+        "      <condition attribute='ig1_status' operator='eq' value='", fetchData.ig1_status/*286150000*/, "'/>",
+        "    </filter>",
+        "  </entity>",
+        "</fetch>",
     ].join("");
 
     var bs = executeFetchXml("ig1_bidsheets", fetchXml);
@@ -340,68 +340,68 @@ function cloneOpportunity(selectedControl, formContext) {
         var confirmStrings = { text: "Are you sure want to clone this opportunity?", title: "Confirmation Dialog" };
         var confirmOptions = { height: 150, width: 450 };
         Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
-		function (success) {
-		    if (success.confirmed) {
-		        Xrm.Utility.showProgressIndicator("Cloning Opportunity Please Wait...");
-		        var opportunityid = "";
-		        var isSelectedControlArray = Array.isArray(selectedControl);
-		        var insideOpportunity = false;
-		        if (isSelectedControlArray && selectedControl != null && selectedControl != "" && selectedControl.length > 0) {
-		            if (selectedControl.length > 1) {
-		                alert("Only one record can be selected to clone");
-		                Xrm.Utility.closeProgressIndicator();
-		                return;
-		            }
-		            else {
-		                opportunityid = selectedControl[0].Id.replace("{", "").replace("}", "");
-		            }
-		        }
-		        else {
-		            opportunityid = formContext.data.entity.getId().replace("{", "").replace("}", "");
-		            insideOpportunity = true;
-		        }
-		        if (opportunityid == undefined || opportunityid == null || opportunityid == "") {
-		            alert("Atleast one record should be seleted");
-		            Xrm.Utility.closeProgressIndicator();
-		            return;
-		        }
-		        var parameters = {};
-		        parameters.opportunityid = opportunityid;
+            function (success) {
+                if (success.confirmed) {
+                    Xrm.Utility.showProgressIndicator("Cloning Opportunity Please Wait...");
+                    var opportunityid = "";
+                    var isSelectedControlArray = Array.isArray(selectedControl);
+                    var insideOpportunity = false;
+                    if (isSelectedControlArray && selectedControl != null && selectedControl != "" && selectedControl.length > 0) {
+                        if (selectedControl.length > 1) {
+                            alert("Only one record can be selected to clone");
+                            Xrm.Utility.closeProgressIndicator();
+                            return;
+                        }
+                        else {
+                            opportunityid = selectedControl[0].Id.replace("{", "").replace("}", "");
+                        }
+                    }
+                    else {
+                        opportunityid = formContext.data.entity.getId().replace("{", "").replace("}", "");
+                        insideOpportunity = true;
+                    }
+                    if (opportunityid == undefined || opportunityid == null || opportunityid == "") {
+                        alert("Atleast one record should be seleted");
+                        Xrm.Utility.closeProgressIndicator();
+                        return;
+                    }
+                    var parameters = {};
+                    parameters.opportunityid = opportunityid;
 
-		        var req = new XMLHttpRequest();
-		        req.open("POST", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/ig1_CloneOpportunity", true);
-		        req.setRequestHeader("OData-MaxVersion", "4.0");
-		        req.setRequestHeader("OData-Version", "4.0");
-		        req.setRequestHeader("Accept", "application/json");
-		        req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-		        req.onreadystatechange = function () {
-		            if (this.readyState === 4) {
-		                req.onreadystatechange = null;
-		                if (this.status === 200) {
-		                    var results = JSON.parse(this.response);
-		                    alert("Opportunity Cloned Successfully");
-		                    if (selectedControl.length == 1) {
-		                        var lookupOptions = {};
-		                        lookupOptions.entityType = "opportunity";
-		                        Xrm.Utility.refreshParentGrid(lookupOptions);
-		                    }
-		                    else if (insideOpportunity && results.clonedopportunityid != undefined && results.clonedopportunityid != null && results.clonedopportunityid != "") {
-		                        Xrm.Utility.openEntityForm("opportunity", results.clonedopportunityid);
+                    var req = new XMLHttpRequest();
+                    req.open("POST", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/ig1_CloneOpportunity", true);
+                    req.setRequestHeader("OData-MaxVersion", "4.0");
+                    req.setRequestHeader("OData-Version", "4.0");
+                    req.setRequestHeader("Accept", "application/json");
+                    req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                    req.onreadystatechange = function () {
+                        if (this.readyState === 4) {
+                            req.onreadystatechange = null;
+                            if (this.status === 200) {
+                                var results = JSON.parse(this.response);
+                                alert("Opportunity Cloned Successfully");
+                                if (selectedControl.length == 1) {
+                                    var lookupOptions = {};
+                                    lookupOptions.entityType = "opportunity";
+                                    Xrm.Utility.refreshParentGrid(lookupOptions);
+                                }
+                                else if (insideOpportunity && results.clonedopportunityid != undefined && results.clonedopportunityid != null && results.clonedopportunityid != "") {
+                                    Xrm.Utility.openEntityForm("opportunity", results.clonedopportunityid);
 
-		                    }
-		                    Xrm.Utility.closeProgressIndicator();
-		                }
-		                else {
-		                    Xrm.Utility.alertDialog(this.statusText);
-		                }
-		            }
-		        };
-		        req.send(JSON.stringify(parameters));
-		    }
-		    else {
-		        Xrm.Utility.closeProgressIndicator();
-		    }
-		});
+                                }
+                                Xrm.Utility.closeProgressIndicator();
+                            }
+                            else {
+                                Xrm.Utility.alertDialog(this.statusText);
+                            }
+                        }
+                    };
+                    req.send(JSON.stringify(parameters));
+                }
+                else {
+                    Xrm.Utility.closeProgressIndicator();
+                }
+            });
     }
     catch (err) {
         alert(err.message);
@@ -533,6 +533,76 @@ function saveOnQBDetailsChange(executionContext) {
         var isFinance = financeRole(currentUserRoles);
         if (isFinance) {
             formContext.data.save();
+        }
+    }
+    catch (err) {
+        alert(err.message);
+    }
+}
+
+function captureLastModifiedDateByOwner(executionContext)
+{
+    try
+    {
+        debugger;
+        var formContext = executionContext.getFormContext();
+        formContext.data.entity.addOnPostSave(onPostSave);
+    }
+    catch (err)
+    {
+        alert(err.message);
+    }
+}
+
+function onPostSave(executionContext)
+{
+    try
+    {
+        debugger;
+        var formContext = executionContext.getFormContext();
+        var saveEventArgs = executionContext.getEventArgs();
+        if (!saveEventArgs.getIsSaveSuccess()) {
+            var saveError = saveEventArgs.getSaveErrorInfo();
+            alert(saveError);
+            return;
+        }
+        else
+        {
+            var ownerid = "";
+            var currentUser = formContext.context.getUserId().replace("{", "").replace("}", "");
+            var owner = formContext.getAttribute("ownerid").getValue();
+            if (owner == undefined && owner == null && owner == "")
+            {
+                return;
+            }
+            ownerid = owner[0].id.replace("{", "").replace("}", "");
+
+            if (ownerid != currentUser)
+            {
+                return;
+            }
+            var opportunityid = formContext.data.entity.getId().replace("{", "").replace("}", "");
+            var entity = {};
+
+            entity.ig1_lastmodifiedbyowneron = new Date().toISOString();
+            var req = new XMLHttpRequest();
+            req.open("PATCH", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/opportunities(" + opportunityid+")", true);
+            req.setRequestHeader("OData-MaxVersion", "4.0");
+            req.setRequestHeader("OData-Version", "4.0");
+            req.setRequestHeader("Accept", "application/json");
+            req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+            req.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    req.onreadystatechange = null;
+                    if (this.status === 204) {
+                        //Success - No Return Data - Do Something
+                        formContext.data.refresh();
+                    } else {
+                        Xrm.Utility.alertDialog(this.statusText);
+                    }
+                }
+            };
+            req.send(JSON.stringify(entity));
         }
     }
     catch (err) {
