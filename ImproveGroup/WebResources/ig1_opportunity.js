@@ -540,24 +540,19 @@ function saveOnQBDetailsChange(executionContext) {
     }
 }
 
-function captureLastModifiedDateByOwner(executionContext)
-{
-    try
-    {
+function captureLastModifiedDateByOwner(executionContext) {
+    try {
         debugger;
         var formContext = executionContext.getFormContext();
         formContext.data.entity.addOnPostSave(onPostSave);
     }
-    catch (err)
-    {
+    catch (err) {
         alert(err.message);
     }
 }
 
-function onPostSave(executionContext)
-{
-    try
-    {
+function onPostSave(executionContext) {
+    try {
         debugger;
         var formContext = executionContext.getFormContext();
         var saveEventArgs = executionContext.getEventArgs();
@@ -566,19 +561,16 @@ function onPostSave(executionContext)
             alert(saveError);
             return;
         }
-        else
-        {
+        else {
             var ownerid = "";
             var currentUser = formContext.context.getUserId().replace("{", "").replace("}", "");
             var owner = formContext.getAttribute("ownerid").getValue();
-            if (owner == undefined && owner == null && owner == "")
-            {
+            if (owner == undefined && owner == null && owner == "") {
                 return;
             }
             ownerid = owner[0].id.replace("{", "").replace("}", "");
 
-            if (ownerid != currentUser)
-            {
+            if (ownerid != currentUser) {
                 return;
             }
             var opportunityid = formContext.data.entity.getId().replace("{", "").replace("}", "");
@@ -586,7 +578,7 @@ function onPostSave(executionContext)
 
             entity.ig1_lastmodifiedbyowneron = new Date().toISOString();
             var req = new XMLHttpRequest();
-            req.open("PATCH", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/opportunities(" + opportunityid+")", true);
+            req.open("PATCH", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/opportunities(" + opportunityid + ")", true);
             req.setRequestHeader("OData-MaxVersion", "4.0");
             req.setRequestHeader("OData-Version", "4.0");
             req.setRequestHeader("Accept", "application/json");
